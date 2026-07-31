@@ -296,7 +296,16 @@
     .signin-footer-links a:hover {
       color: #111827;
     }
+
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
   </style>
+  <!-- Include Supabase JS SDK CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="signin-page">
 
@@ -311,11 +320,14 @@
   <!-- SIGN IN MAIN CARD CONTAINER -->
   <main class="signin-main">
     <div class="signin-card">
-      <form onsubmit="event.preventDefault();">
+      
+      <div id="errorBanner" class="error-msg"></div>
+
+      <form id="signinForm">
         
         <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" autocomplete="username" required>
+          <label for="username">Email Address</label>
+          <input type="email" id="username" autocomplete="email" required>
         </div>
 
         <div class="input-group">
@@ -335,7 +347,7 @@
           </label>
         </div>
 
-        <button type="submit" class="btn-signin-full">Sign in</button>
+        <button type="submit" id="submitBtn" class="btn-signin-full">Sign in</button>
 
         <div class="divider-container">
           <span>Or</span>
@@ -348,7 +360,7 @@
             <span>Forgot username/password?</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </a>
-          <a href="#" class="signin-link-item">
+          <a href="signup.html" class="signin-link-item">
             <span>Not enrolled? Sign up now.</span>
             <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </a>
@@ -386,6 +398,44 @@
   </footer>
 
   <script>
+    // Initialize Supabase Client
+    // Replace with your actual Supabase URL and Anon Key
+    const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const signinForm = document.getElementById('signinForm');
+    const errorBanner = document.getElementById('errorBanner');
+    const submitBtn = document.getElementById('submitBtn');
+
+    signinForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBanner.style.display = 'none';
+      submitBtn.textContent = 'Signing in...';
+      submitBtn.disabled = true;
+
+      const email = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        const { data, error } = await supabaseClient.auth.signInWithPassword({
+          email: email,
+          password: password,
+        });
+
+        if (error) throw error;
+
+        // Redirect to dashboard upon successful login
+        window.location.href = 'dashboard.html';
+
+      } catch (err) {
+        errorBanner.textContent = err.message || 'Invalid login credentials.';
+        errorBanner.style.display = 'block';
+        submitBtn.textContent = 'Sign in';
+        submitBtn.disabled = false;
+      }
+    });
+
     // Simple show/hide password toggle button
     const passwordInput = document.getElementById('password');
     const togglePasswordBtn = document.getElementById('togglePassword');
