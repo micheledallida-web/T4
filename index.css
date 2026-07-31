@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.8.0 (Compact Matching Promo Card)
+   System Version: 9.9.0 (Continuous Single-Page Flow & Tight Layout)
    ========================================================================== */
 
 :root {
@@ -47,7 +47,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  line-height: 1.6;
+  line-height: 1.5;
 }
 
 .container {
@@ -68,7 +68,7 @@ a { text-decoration: none; color: inherit; }
   position: sticky;
   top: 0;
   z-index: 150;
-  padding: 0.875rem 0; 
+  padding: 0.75rem 0; 
 }
 
 .nav-container {
@@ -76,7 +76,7 @@ a { text-decoration: none; color: inherit; }
   display: flex !important;
   justify-content: space-between !important;
   align-items: center !important;
-  min-height: 44px;
+  min-height: 40px;
   padding: 0 1rem;
 }
 
@@ -314,7 +314,7 @@ a { text-decoration: none; color: inherit; }
 .hero {
   position: relative;
   height: 100vh;
-  min-height: 600px;
+  min-height: 550px;
   display: flex;
   align-items: center;
   background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
@@ -327,35 +327,35 @@ a { text-decoration: none; color: inherit; }
 .hero-content-wrapper { position: relative; z-index: 2; }
 .hero-content { max-width: 600px; text-align: left; }
 .hero-title {
-  font-size: 3.5rem; font-weight: 800; line-height: 1.15;
-  color: #ffffff; margin-bottom: 1.25rem; letter-spacing: -0.02em;
+  font-size: 3.25rem; font-weight: 800; line-height: 1.15;
+  color: #ffffff; margin-bottom: 1rem; letter-spacing: -0.02em;
 }
 .hero-description {
-  font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem; line-height: 1.6;
+  font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; line-height: 1.5;
 }
 
 /* --------------------------------------------------------------------------
    QUICK LINKS GRID
    -------------------------------------------------------------------------- */
 .quick-links-section {
-  padding: 4rem 0 5rem 0;
+  padding: 3rem 0;
   background-color: var(--color-bg-primary);
   width: 100%;
 }
 
 .quick-links-title {
-  font-size: 2rem;
+  font-size: 1.85rem;
   font-weight: 500;
   color: var(--color-text-primary);
   text-align: center;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
   letter-spacing: -0.01em;
 }
 
 .quick-links-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important; 
-  gap: 3rem 1rem;
+  gap: 2.25rem 1rem;
   max-width: 900px;
   margin: 0 auto;
   width: 100%;
@@ -378,20 +378,20 @@ a { text-decoration: none; color: inherit; }
 
 .quick-link-icon {
   display: block !important;
-  width: 42px !important;
-  height: 42px !important;
-  min-width: 42px !important;
-  min-height: 42px !important;
-  max-width: 42px !important;
-  max-height: 42px !important;
+  width: 38px !important;
+  height: 38px !important;
+  min-width: 38px !important;
+  min-height: 38px !important;
+  max-width: 38px !important;
+  max-height: 38px !important;
   color: var(--color-icon-gray);
-  margin-bottom: 0.875rem;
+  margin-bottom: 0.65rem;
   stroke-width: 1.2px !important;
   flex-shrink: 0 !important;
 }
 
 .quick-link-text {
-  font-size: 1.05rem;
+  font-size: 1rem;
   font-weight: 400;
   color: var(--color-accent-blue);
 }
@@ -402,70 +402,75 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   PROMO SECTION (MATCHING CHASE HOME LENDING CARD STYLE)
+   CONTINUOUS PROMO FLOW & STACKED CARDS (TIGHT SPACING)
    -------------------------------------------------------------------------- */
 .promo-section {
-  padding: 3rem 0 5rem 0;
+  padding: 1.5rem 0 3rem 0;
   background-color: #f8fafc;
+  border-top: 1px solid var(--color-border-subtle);
 }
 
 .promo-container {
   max-width: 640px !important;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem; /* Compact stack spacing between HELOC and Investing bonus */
 }
 
 .promo-card {
   background: #ffffff;
   border: 1px solid var(--color-border-subtle);
   border-radius: 4px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
   overflow: hidden;
 }
 
+/* HELOC Promo Styling */
 .promo-header-banner {
-  background-color: #005eb8; /* Chase Blue */
+  background-color: #005eb8;
   color: #ffffff;
-  padding: 1.75rem 2rem;
+  padding: 1.5rem 2rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
 .promo-header-text h2 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .promo-header-text h3 {
-  font-size: 1.75rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  line-height: 1.2;
+  line-height: 1.15;
 }
 
 .promo-header-icon {
-  width: 48px;
-  height: 48px;
+  width: 42px;
+  height: 42px;
   stroke-width: 1.5;
   color: #ffffff;
   flex-shrink: 0;
 }
 
 .promo-body-content {
-  padding: 2.25rem 2rem;
+  padding: 1.75rem 2rem;
 }
 
 .promo-headline {
-  font-size: 1.35rem;
+  font-size: 1.25rem;
   font-weight: 700;
   color: var(--color-text-primary);
-  margin-bottom: 1rem;
+  margin-bottom: 0.75rem;
 }
 
 .promo-paragraph {
-  font-size: 0.975rem;
+  font-size: 0.95rem;
   color: var(--color-text-secondary);
-  line-height: 1.6;
-  margin-bottom: 1.25rem;
+  line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
 .promo-cta-btn {
@@ -475,10 +480,10 @@ a { text-decoration: none; color: inherit; }
   background-color: var(--color-accent-blue);
   color: #ffffff;
   font-weight: 600;
-  font-size: 0.95rem;
-  padding: 0.65rem 1.75rem;
+  font-size: 0.925rem;
+  padding: 0.6rem 1.5rem;
   border-radius: 4px;
-  margin-top: 0.5rem;
+  margin-top: 0.25rem;
   transition: background-color 0.2s ease;
 }
 
@@ -486,34 +491,97 @@ a { text-decoration: none; color: inherit; }
   background-color: var(--color-accent-blue-hover);
 }
 
+/* Investing $2,000 Bonus Promo Styling (Matching Reference Image) */
+.investing-promo-card {
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  background: #ffffff;
+}
+
+.investing-top-banner {
+  background-color: #f8fafc;
+  padding: 1.75rem 1.5rem 1.25rem 1.5rem;
+  text-align: center;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.investing-top-label {
+  display: block;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #334155;
+  margin-bottom: 0.1rem;
+}
+
+.investing-amount {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #334155;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.investing-bottom-label {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #334155;
+  margin-top: 0.1rem;
+}
+
+.investing-banner-stripe {
+  height: 10px;
+  background-color: #c29b61; /* Classic bronze/gold investment accent stripe */
+  width: 100%;
+}
+
+.btn-success-custom {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #1b853e; /* Green continue button matching reference */
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.75rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.btn-success-custom:hover {
+  background-color: #156d31;
+}
+
 /* --------------------------------------------------------------------------
    FOOTER
    -------------------------------------------------------------------------- */
-.main-footer { background: var(--color-surface-dark); color: #94a3b8; padding: 5rem 0 3rem; }
-.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem;}
+.main-footer { background: var(--color-surface-dark); color: #94a3b8; padding: 4rem 0 2.5rem; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 3rem;}
 .footer-logo { display: flex; align-items: center; gap: 0.5rem; color: #fff; margin-bottom: 1rem; }
 .footer-logo .logo-accent { color: #fff; }
-.footer-links-column h4 { color: #fff; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1.5rem; }
+.footer-links-column h4 { color: #fff; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1.25rem; }
 .footer-links-column ul { list-style: none; }
-.footer-links-column ul li { margin-bottom: 0.75rem; }
+.footer-links-column ul li { margin-bottom: 0.65rem; }
 .footer-links-column a:hover { color: #fff; }
-.footer-legal-strip { border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; font-size: 0.8rem; }
+.footer-legal-strip { border-top: 1px solid #1e293b; padding-top: 1.75rem; text-align: center; font-size: 0.8rem; }
 
 /* --------------------------------------------------------------------------
    RESPONSIVE LAYOUT ADJUSTMENTS
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
   .hero-title { font-size: 2.75rem; }
-  .quick-links-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 3rem 1rem; } 
-  .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+  .quick-links-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 2.25rem 1rem; } 
+  .footer-grid { grid-template-columns: 1fr; gap: 2.25rem; }
 }
 
 @media (max-width: 768px) {
   .promo-header-banner { padding: 1.25rem 1.5rem; }
-  .promo-header-text h2, .promo-header-text h3 { font-size: 1.35rem; }
+  .promo-header-text h2, .promo-header-text h3 { font-size: 1.25rem; }
   .promo-header-icon { width: 36px; height: 36px; }
   .promo-body-content { padding: 1.5rem; }
-  .promo-headline { font-size: 1.15rem; }
+  .promo-headline { font-size: 1.1rem; }
+  .investing-amount { font-size: 2.75rem; }
 }
 
 @media (prefers-color-scheme: dark) {
