@@ -3,355 +3,590 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign up - Verceil Bank</title>
+  <title>Verceil Bank | Online Banking Dashboard</title>
   <link rel="stylesheet" href="index.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
     /* ==========================================================================
-       SIGN-UP PAGE SPECIFIC STYLING (VERCEIL BANK BRANDED)
+       CITI-STYLE DASHBOARD & FOOTER STYLING
        ========================================================================== */
-    body.signup-page {
-      background: 
-        linear-gradient(to bottom, #1e293b 0%, #0f172a 40%, rgba(15, 23, 42, 0.4) 55%, transparent 55%),
-        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
-      background-attachment: fixed !important;
+    body.dashboard-page {
+      background-color: #f4f5f7;
+      color: #111827;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      position: relative;
     }
 
-    body.signup-page::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.35);
-      z-index: 1;
-      pointer-events: none;
+    .dashboard-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+      width: 100%;
+      flex: 1;
     }
 
-    .signup-header, .signup-main, .signup-footer {
-      position: relative;
-      z-index: 2;
-    }
-
-    .signup-header {
-      padding: 1.5rem 2rem;
+    .welcome-banner {
+      background: #ffffff;
+      padding: 1.75rem 2rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+      margin-bottom: 2rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
-    .signup-header .logo {
-      display: inline-flex !important;
-      flex-direction: row !important;
-      align-items: center !important;
-      gap: 0.05rem !important;
-      font-weight: 900 !important;
-      font-size: 1.35rem !important;
-      letter-spacing: -0.03em !important;
-      text-transform: uppercase !important;
-      text-decoration: none;
-      background: transparent !important;
-      padding: 0 !important;
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
-    }
-
-    .signup-header .logo-text {
-      display: inline-flex !important;
-      align-items: center !important;
-    }
-
-    .signup-header .logo-accent {
-      color: #ffffff !important;
-      font-weight: 900 !important;
-      margin-right: 0.05rem;
-    }
-
-    .signup-header .logo-main {
-      color: #3b82f6 !important;
-      font-weight: 900 !important;
-    }
-
-    .exit-btn {
-      color: #ffffff;
-      background: transparent;
-      border: 1px solid rgba(255, 255, 255, 0.3);
-      padding: 0.4rem 1rem;
-      border-radius: 4px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.9rem;
-      transition: background 0.2s;
-    }
-
-    .exit-btn:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .signup-main {
-      flex: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 1rem 1rem 3rem 1rem;
-    }
-
-    .signup-card {
-      background: #ffffff;
-      width: 100%;
-      max-width: 480px;
-      border-radius: 8px;
-      padding: 2.5rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
-    }
-
-    .progress-container {
-      margin-bottom: 1.75rem;
-    }
-
-    .progress-label {
-      font-size: 0.85rem;
-      color: #4b5563;
-      font-weight: 600;
-      margin-bottom: 0.5rem;
-      display: block;
-    }
-
-    .progress-bar-track {
-      width: 100%;
-      height: 6px;
-      background: #e5e7eb;
-      border-radius: 3px;
-      overflow: hidden;
-    }
-
-    .progress-bar-fill {
-      width: 33%;
-      height: 100%;
-      background: #0044ff;
-    }
-
-    .signup-card h1 {
-      font-size: 1.75rem;
+    .welcome-banner h1 {
+      font-size: 1.5rem;
       font-weight: 700;
       color: #111827;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
+      margin: 0;
     }
 
-    .signup-card p.subtitle {
-      font-size: 0.95rem;
-      color: #4b5563;
-      margin-bottom: 1.75rem;
-      line-height: 1.4;
-    }
-
-    .input-group {
-      position: relative;
-      margin-bottom: 1.25rem;
-    }
-
-    .input-group label {
-      display: block;
+    .last-login {
       font-size: 0.9rem;
-      color: #4b5563;
-      margin-bottom: 0.3rem;
-      font-weight: 400;
-    }
-
-    .input-group input, .input-group select {
-      width: 100%;
-      padding: 0.75rem 0;
-      font-size: 1.05rem;
-      border: none;
-      border-bottom: 2px solid #0044ff;
-      outline: none;
-      background: transparent;
-      color: #111827;
-      border-radius: 0;
-    }
-
-    .input-group select {
-      cursor: pointer;
-    }
-
-    .input-group input:focus, .input-group select:focus {
-      border-bottom-color: #0033cc;
-    }
-
-    .btn-next-full {
-      width: 100%;
-      background-color: #0044ff;
-      color: #ffffff;
-      padding: 0.85rem;
-      font-size: 1rem;
-      font-weight: 600;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background-color 0.2s ease;
-      margin-top: 1rem;
-    }
-
-    .btn-next-full:hover {
-      background-color: #0033cc;
-    }
-
-    .signup-footer {
-      background-color: #ffffff;
-      padding: 1.5rem 1rem;
-      text-align: center;
-      border-top: 1px solid #e5e7eb;
-      font-size: 0.85rem;
       color: #6b7280;
     }
 
-    .error-msg {
-      color: #ef4444;
+    .accounts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .account-card {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.75rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+      border-left: 4px solid #0044ff;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .account-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.25rem;
+    }
+
+    .account-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #374151;
+    }
+
+    .account-number {
       font-size: 0.85rem;
-      margin-bottom: 1rem;
+      color: #9ca3af;
+    }
+
+    .account-balance {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 1.5rem;
+    }
+
+    .account-actions {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .dashboard-btn {
+      flex: 1;
+      background-color: #f3f4f6;
+      color: #0044ff;
+      border: 1px solid #d1d5db;
+      padding: 0.65rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+
+    .dashboard-btn:hover {
+      background-color: #0044ff;
+      color: #ffffff;
+      border-color: #0044ff;
+    }
+
+    .quick-actions-panel {
+      background: #ffffff;
+      border-radius: 8px;
+      padding: 1.75rem 2rem;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
+      margin-bottom: 2rem;
+    }
+
+    .quick-actions-panel h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 1.25rem;
+      color: #111827;
+    }
+
+    .actions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+
+    .action-tile {
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+      border-radius: 6px;
+      padding: 1.25rem 1rem;
+      text-align: center;
+      cursor: pointer;
+      text-decoration: none;
+      color: #374151;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-tile svg {
+      width: 24px;
+      height: 24px;
+      stroke: #0044ff;
+    }
+
+    .action-tile:hover {
+      background: #eff6ff;
+      border-color: #bfdbfe;
+      color: #0044ff;
+    }
+
+    /* Citi-Style Footer */
+    .main-footer {
+      background-color: #1a1a1a !important;
+      color: #ffffff !important;
+      padding: 3rem 1.5rem 2rem !important;
+      font-family: inherit;
+    }
+
+    .footer-content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-section-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-section-header {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 1.25rem 0;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .footer-section-header svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-section-header.active svg {
+      transform: rotate(180deg);
+    }
+
+    .footer-section-links {
       display: none;
+      padding-bottom: 1.25rem;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-section-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-section-links a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-badges-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .housing-icon-container svg {
+      width: 36px;
+      height: 36px;
+      fill: #ffffff;
+    }
+
+    .app-store-badges {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .app-badge-img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer-social-icons svg {
+      width: 24px;
+      height: 24px;
+      fill: #ffffff;
+      transition: opacity 0.2s;
+    }
+
+    .footer-social-icons svg:hover {
+      opacity: 0.75;
+    }
+
+    .footer-legal-section {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.9rem;
+      color: #b3b3b3;
+    }
+
+    .footer-copyright {
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-legal-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-legal-links-list a {
+      color: #b3b3b3;
+      text-decoration: none;
+    }
+
+    .footer-legal-links-list a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    .footer-disclosures {
+      padding-top: 2rem;
+      font-size: 0.8rem;
+      color: #8c8c8c;
+      line-height: 1.5;
+    }
+
+    .footer-disclosures h5 {
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
     }
   </style>
-  <!-- Include Supabase JS SDK CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="signup-page">
+<body class="dashboard-page">
 
-  <!-- HEADER -->
-  <header class="signup-header">
-    <a href="index.html" class="logo">
-      <span class="logo-text"><span class="logo-accent">VERCEIL</span><span class="logo-main">BANK</span></span>
-    </a>
-    <a href="index.html" class="exit-btn">Exit</a>
+  <!-- MOBILE MENU BACKDROP OVERLAY -->
+  <div class="menu-backdrop" id="menuBackdrop"></div>
+
+  <!-- MAIN NAVIGATION -->
+  <header class="main-header">
+    <div class="container nav-container">
+      
+      <!-- Hamburger Menu (Left) -->
+      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <!-- Logo with geometric mark brought closer -->
+      <a href="index.html" class="logo" style="gap: 0.05rem !important;">
+        <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.05rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
+        <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.02rem !important;">
+      </a>
+      
+      <!-- Slide-Out Scrollable Side Drawer Menu -->
+      <nav class="nav-links" id="navLinks">
+        <div class="drawer-header">
+          <a href="index.html" class="logo drawer-logo" style="gap: 0.05rem !important;">
+            <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.05rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
+            <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.02rem !important;">
+          </a>
+          <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+          </button>
+        </div>
+
+        <div class="drawer-search">
+          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <input type="text" placeholder="Search">
+        </div>
+
+        <div class="drawer-items">
+          <a href="#" class="nav-link">Accounts Summary <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+          <a href="#" class="nav-link">Transfer & Pay <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+          <a href="#" class="nav-link">Investments <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+          <a href="#" class="nav-link">Profile & Settings <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+          
+          <div class="drawer-category">Connect with us</div>
+          <a href="#" class="nav-link">Customer service <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
+
+          <div class="drawer-bottom-action">
+            <a href="index.html" class="nav-link nav-link-espanol" style="color: #ef4444; font-weight: 700;">Sign Out</a>
+          </div>
+        </div>
+      </nav>
+
+      <!-- Sign Out Action -->
+      <div class="nav-actions">
+        <a href="index.html" class="btn btn-primary sign-in-btn" id="openLoginBtn" style="background-color: #ef4444 !important;">Sign out</a>
+      </div>
+    </div>
   </header>
 
-  <!-- MAIN CARD CONTAINER -->
-  <main class="signup-main">
-    <div class="signup-card">
-      
-      <div class="progress-container">
-        <span class="progress-label">Your information</span>
-        <div class="progress-bar-track">
-          <div class="progress-bar-fill"></div>
+  <!-- DASHBOARD MAIN CONTENT -->
+  <main class="dashboard-container">
+    <div class="welcome-banner">
+      <div>
+        <h1>Welcome back, Valued Client</h1>
+        <p class="last-login">Last login: Today, 12:02 AM WAT from trusted device</p>
+      </div>
+      <span style="background: #e0e7ff; color: #3730a3; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Secure Session Active</span>
+    </div>
+
+    <!-- ACCOUNTS SUMMARY GRID -->
+    <div class="accounts-grid">
+      <div class="account-card">
+        <div>
+          <div class="account-card-header">
+            <span class="account-title">Verceil Checking</span>
+            <span class="account-number">...4892</span>
+          </div>
+          <div class="account-balance">$24,850.00</div>
+        </div>
+        <div class="account-actions">
+          <a href="#" class="dashboard-btn">View Details</a>
+          <a href="#" class="dashboard-btn">Transfer</a>
         </div>
       </div>
 
-      <h1>Let's get to know you</h1>
-      <p class="subtitle">Tell us your full legal name as it appears on your government ID, along with your secure credentials and date of birth.</p>
-
-      <div id="errorBanner" class="error-msg"></div>
-
-      <form id="signupForm">
-        
-        <div class="input-group">
-          <label for="firstName">First name</label>
-          <input type="text" id="firstName" required>
+      <div class="account-card" style="border-left-color: #10b981;">
+        <div>
+          <div class="account-card-header">
+            <span class="account-title">High-Yield Savings</span>
+            <span class="account-number">...9104</span>
+          </div>
+          <div class="account-balance">$112,400.50</div>
         </div>
-
-        <div class="input-group">
-          <label for="middleName">Middle name (optional)</label>
-          <input type="text" id="middleName">
+        <div class="account-actions">
+          <a href="#" class="dashboard-btn">View Details</a>
+          <a href="#" class="dashboard-btn">Deposit</a>
         </div>
+      </div>
 
-        <div class="input-group">
-          <label for="lastName">Last name</label>
-          <input type="text" id="lastName" required>
+      <div class="account-card" style="border-left-color: #f59e0b;">
+        <div>
+          <div class="account-card-header">
+            <span class="account-title">Self-Directed Investing</span>
+            <span class="account-number">...3321</span>
+          </div>
+          <div class="account-balance">$45,120.80</div>
         </div>
-
-        <div class="input-group">
-          <label for="suffix">Suffix (optional)</label>
-          <select id="suffix">
-            <option value="None">None</option>
-            <option value="Jr">Jr.</option>
-            <option value="Sr">Sr.</option>
-            <option value="II">II</option>
-            <option value="III">III</option>
-          </select>
+        <div class="account-actions">
+          <a href="#" class="dashboard-btn">Trade</a>
+          <a href="#" class="dashboard-btn">Portfolio</a>
         </div>
+      </div>
+    </div>
 
-        <div class="input-group">
-          <label for="dob">Date of birth</label>
-          <input type="date" id="dob" required>
-        </div>
-
-        <div class="input-group">
-          <label for="email">Email address</label>
-          <input type="email" id="email" required>
-        </div>
-
-        <div class="input-group">
-          <label for="password">Create password</label>
-          <input type="password" id="password" required>
-        </div>
-
-        <button type="submit" id="submitBtn" class="btn-next-full">Next</button>
-
-      </form>
+    <!-- QUICK ACTIONS PANEL -->
+    <div class="quick-actions-panel">
+      <h2>Quick Actions</h2>
+      <div class="actions-grid">
+        <a href="#" class="action-tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+          Transfer Funds
+        </a>
+        <a href="#" class="action-tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          Pay Bills
+        </a>
+        <a href="#" class="action-tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+          Statements
+        </a>
+        <a href="#" class="action-tile">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+          Support
+        </a>
+      </div>
     </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="signup-footer">
-    <p>© 2026 Verceil Bank, N.A. Member FDIC. Equal Housing Lender.</p>
+  <!-- CITI-STYLE ACCORDION FOOTER -->
+  <footer class="main-footer">
+    <div class="footer-content-wrapper">
+      
+      <!-- Accordion Section 1 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Why Verceil</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Our Story</a>
+          <a href="#">Security & Trust</a>
+          <a href="#">Verceil Community</a>
+        </div>
+      </div>
+
+      <!-- Accordion Section 2 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Wealth Management</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Investing Accounts</a>
+          <a href="#">Retirement Planning</a>
+          <a href="#">Advisory Services</a>
+        </div>
+      </div>
+
+      <!-- Accordion Section 3 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Business Banking</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Business Checking</a>
+          <a href="#">Commercial Loans</a>
+          <a href="#">Merchant Services</a>
+        </div>
+      </div>
+
+      <!-- Accordion Section 4 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Rates</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Savings Rates</a>
+          <a href="#">Mortgage & HELOC Rates</a>
+          <a href="#">Credit Card APRs</a>
+        </div>
+      </div>
+
+      <!-- Accordion Section 5 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Help & Support</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Customer Service</a>
+          <a href="#">Schedule a Meeting</a>
+          <a href="#">FAQs</a>
+        </div>
+      </div>
+
+      <!-- Badges, Equal Housing & Socials Area -->
+      <div class="footer-badges-area">
+        <div class="housing-icon-container">
+          <!-- Equal Housing Opportunity Icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.84L18 11.2v6.8H6v-6.8l6-5.36z"/><rect x="9" y="13" width="6" height="5"/></svg>
+        </div>
+        <div class="app-store-badges">
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="app-badge-img"></a>
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="app-badge-img"></a>
+        </div>
+        <div class="footer-social-icons">
+          <!-- Facebook -->
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <!-- X / Twitter -->
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <!-- YouTube -->
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </div>
+      </div>
+
+      <!-- Copyright & Legal Links -->
+      <div class="footer-legal-section">
+        <div class="footer-copyright">© 2026 Verceil Bank, N.A.</div>
+        <div class="footer-legal-links-list">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy</a>
+          <a href="#">Notice at Collection</a>
+          <a href="#">Do Not Sell or Share My Personal Information</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+
+      <!-- Important Legal Disclosures -->
+      <div class="footer-disclosures">
+        <h5>Important Legal Disclosures & Information</h5>
+        <p>Verceil.com provides information about and access to accounts and financial services provided by Verceil Bank, N.A. and its affiliates in the United States and its territories. This is not, and should not be construed as, an offer, invitation, or solicitation to buy or sell any of the banking or financial products mentioned herein to individuals outside of the United States.</p>
+      </div>
+
+    </div>
   </footer>
 
   <script>
-    // Initialize Supabase Client
-    // Replace with your actual Supabase URL and Anon Key
-    const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-    const signupForm = document.getElementById('signupForm');
-    const errorBanner = document.getElementById('errorBanner');
-    const submitBtn = document.getElementById('submitBtn');
-
-    signupForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      errorBanner.style.display = 'none';
-      submitBtn.textContent = 'Creating Account...';
-      submitBtn.disabled = true;
-
-      const firstName = document.getElementById('firstName').value.trim();
-      const middleName = document.getElementById('middleName').value.trim();
-      const lastName = document.getElementById('lastName').value.trim();
-      const suffix = document.getElementById('suffix').value;
-      const dob = document.getElementById('dob').value;
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value;
-
-      try {
-        // Sign up with Supabase Auth
-        const { data, error } = await supabaseClient.auth.signUp({
-          email: email,
-          password: password,
-          options: {
-            data: {
-              first_name: firstName,
-              middle_name: middleName,
-              last_name: lastName,
-              suffix: suffix,
-              date_of_birth: dob
-            }
-          }
-        });
-
-        if (error) throw error;
-
-        // Redirect to dashboard upon successful registration
-        window.location.href = 'dashboard.html';
-
-      } catch (err) {
-        errorBanner.textContent = err.message || 'An error occurred during registration.';
-        errorBanner.style.display = 'block';
-        submitBtn.textContent = 'Next';
-        submitBtn.disabled = false;
-      }
+    // Accordion functionality for Citi-style footer
+    const accordions = document.querySelectorAll('.footer-section-header');
+    accordions.forEach(acc => {
+      acc.addEventListener('click', () => {
+        acc.classList.toggle('active');
+        const linksPanel = acc.nextElementSibling;
+        if (linksPanel.style.display === 'flex') {
+          linksPanel.style.display = 'none';
+        } else {
+          linksPanel.style.display = 'flex';
+        }
+      });
     });
   </script>
+  <script src="app.js"></script>
 </body>
 </html>
