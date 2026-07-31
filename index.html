@@ -7,6 +7,162 @@
   <link rel="stylesheet" href="index.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* ==========================================================================
+       CITI-STYLE ACCORDION / STACKED FOOTER STYLING
+       ========================================================================== */
+    .main-footer {
+      background-color: #1a1a1a !important;
+      color: #ffffff !important;
+      padding: 3rem 1.5rem 2rem !important;
+      font-family: inherit;
+    }
+
+    .footer-content-wrapper {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Accordion / Link Sections */
+    .footer-section-item {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .footer-section-header {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #ffffff;
+      font-size: 1.15rem;
+      font-weight: 700;
+      padding: 1.25rem 0;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+    }
+
+    .footer-section-header svg {
+      width: 20px;
+      height: 20px;
+      stroke: currentColor;
+      transition: transform 0.3s ease;
+    }
+
+    .footer-section-header.active svg {
+      transform: rotate(180deg);
+    }
+
+    .footer-section-links {
+      display: none;
+      padding-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-section-links a {
+      color: #b3b3b3;
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s ease;
+    }
+
+    .footer-section-links a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Badges & Icons Area */
+    .footer-badges-area {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
+    .housing-icon-container svg {
+      width: 36px;
+      height: 36px;
+      fill: #ffffff;
+    }
+
+    .app-store-badges {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .app-badge-img {
+      height: 42px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .footer-social-icons {
+      display: flex;
+      gap: 1.5rem;
+      align-items: center;
+    }
+
+    .footer-social-icons svg {
+      width: 24px;
+      height: 24px;
+      fill: #ffffff;
+      transition: opacity 0.2s;
+    }
+
+    .footer-social-icons svg:hover {
+      opacity: 0.75;
+    }
+
+    /* Copyright & Legal Links */
+    .footer-legal-section {
+      padding: 2rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      font-size: 0.9rem;
+      color: #b3b3b3;
+    }
+
+    .footer-copyright {
+      color: #ffffff;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .footer-legal-links-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-legal-links-list a {
+      color: #b3b3b3;
+      text-decoration: none;
+    }
+
+    .footer-legal-links-list a:hover {
+      color: #ffffff;
+      text-decoration: underline;
+    }
+
+    /* Disclosures */
+    .footer-disclosures {
+      padding-top: 2rem;
+      font-size: 0.8rem;
+      color: #8c8c8c;
+      line-height: 1.5;
+    }
+
+    .footer-disclosures h5 {
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+    }
+  </style>
 </head>
 <body>
 
@@ -26,7 +182,7 @@
 
       <!-- Logo with geometric mark brought closer -->
       <a href="#" class="logo">
-        <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.15rem;">VERCEI<span style="font-size: 0.78em; vertical-align: super; line-height: 0;">I</span>L</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
+        <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.15rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
         <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.15rem;">
       </a>
       
@@ -34,7 +190,7 @@
       <nav class="nav-links" id="navLinks">
         <div class="drawer-header">
           <a href="#" class="logo drawer-logo">
-            <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.15rem;">VERCEI<span style="font-size: 0.78em; vertical-align: super; line-height: 0;">I</span>L</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
+            <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.15rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
             <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.15rem;">
           </a>
           <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">
@@ -211,39 +367,131 @@
     </section>
   </main>
 
-  <!-- FOOTER -->
+  <!-- CITI-STYLE ACCORDION FOOTER -->
   <footer class="main-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand-column">
-        <div class="logo footer-logo">
-          <span class="logo-text"><span class="logo-accent" style="color: #ffffff; font-weight: 900; margin-right: 0.15rem;">VERCEI<span style="font-size: 0.78em; vertical-align: super; line-height: 0;">I</span>L</span><span class="logo-main logo-white" style="color: #0044ff; font-weight: 900;">BANK</span></span>
-          <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.15rem;">
+    <div class="footer-content-wrapper">
+      
+      <!-- Accordion Section 1 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Why Verceil</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Our Story</a>
+          <a href="#">Security & Trust</a>
+          <a href="#">Verceil Community</a>
         </div>
-        <p class="footer-tagline">Secure digital banking for individuals and businesses.</p>
       </div>
-      <div class="footer-links-column">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#services">Personal Banking</a></li>
-          <li><a href="#services">Business Banking</a></li>
-        </ul>
+
+      <!-- Accordion Section 2 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Wealth Management</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Investing Accounts</a>
+          <a href="#">Retirement Planning</a>
+          <a href="#">Advisory Services</a>
+        </div>
       </div>
-      <div class="footer-links-column">
-        <h4>Information</h4>
-        <ul>
-          <li><a href="#security">Security</a></li>
-          <li><a href="#contact">Support</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
+
+      <!-- Accordion Section 3 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Business Banking</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Business Checking</a>
+          <a href="#">Commercial Loans</a>
+          <a href="#">Merchant Services</a>
+        </div>
       </div>
-    </div>
-    <div class="container footer-legal-strip">
-      <p>© 2026 Verceil Bank. All rights reserved.</p>
-      <p class="disclaimer-text">Equal Housing Lender. Member FDIC. Deposits are insured up to applicable legal limits.</p>
+
+      <!-- Accordion Section 4 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Rates</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Savings Rates</a>
+          <a href="#">Mortgage & HELOC Rates</a>
+          <a href="#">Credit Card APRs</a>
+        </div>
+      </div>
+
+      <!-- Accordion Section 5 -->
+      <div class="footer-section-item">
+        <button class="footer-section-header">
+          <span>Help & Support</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+        </button>
+        <div class="footer-section-links">
+          <a href="#">Customer Service</a>
+          <a href="#">Schedule a Meeting</a>
+          <a href="#">FAQs</a>
+        </div>
+      </div>
+
+      <!-- Badges, Equal Housing & Socials Area -->
+      <div class="footer-badges-area">
+        <div class="housing-icon-container">
+          <!-- Equal Housing Opportunity Icon -->
+          <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.84L18 11.2v6.8H6v-6.8l6-5.36z"/><rect x="9" y="13" width="6" height="5"/></svg>
+        </div>
+        <div class="app-store-badges">
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="app-badge-img"></a>
+          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="app-badge-img"></a>
+        </div>
+        <div class="footer-social-icons">
+          <!-- Facebook -->
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          <!-- X / Twitter -->
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          <!-- YouTube -->
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+        </div>
+      </div>
+
+      <!-- Copyright & Legal Links -->
+      <div class="footer-legal-section">
+        <div class="footer-copyright">© 2026 Verceil Bank, N.A.</div>
+        <div class="footer-legal-links-list">
+          <a href="#">Terms & Conditions</a>
+          <a href="#">Privacy</a>
+          <a href="#">Notice at Collection</a>
+          <a href="#">Do Not Sell or Share My Personal Information</a>
+          <a href="#">Accessibility</a>
+        </div>
+      </div>
+
+      <!-- Important Legal Disclosures -->
+      <div class="footer-disclosures">
+        <h5>Important Legal Disclosures & Information</h5>
+        <p>Verceil.com provides information about and access to accounts and financial services provided by Verceil Bank, N.A. and its affiliates in the United States and its territories. This is not, and should not be construed as, an offer, invitation, or solicitation to buy or sell any of the banking or financial products mentioned herein to individuals outside of the United States.</p>
+      </div>
+
     </div>
   </footer>
 
+  <script>
+    // Accordion functionality for Citi-style footer
+    const accordions = document.querySelectorAll('.footer-section-header');
+    accordions.forEach(acc => {
+      acc.addEventListener('click', () => {
+        acc.classList.toggle('active');
+        const linksPanel = acc.nextElementSibling;
+        if (linksPanel.style.display === 'flex') {
+          linksPanel.style.display = 'none';
+        } else {
+          linksPanel.style.display = 'flex';
+        }
+      });
+    });
+  </script>
   <script src="app.js"></script>
 </body>
 </html>
