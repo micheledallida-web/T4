@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.4.0 (Precise Centered Logo Balance)
+   System Version: 9.5.0 (Tuned Logo Spacing & Exact Center Alignment)
    ========================================================================== */
 
 :root {
@@ -102,7 +102,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2px !important; 
 }
 
-/* True Absolute Center Alignment Between Hamburger and Sign In */
+/* True Absolute Center Alignment with Tuned Spacing Between Logo Image and Vercel Bank Text */
 .logo {
   position: absolute !important;
   left: 50% !important;
@@ -112,7 +112,7 @@ a { text-decoration: none; color: inherit; }
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0.35rem !important; /* Neatly close spacing between logo mark and text */
+  gap: 0.5rem !important; /* Slightly closer image to Vercel */
   font-weight: 800 !important;
   font-size: 1.25rem !important;
   letter-spacing: -0.03em !important;
@@ -134,7 +134,7 @@ a { text-decoration: none; color: inherit; }
 .logo-text {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.1rem !important;
+  gap: 0.35rem !important; /* Creates a clean, distinct space between VERCEL and BANK */
 }
 
 .logo-main { 
