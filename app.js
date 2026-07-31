@@ -32,39 +32,33 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // --------------------------------------------------------------------------
-  // VERCEL-STYLE FULL TEXT ROTATOR ANIMATION
+  // VERCEL-STYLE HIGHLIGHT WORD ROTATOR ANIMATION
   // --------------------------------------------------------------------------
-  const phrases = [
-    "Banking made simple, secure, and seamless.",
-    "Manage your money, grow your wealth.",
-    "Fast, secure, and reliable banking.",
-    "Your financial freedom, simplified."
-  ];
-  
+  const words = ["simple.", "secure.", "seamless.", "effortless."];
   let currentIndex = 0;
-  const titleElement = document.getElementById("rotatingHeroTitle");
+  const wordElement = document.getElementById("rotatingWord");
 
-  if (titleElement) {
+  if (wordElement) {
     setInterval(() => {
-      // 1. Animate current phrase up and out
-      titleElement.classList.add("swap-out");
+      // 1. Animate current highlight word up and out
+      wordElement.classList.add("swap-out");
 
       setTimeout(() => {
         // 2. Advance index and change text
-        currentIndex = (currentIndex + 1) % phrases.length;
-        titleElement.textContent = phrases[currentIndex];
+        currentIndex = (currentIndex + 1) % words.length;
+        wordElement.textContent = words[currentIndex];
 
         // 3. Move instantly to bottom start position
-        titleElement.classList.remove("swap-out");
-        titleElement.classList.add("swap-prepare");
+        wordElement.classList.remove("swap-out");
+        wordElement.classList.add("swap-prepare");
 
         // 4. Smoothly animate up into center position
         requestAnimationFrame(() => {
           requestAnimationFrame(() => {
-            titleElement.classList.remove("swap-prepare");
+            wordElement.classList.remove("swap-prepare");
           });
         });
       }, 450); // Matches CSS transition duration
-    }, 3200); // Rotates every 3.2 seconds
+    }, 2800); // Rotates every 2.8 seconds
   }
 });
