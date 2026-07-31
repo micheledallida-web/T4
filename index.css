@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.6.0 (Tuned Logo & Bank Name Spacing)
+   System Version: 9.8.0 (Compact Matching Promo Card)
    ========================================================================== */
 
 :root {
@@ -80,7 +80,6 @@ a { text-decoration: none; color: inherit; }
   padding: 0 1rem;
 }
 
-/* Hamburger Menu (Left) */
 .mobile-menu-toggle {
   display: flex !important; 
   flex-direction: column !important; 
@@ -102,7 +101,6 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2px !important; 
 }
 
-/* True Absolute Center Alignment with Tighter Logo-to-Text Spacing */
 .logo {
   position: absolute !important;
   left: 50% !important;
@@ -112,7 +110,7 @@ a { text-decoration: none; color: inherit; }
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0.25rem !important; /* Shuts the distance between logo image and VERCEL */
+  gap: 0.35rem !important;
   font-weight: 800 !important;
   font-size: 1.25rem !important;
   letter-spacing: -0.03em !important;
@@ -120,6 +118,12 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase !important;
   white-space: nowrap !important;
   margin: 0 !important;
+}
+
+.logo-text {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.1rem !important;
 }
 
 .logo-image {
@@ -131,12 +135,6 @@ a { text-decoration: none; color: inherit; }
   flex-shrink: 0 !important;
 }
 
-.logo-text {
-  display: inline-flex !important;
-  align-items: center !important;
-  gap: 0.15rem !important; /* Shifts BANK closer to VERCEL so it has balanced breathing room */
-}
-
 .logo-main { 
   color: var(--color-accent-blue) !important; 
   font-weight: 700 !important; 
@@ -146,7 +144,6 @@ a { text-decoration: none; color: inherit; }
   color: #ffffff !important; 
 }
 
-/* Sign In Action (Right) */
 .nav-actions {
   display: flex !important;
   align-items: center !important;
@@ -189,7 +186,6 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-pill:hover { transform: translateY(-2px); }
 
-/* Desktop Navigation Links (Hidden, kept inside mobile side drawer) */
 .desktop-nav-links { display: none !important; }
 
 /* Backdrop Layer */
@@ -406,6 +402,91 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
+   PROMO SECTION (MATCHING CHASE HOME LENDING CARD STYLE)
+   -------------------------------------------------------------------------- */
+.promo-section {
+  padding: 3rem 0 5rem 0;
+  background-color: #f8fafc;
+}
+
+.promo-container {
+  max-width: 640px !important;
+}
+
+.promo-card {
+  background: #ffffff;
+  border: 1px solid var(--color-border-subtle);
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+}
+
+.promo-header-banner {
+  background-color: #005eb8; /* Chase Blue */
+  color: #ffffff;
+  padding: 1.75rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.promo-header-text h2 {
+  font-size: 1.75rem;
+  font-weight: 400;
+  line-height: 1.2;
+}
+
+.promo-header-text h3 {
+  font-size: 1.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.promo-header-icon {
+  width: 48px;
+  height: 48px;
+  stroke-width: 1.5;
+  color: #ffffff;
+  flex-shrink: 0;
+}
+
+.promo-body-content {
+  padding: 2.25rem 2rem;
+}
+
+.promo-headline {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text-primary);
+  margin-bottom: 1rem;
+}
+
+.promo-paragraph {
+  font-size: 0.975rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin-bottom: 1.25rem;
+}
+
+.promo-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--color-accent-blue);
+  color: #ffffff;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.65rem 1.75rem;
+  border-radius: 4px;
+  margin-top: 0.5rem;
+  transition: background-color 0.2s ease;
+}
+
+.promo-cta-btn:hover {
+  background-color: var(--color-accent-blue-hover);
+}
+
+/* --------------------------------------------------------------------------
    FOOTER
    -------------------------------------------------------------------------- */
 .main-footer { background: var(--color-surface-dark); color: #94a3b8; padding: 5rem 0 3rem; }
@@ -425,6 +506,14 @@ a { text-decoration: none; color: inherit; }
   .hero-title { font-size: 2.75rem; }
   .quick-links-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 3rem 1rem; } 
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+
+@media (max-width: 768px) {
+  .promo-header-banner { padding: 1.25rem 1.5rem; }
+  .promo-header-text h2, .promo-header-text h3 { font-size: 1.35rem; }
+  .promo-header-icon { width: 36px; height: 36px; }
+  .promo-body-content { padding: 1.5rem; }
+  .promo-headline { font-size: 1.15rem; }
 }
 
 @media (prefers-color-scheme: dark) {
