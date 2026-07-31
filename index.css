@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.2 (Locked Background & Clean Close Button)
+   System Version: 9.9.3 (Fixed Logo Layering & Solid Header Background)
    ========================================================================== */
 
 :root {
@@ -71,7 +71,7 @@ a { text-decoration: none; color: inherit; }
    HEADER & NAVIGATION
    -------------------------------------------------------------------------- */
 .main-header {
-  background-color: #ffffff;
+  background-color: #ffffff !important;
   border-bottom: 1px solid var(--color-border-subtle);
   position: sticky;
   top: 0;
@@ -86,6 +86,7 @@ a { text-decoration: none; color: inherit; }
   align-items: center !important;
   min-height: 40px;
   padding: 0 1rem;
+  background-color: #ffffff !important;
 }
 
 .mobile-menu-toggle {
@@ -99,7 +100,7 @@ a { text-decoration: none; color: inherit; }
   cursor: pointer !important;
   flex-shrink: 0 !important;
   padding: 0 !important;
-  z-index: 2;
+  z-index: 20;
 }
 .mobile-menu-toggle span { 
   display: block !important; 
@@ -126,6 +127,10 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase !important;
   white-space: nowrap !important;
   margin: 0 !important;
+  z-index: 20 !important;
+  background-color: #ffffff !important;
+  padding: 0.2rem 0.5rem !important;
+  border-radius: 4px !important;
 }
 
 .logo-text {
@@ -156,7 +161,7 @@ a { text-decoration: none; color: inherit; }
   display: flex !important;
   align-items: center !important;
   flex-shrink: 0 !important;
-  z-index: 2;
+  z-index: 20;
 }
 
 .btn {
@@ -251,6 +256,8 @@ a { text-decoration: none; color: inherit; }
   position: static !important;
   transform: none !important;
   justify-content: flex-start !important;
+  background: transparent !important;
+  padding: 0 !important;
 }
 .close-drawer {
   background: none !important; 
