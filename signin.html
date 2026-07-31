@@ -12,16 +12,11 @@
        SIGN-IN PAGE SPECIFIC STYLING (VERCEL BANK BRANDED)
        ========================================================================== */
     body.signin-page {
-      /* Precise two-layer background mix: 
-         Layer 1 (Bottom): Main page background color (#f8f9fa)
-         Layer 2 (Top): Fading dark cinematic gradient cut strictly midway/top (0% to 50%) 
-      */
+      /* Split background: Dark cinematic top section transitioning to the original main page background color */
       background: 
-        linear-gradient(to bottom, #050b14 0%, #0d1b2a 35%, rgba(13, 27, 42, 0.8) 50%, transparent 50%),
-        #f8f9fa !important;
+        linear-gradient(to bottom, #050b14 0%, #0d1b2a 40%, rgba(13, 27, 42, 0.6) 55%, transparent 55%),
+        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
       background-attachment: fixed !important;
-      background-repeat: no-repeat !important;
-      background-size: cover !important;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -30,7 +25,12 @@
     }
 
     body.signin-page::before {
-      display: none;
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.5);
+      z-index: 1;
+      pointer-events: none;
     }
 
     .signin-header, .signin-main, .signin-footer {
@@ -39,7 +39,6 @@
     }
 
     .signin-header {
-      background-color: transparent;
       padding: 1.5rem 0;
       text-align: center;
     }
@@ -67,7 +66,7 @@
     }
 
     .signin-header .logo-accent {
-      color: #ffffff !important;
+      color: #000000 !important;
       font-weight: 900 !important;
       opacity: 1 !important;
       margin-right: 0.2rem;
@@ -102,7 +101,7 @@
       max-width: 440px;
       border-radius: 8px;
       padding: 2.25rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
     }
 
     .input-group {
@@ -252,9 +251,9 @@
       stroke: currentColor;
     }
 
-    /* Footer styling maintained as original */
+    /* Original Footer styling preserved */
     .signin-footer {
-      background-color: #f8f9fa;
+      background-color: #ffffff;
       padding: 2rem 1rem;
       text-align: center;
       border-top: 1px solid #e5e7eb;
