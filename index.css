@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 7.2.0 (Solid White Drawer & Strict Grid Integration)
+   System Version: 7.3.0 (Solid White Drawer & Strict Grid Integration)
    ========================================================================== */
 
 :root {
@@ -14,11 +14,8 @@
   --color-border-subtle: #e5e7eb;
   --color-border-medium: #cbd5e1;
   
-  /* Primary Blue for texts and links */
   --color-accent-blue: #0b5cff;
   --color-accent-blue-hover: #084ccf;
-  
-  /* Icon Gray Color */
   --color-icon-gray: #4b5563;
 
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
@@ -58,9 +55,7 @@ body {
 
 a { text-decoration: none; color: inherit; }
 
-/* --------------------------------------------------------------------------
-   HEADER & SIDE DRAWER NAVIGATION
-   -------------------------------------------------------------------------- */
+/* Header & Navigation */
 .main-header {
   background-color: #ffffff;
   border-bottom: 1px solid var(--color-border-subtle);
@@ -137,9 +132,7 @@ a { text-decoration: none; color: inherit; }
 .mobile-menu-toggle { display: none; }
 .menu-backdrop { display: none; }
 
-/* --------------------------------------------------------------------------
-   CINEMATIC FULL BLEED HERO
-   -------------------------------------------------------------------------- */
+/* Cinematic Hero */
 .hero {
   position: relative;
   height: 100vh;
@@ -163,9 +156,7 @@ a { text-decoration: none; color: inherit; }
   font-size: 1.15rem; color: #cbd5e1; margin-bottom: 2.5rem; line-height: 1.6;
 }
 
-/* --------------------------------------------------------------------------
-   "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (STRICT ALIGNMENT FIX)
-   -------------------------------------------------------------------------- */
+/* Choose What's Right For You Grid */
 .quick-links-section {
   padding: 4rem 0 5rem 0;
   background-color: var(--color-bg-primary);
@@ -181,7 +172,6 @@ a { text-decoration: none; color: inherit; }
   letter-spacing: -0.01em;
 }
 
-/* The Grid Container - Strict Locks applied */
 .quick-links-grid {
   display: grid !important;
   grid-template-columns: repeat(4, 1fr) !important; 
@@ -191,7 +181,6 @@ a { text-decoration: none; color: inherit; }
   width: 100%;
 }
 
-/* Individual Items */
 .quick-link-item {
   display: flex !important;
   flex-direction: column !important;
@@ -207,7 +196,6 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-3px);
 }
 
-/* Thin-line Gray Icons - Locked Dimensions to prevent mobile blow-out */
 .quick-link-icon {
   display: block !important;
   width: 42px !important;
@@ -219,10 +207,9 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-icon-gray);
   margin-bottom: 0.875rem;
   stroke-width: 1.2px !important;
-  flex-shrink: 0 !important; /* Stops iOS from resizing the SVG */
+  flex-shrink: 0 !important;
 }
 
-/* Primary Blue Text */
 .quick-link-text {
   font-size: 1.05rem;
   font-weight: 400;
@@ -234,9 +221,7 @@ a { text-decoration: none; color: inherit; }
   text-decoration: underline;
 }
 
-/* --------------------------------------------------------------------------
-   FOOTER
-   -------------------------------------------------------------------------- */
+/* Footer */
 .main-footer { background: var(--color-surface-dark); color: #94a3b8; padding: 5rem 0 3rem; }
 .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 4rem; margin-bottom: 4rem;}
 .footer-logo { color: #fff; margin-bottom: 1rem; }
@@ -247,9 +232,7 @@ a { text-decoration: none; color: inherit; }
 .footer-links-column a:hover { color: #fff; }
 .footer-legal-strip { border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; font-size: 0.8rem; }
 
-/* --------------------------------------------------------------------------
-   STRICT MOBILE LAYOUT (Drawer + Grid Fixes)
-   -------------------------------------------------------------------------- */
+/* Responsive Layout & Solid Opaque Drawer */
 @media (max-width: 991px) {
   .hero-title { font-size: 2.75rem; }
   .quick-links-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 3rem 1rem; } 
@@ -257,7 +240,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 768px) {
-  /* Header Structural Override */
   .nav-container { position: relative; justify-content: center; } 
   
   .mobile-menu-toggle {
@@ -271,7 +253,6 @@ a { text-decoration: none; color: inherit; }
   .nav-actions { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
   .sign-in-btn { height: 36px; padding: 0 1rem; font-size: 0.85rem; }
 
-  /* Side Drawer Navigation (Opaque White Fix) */
   .menu-backdrop {
     display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.6); z-index: 199; opacity: 0; pointer-events: none;
@@ -279,18 +260,20 @@ a { text-decoration: none; color: inherit; }
   }
   .menu-backdrop.active { opacity: 1; pointer-events: auto; }
 
+  /* Solid opaque white background enforced */
   .nav-links {
     position: fixed; top: 0; left: 0; 
     width: 85%; max-width: 360px; height: 100vh;
     background-color: #ffffff !important; 
     background: #ffffff !important; 
+    opacity: 1 !important;
     z-index: 200;
     flex-direction: column; align-items: stretch; gap: 0;
     transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+    box-shadow: 10px 0 30px rgba(0, 0, 0, 0.2) !important;
     overflow-y: auto;
   }
-  .nav-links.active { transform: translateX(0); }
+  .nav-links.active { transform: translateX(0) !important; }
 
   .drawer-header {
     display: flex; justify-content: space-between; align-items: center;
@@ -324,11 +307,9 @@ a { text-decoration: none; color: inherit; }
     margin-top: 2rem; margin-bottom: 0.5rem;
   }
 
-  /* Mobile Hero Tweaks */
   .hero-title { font-size: 2.25rem; word-wrap: break-word; }
   .hero-description { font-size: 1.05rem; }
 
-  /* CRITICAL: Mobile Grid Lock */
   .quick-links-title { 
     font-size: 1.65rem !important; 
     margin-bottom: 2.5rem !important; 
