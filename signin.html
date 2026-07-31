@@ -43,7 +43,7 @@
       text-align: center;
     }
 
-    /* Header logo style */
+    /* Exact matching header logo style with bold, clean pronunciation */
     .signin-header .logo {
       display: inline-flex !important;
       flex-direction: row !important;
@@ -63,7 +63,7 @@
     .signin-header .logo-text {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 0.05rem !important;
+      gap: 0.15rem !important;
     }
 
     .signin-header .logo-accent {
@@ -72,17 +72,6 @@
       opacity: 1 !important;
       margin-right: 0.2rem;
       filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
-      display: inline-flex !important;
-      align-items: baseline !important;
-    }
-
-    /* Perfectly matched SVG letter 'i' scaled and baseline-aligned with surrounding font */
-    .inline-i-symbol {
-      display: inline-block;
-      width: 0.38em;
-      height: 1em;
-      vertical-align: -0.05em;
-      fill: currentColor;
     }
 
     .signin-header .logo-main {
@@ -266,7 +255,7 @@
       stroke: currentColor;
     }
 
-    /* Footer styling */
+    /* Original Footer styling preserved */
     .signin-footer {
       background-color: #ffffff;
       padding: 2rem 1rem;
@@ -314,12 +303,7 @@
   <!-- SIGN IN HEADER LOGO -->
   <header class="signin-header">
     <a href="index.html" class="logo">
-      <span class="logo-text">
-        <span class="logo-accent">
-          VERCE<svg class="inline-i-symbol" viewBox="0 0 24 24" aria-label="I"><circle cx="12" cy="4" r="3" /><path d="M9 9h6v12H9z" /></svg>L
-        </span>
-        <span class="logo-main">BANK</span>
-      </span>
+      <span class="logo-text"><span class="logo-accent">VERCEIL</span><span class="logo-main">BANK</span></span>
       <img src="logo.png" alt="Verceil Bank" class="logo-image">
     </a>
   </header>
@@ -412,7 +396,7 @@
         togglePasswordBtn.textContent = 'Hide';
       } else {
         passwordInput.type = 'password';
-        togglePasswordBtn.textContent.value = 'Show';
+        togglePasswordBtn.textContent = 'Show';
       }
     });
   </script>
