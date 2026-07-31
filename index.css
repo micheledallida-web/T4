@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.8 (Independent Scrolling & Isolated Drawer Containment)
+   System Version: 9.9.9 (Fluid, Unrestricted, Standalone Sidebar Scrolling)
    ========================================================================== */
 
 :root {
@@ -215,7 +215,7 @@ a { text-decoration: none; color: inherit; }
 }
 .menu-backdrop.active { opacity: 1 !important; pointer-events: auto !important; }
 
-/* Side Drawer Navigation (Independent Stand-alone Scrolling) */
+/* Side Drawer Navigation (Fluid, Unrestricted Scrolling) */
 .nav-links {
   position: fixed !important; 
   top: 0 !important; 
@@ -223,6 +223,7 @@ a { text-decoration: none; color: inherit; }
   width: 85% !important; 
   max-width: 360px !important; 
   height: 100vh !important;
+  height: 100dvh !important;
   background-color: #ffffff !important; 
   background: #ffffff !important; 
   color: #111827 !important;
@@ -235,9 +236,9 @@ a { text-decoration: none; color: inherit; }
   transform: translateX(-100%) !important; 
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: 20px 0 50px rgba(0, 0, 0, 0.3) !important;
-  overflow-y: auto !important;
+  overflow-y: scroll !important; /* Forces active standalone vertical scrolling */
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior: contain !important; /* Traps scroll events strictly within the sidebar */
+  overscroll-behavior-y: contain !important; /* Traps scroll track within drawer cleanly */
 }
 .nav-links.active { transform: translateX(0) !important; }
 
@@ -296,7 +297,7 @@ a { text-decoration: none; color: inherit; }
 .drawer-items { 
   display: flex !important; 
   flex-direction: column !important; 
-  padding: 0 1.25rem 4rem 1.25rem !important; 
+  padding: 0 1.25rem 5rem 1.25rem !important; /* Added extra bottom padding so the final Español link never feels cut off */
   background-color: #ffffff !important; 
 }
 
