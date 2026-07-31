@@ -165,35 +165,40 @@ a { text-decoration: none; color: inherit; }
 /* --------------------------------------------------------------------------
    "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (Matches Image 11)
    -------------------------------------------------------------------------- */
+/* --------------------------------------------------------------------------
+   "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (STRICT ALIGNMENT FIX)
+   -------------------------------------------------------------------------- */
 .quick-links-section {
-  padding: 5rem 0 6rem 0;
+  padding: 4rem 0 5rem 0;
   background-color: var(--color-bg-primary);
+  width: 100%;
 }
 
 .quick-links-title {
   font-size: 2rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--color-text-primary);
   text-align: center;
   margin-bottom: 3.5rem;
   letter-spacing: -0.01em;
 }
 
-/* The Grid Container */
+/* The Grid Container - Strict Locks applied */
 .quick-links-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr); /* 4 columns on Desktop */
+  display: grid !important;
+  grid-template-columns: repeat(4, 1fr) !important; 
   gap: 3rem 1rem;
   max-width: 900px;
   margin: 0 auto;
+  width: 100%;
 }
 
 /* Individual Items */
 .quick-link-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
@@ -204,14 +209,19 @@ a { text-decoration: none; color: inherit; }
   transform: translateY(-3px);
 }
 
-/* Thin-line Gray Icons */
+/* Thin-line Gray Icons - Locked Dimensions to prevent mobile blow-out */
 .quick-link-icon {
-  width: 44px;
-  height: 44px;
+  display: block !important;
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  max-width: 42px !important;
+  max-height: 42px !important;
   color: var(--color-icon-gray);
   margin-bottom: 0.875rem;
-  /* Ensure SVG lines stay delicate */
-  stroke-width: 1.2;
+  stroke-width: 1.2px !important;
+  flex-shrink: 0 !important; /* Stops iOS from resizing the SVG */
 }
 
 /* Primary Blue Text */
@@ -224,6 +234,42 @@ a { text-decoration: none; color: inherit; }
 .quick-link-item:hover .quick-link-text {
   color: var(--color-accent-blue-hover);
   text-decoration: underline;
+}
+
+/* --------------------------------------------------------------------------
+   STRICT MOBILE GRID OVERRIDES
+   -------------------------------------------------------------------------- */
+@media (max-width: 991px) {
+  .quick-links-grid { 
+    grid-template-columns: repeat(3, 1fr) !important; 
+  }
+}
+
+@media (max-width: 768px) {
+  /* Forces the exact 2-column layout from Image 11 */
+  .quick-links-grid { 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 2.5rem 0.5rem !important; 
+  }
+  
+  .quick-links-title { 
+    font-size: 1.65rem !important; 
+    margin-bottom: 2.5rem !important; 
+  }
+  
+  /* Slightly scales icons down for mobile elegance */
+  .quick-link-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+  }
+  
+  .quick-link-text {
+    font-size: 0.95rem !important;
+  }
 }
 
 /* --------------------------------------------------------------------------
