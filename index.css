@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.0 (Continuous Single-Page Flow & Tight Layout)
+   System Version: 9.9.1 (Continuous Single-Page Flow & Clean Close Button)
    ========================================================================== */
 
 :root {
@@ -246,7 +246,7 @@ a { text-decoration: none; color: inherit; }
 }
 .close-drawer {
   background: none !important; 
-  border: 1px dashed #cbd5e1 !important; 
+  border: none !important; /* Dotted box removed completely */
   padding: 0.2rem !important;
   cursor: pointer !important; 
   display: flex !important; 
@@ -414,7 +414,7 @@ a { text-decoration: none; color: inherit; }
   max-width: 640px !important;
   display: flex;
   flex-direction: column;
-  gap: 2rem; /* Compact stack spacing between HELOC and Investing bonus */
+  gap: 2rem; 
 }
 
 .promo-card {
@@ -491,7 +491,7 @@ a { text-decoration: none; color: inherit; }
   background-color: var(--color-accent-blue-hover);
 }
 
-/* Investing $2,000 Bonus Promo Styling (Matching Reference Image) */
+/* Investing $2,000 Bonus Promo Styling */
 .investing-promo-card {
   border: 1px solid var(--color-border-subtle);
   border-radius: 4px;
@@ -531,7 +531,7 @@ a { text-decoration: none; color: inherit; }
 
 .investing-banner-stripe {
   height: 10px;
-  background-color: #c29b61; /* Classic bronze/gold investment accent stripe */
+  background-color: #c29b61; 
   width: 100%;
 }
 
@@ -539,7 +539,7 @@ a { text-decoration: none; color: inherit; }
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background-color: #1b853e; /* Green continue button matching reference */
+  background-color: #1b853e; 
   color: #ffffff;
   font-weight: 600;
   font-size: 0.95rem;
