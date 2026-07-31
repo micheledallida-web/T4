@@ -3,247 +3,389 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vercel Bank | Secure Digital Banking</title>
+  <title>Sign in - Vercel Bank</title>
   <link rel="stylesheet" href="index.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    /* ==========================================================================
+       SIGN-IN PAGE SPECIFIC STYLING (VERCEL BANK BRANDED)
+       ========================================================================== */
+    body.signin-page {
+      background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+    }
+
+    body.signin-page::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(15, 23, 42, 0.65);
+      z-index: 1;
+    }
+
+    .signin-header, .signin-main, .signin-footer {
+      position: relative;
+      z-index: 2;
+    }
+
+    .signin-header {
+      padding: 1.5rem 0;
+      text-align: center;
+    }
+
+    .signin-header .logo {
+      display: inline-flex !important;
+      flex-direction: row !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0.35rem !important;
+      font-weight: 800 !important;
+      font-size: 1.5rem !important;
+      letter-spacing: -0.03em !important;
+      color: #ffffff !important;
+      text-transform: uppercase !important;
+      text-decoration: none;
+      background: transparent !important;
+      padding: 0 !important;
+    }
+
+    .signin-header .logo-text {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.1rem !important;
+      color: #ffffff !important;
+    }
+
+    .signin-header .logo-accent {
+      color: #ffffff !important;
+    }
+
+    .signin-header .logo-main {
+      color: #0b5cff !important;
+    }
+
+    .signin-header .logo-image {
+      height: 24px !important;
+      width: auto !important;
+      object-fit: contain !important;
+      display: inline-block !important;
+      vertical-align: middle !important;
+      flex-shrink: 0 !important;
+    }
+
+    .signin-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem 1rem 3rem 1rem;
+    }
+
+    .signin-card {
+      background: #ffffff;
+      width: 100%;
+      max-width: 440px;
+      border-radius: 8px;
+      padding: 2.25rem 2rem;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .input-group label {
+      display: block;
+      font-size: 0.95rem;
+      color: #4b5563;
+      margin-bottom: 0.4rem;
+      font-weight: 400;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 0.75rem 0;
+      font-size: 1.05rem;
+      border: none;
+      border-bottom: 2px solid #0b5cff;
+      outline: none;
+      background: transparent;
+      color: #111827;
+      border-radius: 0;
+    }
+
+    .input-group input:focus {
+      border-bottom-color: #084ccf;
+    }
+
+    .show-password-btn {
+      position: absolute;
+      right: 0;
+      bottom: 0.75rem;
+      background: none;
+      border: none;
+      color: #0b5cff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      cursor: pointer;
+    }
+
+    .signin-options {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.75rem;
+      font-size: 0.9rem;
+    }
+
+    .checkbox-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: #4b5563;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .checkbox-label input[type="checkbox"] {
+      width: 18px;
+      height: 18px;
+      accent-color: #0b5cff;
+      cursor: pointer;
+    }
+
+    .btn-signin-full {
+      width: 100%;
+      background-color: #0b5cff;
+      color: #ffffff;
+      padding: 0.85rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 1.25rem;
+    }
+
+    .btn-signin-full:hover {
+      background-color: #084ccf;
+    }
+
+    .divider-container {
+      display: flex;
+      align-items: center;
+      text-align: center;
+      margin: 1.25rem 0;
+      color: #6b7280;
+      font-size: 0.9rem;
+    }
+
+    .divider-container::before,
+    .divider-container::after {
+      content: '';
+      flex: 1;
+      border-bottom: 1px solid #d1d5db;
+    }
+
+    .divider-container span {
+      padding: 0 1rem;
+    }
+
+    .btn-passwordless {
+      width: 100%;
+      background-color: #ffffff;
+      color: #0b5cff;
+      border: 2px solid #0b5cff;
+      padding: 0.75rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      margin-bottom: 1.75rem;
+    }
+
+    .btn-passwordless:hover {
+      background-color: rgba(11, 92, 255, 0.04);
+    }
+
+    .signin-links {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .signin-link-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #0b5cff;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-decoration: none;
+    }
+
+    .signin-link-item:hover {
+      text-decoration: underline;
+    }
+
+    .signin-link-item svg {
+      width: 16px;
+      height: 16px;
+      stroke: currentColor;
+    }
+
+    /* Footer styling for Sign in page */
+    .signin-footer {
+      background-color: #ffffff;
+      padding: 2rem 1rem;
+      text-align: center;
+      border-top: 1px solid #e5e7eb;
+    }
+
+    .signin-footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+      color: #4b5563;
+    }
+
+    .signin-footer-socials svg {
+      width: 20px;
+      height: 20px;
+      fill: currentColor;
+    }
+
+    .signin-footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1rem 1.5rem;
+      font-size: 0.8rem;
+      color: #4b5563;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .signin-footer-links a {
+      color: #4b5563;
+      text-decoration: underline;
+    }
+
+    .signin-footer-links a:hover {
+      color: #111827;
+    }
+  </style>
 </head>
-<body>
+<body class="signin-page">
 
-  <!-- MOBILE MENU BACKDROP OVERLAY -->
-  <div class="menu-backdrop" id="menuBackdrop"></div>
-
-  <!-- MAIN NAVIGATION -->
-  <header class="main-header">
-    <div class="container nav-container">
-      
-      <!-- Hamburger Menu (Left) -->
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <!-- Logo arranged like Chase (Text First, Image Mark Last, Centered) -->
-      <a href="#" class="logo">
-        <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main">BANK</span></span>
-        <img src="logo.png" alt="Vercel Bank" class="logo-image">
-      </a>
-      
-      <!-- Slide-Out Scrollable Side Drawer Menu -->
-      <nav class="nav-links" id="navLinks">
-        <div class="drawer-header">
-          <a href="#" class="logo drawer-logo">
-            <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main">BANK</span></span>
-            <img src="logo.png" alt="Vercel Bank" class="logo-image">
-          </a>
-          <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-
-        <div class="drawer-search">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" placeholder="Search">
-        </div>
-
-        <div class="drawer-items">
-          <a href="#services" class="nav-link">Checking <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Savings & CDs <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Credit cards <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Home loans <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Auto <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Investing by Vercel <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Education & goals <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Travel <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          
-          <div class="drawer-category">Connect with us</div>
-          <a href="#contact" class="nav-link">Schedule a meeting <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#contact" class="nav-link">Customer service <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-
-          <div class="drawer-category">Other products</div>
-          <a href="#services" class="nav-link">Business <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#services" class="nav-link">Commercial <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-
-          <div class="drawer-bottom-action">
-            <a href="#" class="nav-link nav-link-espanol">Español</a>
-          </div>
-        </div>
-      </nav>
-
-      <!-- Sign In Action -->
-      <div class="nav-actions">
-        <a href="signin.html" class="btn btn-primary sign-in-btn" id="openLoginBtn">Sign in</a>
-      </div>
-    </div>
+  <!-- SIGN IN HEADER LOGO (VERCEL BRANDED) -->
+  <header class="signin-header">
+    <a href="index.html" class="logo">
+      <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main">BANK</span></span>
+      <img src="logo.png" alt="Vercel Bank" class="logo-image">
+    </a>
   </header>
 
-  <main>
-    <!-- HERO SECTION -->
-    <section class="hero" id="home">
-      <div class="hero-overlay"></div>
-      <div class="container hero-content-wrapper">
-        <div class="hero-content">
-          <h1 class="hero-title">
-            Banking made 
-            <span class="rotating-container" style="display: inline-block; position: relative; overflow: hidden; vertical-align: bottom;">
-              <span class="rotating-word" id="rotatingWord" style="display: inline-block; transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.45s ease, filter 0.45s ease;">simple.</span>
-            </span>
-          </h1>
-          <p class="hero-description">
-            Manage your money, transfer funds, and grow your savings — all in one powerful app designed for your financial freedom.
-          </p>
-          <div class="hero-ctas">
-            <button class="btn btn-pill">Get Started</button>
-          </div>
+  <!-- SIGN IN MAIN CARD CONTAINER -->
+  <main class="signin-main">
+    <div class="signin-card">
+      <form onsubmit="event.preventDefault();">
+        
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" autocomplete="username" required>
         </div>
-      </div>
-    </section>
 
-    <!-- QUICK LINKS GRID -->
-    <section class="quick-links-section" id="services">
-      <div class="container">
-        <h2 class="quick-links-title">Choose what's right for you</h2>
-        <div class="quick-links-grid">
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
-            <span class="quick-link-text">Business</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line><rect x="4" y="13" width="3" height="2" rx="0.5"></rect></svg>
-            <span class="quick-link-text">Credit cards</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="6" width="20" height="12" rx="1"></rect><line x1="16" y1="12" x2="20" y2="12"></line><rect x="4" y="9" width="4" height="3" rx="0.5"></rect></svg>
-            <span class="quick-link-text">Checking</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-.5-.5-2.5 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.2-1.1.7l-1.3 2.6c-.2.4-.1.9.3 1.1L9 14l-4 4-2.5-1.5c-.4-.2-.9-.2-1.3.1l-1 1c-.3.3-.3.8 0 1.1l4 4c.3.3.8.3 1.1 0l1-1c.3-.4.3-.9.1-1.3L5 19l4-4 3.4 6.3c.2.4.7.5 1.1.3l2.6-1.3c.5-.2.8-.6.7-1.1z"/></svg>
-            <span class="quick-link-text">Travel</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 5c-1.5 0-2.8 1.4-3 2-3.5-1.5-11-.3-11 5 0 1.8 0 3 2 4.5V20h4v-2h3v2h4v-4c1-.5 1.7-1 2-2h2v-4h-2c0-1-.5-1.5-1-2h0V5z"/><path d="M2 9v1c0 1.1.9 2 2 2h1"/><circle cx="15" cy="11" r="1"/></svg>
-            <span class="quick-link-text">Savings</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-            <span class="quick-link-text">Home loans</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect><path d="M3 15h4l3-3 3 3 8-8"></path><polyline points="16 7 21 7 21 12"></polyline></svg>
-            <span class="quick-link-text">Investing</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="2" width="16" height="20" rx="2" ry="2"></rect><path d="M9 22v-4h6v4"></path><path d="M8 6h.01"></path><path d="M16 6h.01"></path><path d="M12 6h.01"></path><path d="M12 10h.01"></path><path d="M12 14h.01"></path><path d="M16 10h.01"></path><path d="M16 14h.01"></path><path d="M8 10h.01"></path><path d="M8 14h.01"></path></svg>
-            <span class="quick-link-text">Commercial</span>
-          </a>
-          <a href="#" class="quick-link-item">
-            <svg class="quick-link-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M22 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path><path d="M19 8h-2M19 11h-2"></path></svg>
-            <span class="quick-link-text">Schedule a meeting</span>
-          </a>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" autocomplete="current-password" required>
+          <button type="button" class="show-password-btn" id="togglePassword">Show</button>
         </div>
-      </div>
-    </section>
 
-    <!-- PRODUCT PROMO SECTION (COMPACT HELOC CARD) -->
-    <section class="promo-section" id="home-equity">
-      <div class="container promo-container">
-        <div class="promo-card">
-          <div class="promo-header-banner">
-            <div class="promo-header-text">
-              <h2>Home Equity</h2>
-              <h3>Line of Credit</h3>
-            </div>
-            <svg class="promo-header-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
-          </div>
-          <div class="promo-body-content">
-            <h3 class="promo-headline">Unlock the value built into your home.</h3>
-            <p class="promo-paragraph">
-              Turn your home equity into flexible purchasing power for renovations, consolidation, or major expenses with a Vercel Bank HELOC.
-            </p>
-            <p class="promo-paragraph">
-              Enjoy competitive variable rates and convenient access to funds right when you need them. Apply today to reach your financial goals.
-            </p>
-            <a href="#" class="btn btn-primary promo-cta-btn">See details</a>
-          </div>
+        <div class="signin-options">
+          <label class="checkbox-label">
+            <input type="checkbox" id="rememberUser">
+            <span>Remember username</span>
+          </label>
+          <label class="checkbox-label">
+            <input type="checkbox" id="useToken">
+            <span>Use token</span>
+          </label>
         </div>
-      </div>
-    </section>
 
-    <!-- INVESTING BONUS PROMO SECTION ($2,000 BONUS) -->
-    <section class="promo-section" id="investing-bonus">
-      <div class="container promo-container">
-        <div class="promo-card investing-promo-card">
-          <div class="investing-top-banner">
-            <span class="investing-top-label">Earn up to</span>
-            <h2 class="investing-amount">$2,000</h2>
-            <span class="investing-bottom-label">cash bonus</span>
-          </div>
-          <div class="investing-banner-stripe"></div>
-          <div class="promo-body-content">
-            <h3 class="promo-headline">Commission-free online trades – plus a bonus</h3>
-            <p class="promo-paragraph">
-              This is an invitation to get up to $2,000 when you open and fund a Vercel Self-Directed Investing account—an investing experience that puts you in control.
-            </p>
-            <a href="#" class="btn btn-success-custom">Continue</a>
-          </div>
-        </div>
-      </div>
-    </section>
+        <button type="submit" class="btn-signin-full">Sign in</button>
 
-    <!-- BLOG / COFFEE PHOTO SECTION -->
-    <section class="promo-section" id="blog">
-      <div class="container promo-container">
-        <div class="promo-card blog-promo-card">
-          <div class="blog-image-wrapper">
-            <img src="coffee.jpeg" alt="Working remotely with coffee" class="blog-featured-image">
-          </div>
-          <div class="promo-body-content blog-body-content">
-            <span class="blog-tag">Financial Insights</span>
-            <h2 class="blog-title">Smart money habits for modern remote professionals</h2>
-            <p class="promo-paragraph">
-              Managing your finances while working fluidly requires the right tools. Discover how seamless digital banking empowers your lifestyle and long-term goals.
-            </p>
-            <a href="#" class="btn btn-success-custom promo-cta-btn">Read full article</a>
-          </div>
+        <div class="divider-container">
+          <span>Or</span>
         </div>
-      </div>
-    </section>
+
+        <button type="button" class="btn-passwordless">Passwordless sign in</button>
+
+        <div class="signin-links">
+          <a href="#" class="signin-link-item">
+            <span>Forgot username/password?</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+          <a href="#" class="signin-link-item">
+            <span>Not enrolled? Sign up now.</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </a>
+        </div>
+
+      </form>
+    </div>
   </main>
 
-  <!-- FOOTER -->
-  <footer class="main-footer">
-    <div class="container footer-grid">
-      <div class="footer-brand-column">
-        <div class="logo footer-logo">
-          <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main logo-white">BANK</span></span>
-          <img src="logo.png" alt="Vercel Bank" class="logo-image">
-        </div>
-        <p class="footer-tagline">Secure digital banking for individuals and businesses.</p>
-      </div>
-      <div class="footer-links-column">
-        <h4>Quick Links</h4>
-        <ul>
-          <li><a href="#">Home</a></li>
-          <li><a href="#services">Personal Banking</a></li>
-          <li><a href="#services">Business Banking</a></li>
-        </ul>
-      </div>
-      <div class="footer-links-column">
-        <h4>Information</h4>
-        <ul>
-          <li><a href="#security">Security</a></li>
-          <li><a href="#contact">Support</a></li>
-          <li><a href="#contact">Contact</a></li>
-        </ul>
-      </div>
+  <!-- SIGN IN FOOTER (VERCEL BRANDED) -->
+  <footer class="signin-footer">
+    <div class="signin-footer-socials">
+      <!-- Facebook -->
+      <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      <!-- Instagram -->
+      <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+      <!-- X / Twitter -->
+      <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      <!-- YouTube -->
+      <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
+      <!-- LinkedIn -->
+      <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
     </div>
-    <div class="container footer-legal-strip">
-      <p>© 2026 Vercel Bank. All rights reserved.</p>
-      <p class="disclaimer-text">Equal Housing Lender. Member FDIC. Deposits are insured up to applicable legal limits.</p>
+
+    <div class="signin-footer-links">
+      <a href="#">Contact us</a>
+      <a href="#">Privacy & security</a>
+      <a href="#">Terms of use</a>
+      <a href="#">Accessibility</a>
+      <a href="#">SAFE Act: Vercel Mortgage Loan Originators</a>
+      <a href="#">Fair Lending</a>
+      <a href="#">About Vercel</a>
+      <a href="#">Vercel Financial</a>
     </div>
   </footer>
 
-  <script src="app.js"></script>
+  <script>
+    // Simple show/hide password toggle button
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.getElementById('togglePassword');
+
+    togglePasswordBtn.addEventListener('click', () => {
+      if (passwordInput.type === 'password') {
+        passwordInput.type = 'text';
+        togglePasswordBtn.textContent = 'Hide';
+      } else {
+        passwordInput.type = 'password';
+        togglePasswordBtn.textContent = 'Show';
+      }
+    });
+  </script>
 </body>
 </html>
