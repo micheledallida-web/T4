@@ -1,19 +1,20 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 7.0.0 (Clean Icon Grid Integration)
+   System Version: 7.1.0 (Strict Center Grid Integration)
    ========================================================================== */
 
 :root {
   --color-bg-primary: #ffffff;
   --color-surface-dark: #0f172a;
   
-  --color-text-primary: #111827; /* Dark Gray for Title */
+  --color-text-primary: #111827; 
   --color-text-secondary: #4b5563;
   --color-text-muted: #6b7280;
   
   --color-border-subtle: #e5e7eb;
+  --color-border-medium: #cbd5e1;
   
-  /* Chase-style Primary Blue for texts and links */
+  /* Primary Blue for texts and links */
   --color-accent-blue: #0b5cff;
   --color-accent-blue-hover: #084ccf;
   
@@ -163,9 +164,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (Matches Image 11)
-   -------------------------------------------------------------------------- */
-/* --------------------------------------------------------------------------
    "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (STRICT ALIGNMENT FIX)
    -------------------------------------------------------------------------- */
 .quick-links-section {
@@ -237,42 +235,6 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   STRICT MOBILE GRID OVERRIDES
-   -------------------------------------------------------------------------- */
-@media (max-width: 991px) {
-  .quick-links-grid { 
-    grid-template-columns: repeat(3, 1fr) !important; 
-  }
-}
-
-@media (max-width: 768px) {
-  /* Forces the exact 2-column layout from Image 11 */
-  .quick-links-grid { 
-    grid-template-columns: repeat(2, 1fr) !important; 
-    gap: 2.5rem 0.5rem !important; 
-  }
-  
-  .quick-links-title { 
-    font-size: 1.65rem !important; 
-    margin-bottom: 2.5rem !important; 
-  }
-  
-  /* Slightly scales icons down for mobile elegance */
-  .quick-link-icon {
-    width: 36px !important;
-    height: 36px !important;
-    min-width: 36px !important;
-    min-height: 36px !important;
-    max-width: 36px !important;
-    max-height: 36px !important;
-  }
-  
-  .quick-link-text {
-    font-size: 0.95rem !important;
-  }
-}
-
-/* --------------------------------------------------------------------------
    FOOTER
    -------------------------------------------------------------------------- */
 .main-footer { background: var(--color-surface-dark); color: #94a3b8; padding: 5rem 0 3rem; }
@@ -290,7 +252,7 @@ a { text-decoration: none; color: inherit; }
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
   .hero-title { font-size: 2.75rem; }
-  .quick-links-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem 1rem; } /* 3 columns on tablet */
+  .quick-links-grid { grid-template-columns: repeat(3, 1fr) !important; gap: 3rem 1rem; } 
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
@@ -364,10 +326,27 @@ a { text-decoration: none; color: inherit; }
   .hero-title { font-size: 2.25rem; word-wrap: break-word; }
   .hero-description { font-size: 1.05rem; }
 
-  /* Mobile Grid (Image 11 shows exactly 2 columns on mobile) */
-  .quick-links-title { font-size: 1.75rem; margin-bottom: 2.5rem; }
+  /* CRITICAL: Mobile Grid Lock */
+  .quick-links-title { 
+    font-size: 1.65rem !important; 
+    margin-bottom: 2.5rem !important; 
+  }
+  
   .quick-links-grid { 
-    grid-template-columns: repeat(2, 1fr); 
-    gap: 2.5rem 1rem; 
+    grid-template-columns: repeat(2, 1fr) !important; 
+    gap: 2.5rem 0.5rem !important; 
+  }
+  
+  .quick-link-icon {
+    width: 36px !important;
+    height: 36px !important;
+    min-width: 36px !important;
+    min-height: 36px !important;
+    max-width: 36px !important;
+    max-height: 36px !important;
+  }
+  
+  .quick-link-text {
+    font-size: 0.95rem !important;
   }
 }
