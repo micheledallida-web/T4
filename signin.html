@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <style>
     /* ==========================================================================
-       SIGN-IN PAGE SPECIFIC STYLING (CHASE LAYOUT REPLICA)
+       SIGN-IN PAGE SPECIFIC STYLING (VERCEL BANK BRANDED)
        ========================================================================== */
     body.signin-page {
       background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
@@ -38,20 +38,45 @@
       text-align: center;
     }
 
+    /* Exact matching header logo style */
     .signin-header .logo {
       display: inline-flex !important;
+      flex-direction: row !important;
       align-items: center !important;
+      justify-content: center !important;
       gap: 0.35rem !important;
       font-weight: 800 !important;
-      font-size: 1.5rem !important;
+      font-size: 1.25rem !important;
       letter-spacing: -0.03em !important;
-      color: #ffffff !important;
       text-transform: uppercase !important;
       text-decoration: none;
+      background: transparent !important;
+      padding: 0 !important;
+    }
+
+    .signin-header .logo-text {
+      display: inline-flex !important;
+      align-items: center !important;
+      gap: 0.1rem !important;
+    }
+
+    .signin-header .logo-accent {
+      color: #ffffff !important;
+      font-weight: 800 !important;
     }
 
     .signin-header .logo-main {
-      color: #ffffff !important;
+      color: #3b82f6 !important;
+      font-weight: 700 !important;
+    }
+
+    .signin-header .logo-image {
+      height: 21px !important;
+      width: auto !important;
+      object-fit: contain !important;
+      display: inline-block !important;
+      vertical-align: middle !important;
+      flex-shrink: 0 !important;
     }
 
     .signin-main {
@@ -263,11 +288,11 @@
 </head>
 <body class="signin-page">
 
-  <!-- SIGN IN HEADER LOGO -->
+  <!-- SIGN IN HEADER LOGO (EXACT BRAND MATCH) -->
   <header class="signin-header">
     <a href="index.html" class="logo">
       <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main">BANK</span></span>
-      <img src="logo.png" alt="Vercel Bank" class="logo-image" style="filter: brightness(0) invert(1);">
+      <img src="logo.png" alt="Vercel Bank" class="logo-image">
     </a>
   </header>
 
@@ -321,7 +346,7 @@
     </div>
   </main>
 
-  <!-- SIGN IN FOOTER -->
+  <!-- SIGN IN FOOTER (VERCEL BRANDED) -->
   <footer class="signin-footer">
     <div class="signin-footer-socials">
       <!-- Facebook -->
@@ -344,7 +369,7 @@
       <a href="#">SAFE Act: Vercel Mortgage Loan Originators</a>
       <a href="#">Fair Lending</a>
       <a href="#">About Vercel</a>
-      <a href="#">J.P. Morgan</a>
+      <a href="#">Vercel Financial</a>
     </div>
   </footer>
 
