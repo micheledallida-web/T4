@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.2.0 (Original Image Logo & Universal Centered Header)
+   System Version: 9.3.0 (Perfect Centered Flex Logo Alignment)
    ========================================================================== */
 
 :root {
@@ -103,10 +103,12 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2px !important; 
 }
 
-/* Centered Logo with Original Image */
+/* Perfectly Centered Unified Logo Container */
 .logo {
-  display: flex !important;
+  display: inline-flex !important;
+  flex-direction: row !important;
   align-items: center !important;
+  justify-content: center !important;
   gap: 0.5rem !important;
   font-weight: 800 !important;
   font-size: 1.35rem !important;
@@ -114,17 +116,34 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-text-primary) !important;
   text-transform: uppercase !important;
   margin: 0 auto !important;
+  position: relative !important;
+  left: auto !important;
+  transform: none !important;
 }
+
 .logo-image {
-  height: 28px !important;
+  height: 24px !important;
   width: auto !important;
   object-fit: contain !important;
   display: inline-block !important;
   vertical-align: middle !important;
   flex-shrink: 0 !important;
 }
-.logo-main { color: var(--color-accent-blue) !important; font-weight: 700 !important; }
-.logo-white { color: #ffffff !important; }
+
+.logo-text {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.15rem !important;
+}
+
+.logo-main { 
+  color: var(--color-accent-blue) !important; 
+  font-weight: 700 !important; 
+}
+
+.logo-white { 
+  color: #ffffff !important; 
+}
 
 /* Sign In Action (Right) */
 .nav-actions {
@@ -221,7 +240,11 @@ a { text-decoration: none; color: inherit; }
   border-bottom: 1px solid var(--color-border-subtle) !important;
   background-color: #ffffff !important;
 }
-.drawer-logo { font-size: 1.2rem !important; margin: 0 !important; }
+.drawer-logo { 
+  font-size: 1.1rem !important; 
+  margin: 0 !important; 
+  justify-content: flex-start !important;
+}
 .close-drawer {
   background: none !important; 
   border: 1px dashed #cbd5e1 !important; 
