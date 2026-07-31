@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.9 (Fluid, Unrestricted, Standalone Sidebar Scrolling)
+   System Version: 9.9.10 (Full Headline Rotator Animation & Fluid Independent Sidebar)
    ========================================================================== */
 
 :root {
@@ -236,9 +236,9 @@ a { text-decoration: none; color: inherit; }
   transform: translateX(-100%) !important; 
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
   box-shadow: 20px 0 50px rgba(0, 0, 0, 0.3) !important;
-  overflow-y: scroll !important; /* Forces active standalone vertical scrolling */
+  overflow-y: scroll !important; 
   -webkit-overflow-scrolling: touch;
-  overscroll-behavior-y: contain !important; /* Traps scroll track within drawer cleanly */
+  overscroll-behavior-y: contain !important; 
 }
 .nav-links.active { transform: translateX(0) !important; }
 
@@ -297,7 +297,7 @@ a { text-decoration: none; color: inherit; }
 .drawer-items { 
   display: flex !important; 
   flex-direction: column !important; 
-  padding: 0 1.25rem 5rem 1.25rem !important; /* Added extra bottom padding so the final Español link never feels cut off */
+  padding: 0 1.25rem 5rem 1.25rem !important; 
   background-color: #ffffff !important; 
 }
 
@@ -337,7 +337,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   CINEMATIC HERO
+   CINEMATIC HERO & ROTATING HEADLINE ANIMATION
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
@@ -354,10 +354,38 @@ a { text-decoration: none; color: inherit; }
 }
 .hero-content-wrapper { position: relative; z-index: 2; }
 .hero-content { max-width: 600px; text-align: left; }
+
 .hero-title {
-  font-size: 3.25rem; font-weight: 800; line-height: 1.15;
-  color: #ffffff; margin-bottom: 1rem; letter-spacing: -0.02em;
+  font-size: 3.25rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 1rem;
+  letter-spacing: -0.02em;
+  display: inline-block;
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.45s ease,
+              filter 0.45s ease;
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
 }
+
+/* Exit State: Swipes Up & Blurs Out */
+.hero-title.swap-out {
+  opacity: 0;
+  transform: translateY(-16px);
+  filter: blur(6px);
+}
+
+/* Preparation State: Positions at the bottom out of view */
+.hero-title.swap-prepare {
+  opacity: 0;
+  transform: translateY(16px);
+  filter: blur(6px);
+  transition: none !important;
+}
+
 .hero-description {
   font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; line-height: 1.5;
 }
