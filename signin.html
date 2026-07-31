@@ -12,7 +12,9 @@
        SIGN-IN PAGE SPECIFIC STYLING (VERCEL BANK BRANDED)
        ========================================================================== */
     body.signin-page {
-      background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
+      /* Dark cinematic gradient background for the upper/main portion */
+      background: linear-gradient(135deg, #050b14 0%, #0d1b2a 50%, #1b263b 100%) !important;
+      background-attachment: fixed !important;
       min-height: 100vh;
       display: flex;
       flex-direction: column;
@@ -21,11 +23,7 @@
     }
 
     body.signin-page::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: rgba(15, 23, 42, 0.65);
-      z-index: 1;
+      display: none; /* Removed image overlay to keep the clean cinematic night theme */
     }
 
     .signin-header, .signin-main, .signin-footer {
@@ -34,6 +32,9 @@
     }
 
     .signin-header {
+      background-color: rgba(10, 15, 25, 0.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 1.5rem 0;
       text-align: center;
     }
@@ -61,7 +62,7 @@
     }
 
     .signin-header .logo-accent {
-      color: #000000 !important;
+      color: #ffffff !important;
       font-weight: 900 !important;
       opacity: 1 !important;
       margin-right: 0.2rem;
@@ -96,7 +97,7 @@
       max-width: 440px;
       border-radius: 8px;
       padding: 2.25rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .input-group {
@@ -246,7 +247,7 @@
       stroke: currentColor;
     }
 
-    /* Footer styling for Sign in page */
+    /* Footer styling maintained as original */
     .signin-footer {
       background-color: #ffffff;
       padding: 2rem 1rem;
@@ -291,7 +292,7 @@
 </head>
 <body class="signin-page">
 
-  <!-- SIGN IN HEADER LOGO (EXACT BRAND MATCH & SPACING) -->
+  <!-- SIGN IN HEADER LOGO -->
   <header class="signin-header">
     <a href="index.html" class="logo">
       <span class="logo-text"><span class="logo-accent">VERCEL</span><span class="logo-main">BANK</span></span>
@@ -349,7 +350,7 @@
     </div>
   </main>
 
-  <!-- SIGN IN FOOTER (VERCEL BRANDED) -->
+  <!-- SIGN IN FOOTER -->
   <footer class="signin-footer">
     <div class="signin-footer-socials">
       <!-- Facebook -->
