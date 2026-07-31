@@ -1,10 +1,10 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 7.5.0 (Staging & Z-Index Drawer Fix)
+   System Version: 7.6.0 (Forced Opaque White Anti-Dark-Mode Override)
    ========================================================================== */
 
 :root {
-  color-scheme: light; 
+  color-scheme: light only; 
   --color-bg-primary: #ffffff;
   --color-surface-dark: #0f172a;
   
@@ -254,15 +254,14 @@ a { text-decoration: none; color: inherit; }
   .nav-actions { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
   .sign-in-btn { height: 36px; padding: 0 1rem; font-size: 0.85rem; }
 
-  /* Backdrop Layer (Lower Z-Index) */
   .menu-backdrop {
     display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-    background: rgba(0, 0, 0, 0.5); z-index: 250 !important; opacity: 0; pointer-events: none;
+    background: rgba(0, 0, 0, 0.4); z-index: 250 !important; opacity: 0; pointer-events: none;
     transition: opacity 0.3s ease;
   }
   .menu-backdrop.active { opacity: 1; pointer-events: auto; }
 
-  /* Side Drawer Navigation (Higher Z-Index + Solid White Background) */
+  /* Side Drawer Navigation - Absolute Opaque White Force */
   .nav-links {
     position: fixed !important; 
     top: 0 !important; 
@@ -274,14 +273,14 @@ a { text-decoration: none; color: inherit; }
     background: #ffffff !important; 
     color: #111827 !important;
     opacity: 1 !important;
-    z-index: 300 !important; /* Sits cleanly on top of the backdrop */
+    z-index: 300 !important;
     display: flex !important;
     flex-direction: column !important; 
     align-items: stretch !important; 
     gap: 0 !important;
     transform: translateX(-100%) !important; 
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
-    box-shadow: 15px 0 40px rgba(0, 0, 0, 0.3) !important;
+    box-shadow: 20px 0 50px rgba(0, 0, 0, 0.4) !important;
     overflow-y: auto !important;
   }
   .nav-links.active { transform: translateX(0) !important; }
@@ -344,5 +343,21 @@ a { text-decoration: none; color: inherit; }
   
   .quick-link-text {
     font-size: 0.95rem !important;
+  }
+}
+
+/* ANTI-DARK-MODE OVERRIDE: Forces phone browsers to ignore dark-mode tinting on the drawer */
+@media (prefers-color-scheme: dark) {
+  .nav-links, .drawer-header, .drawer-search, .drawer-items, .nav-link, .drawer-category {
+    background-color: #ffffff !important;
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .drawer-search input {
+    color: #111827 !important;
+    background-color: transparent !important;
+  }
+  .chevron {
+    color: #111827 !important;
   }
 }
