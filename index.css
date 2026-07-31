@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.1.0 (Geometric Logo & Universal Centered Header)
+   System Version: 9.2.0 (Original Image Logo & Universal Centered Header)
    ========================================================================== */
 
 :root {
@@ -103,7 +103,7 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2px !important; 
 }
 
-/* Centered Logo with Geometric Mark */
+/* Centered Logo with Original Image */
 .logo {
   display: flex !important;
   align-items: center !important;
@@ -115,7 +115,10 @@ a { text-decoration: none; color: inherit; }
   text-transform: uppercase !important;
   margin: 0 auto !important;
 }
-.logo-icon {
+.logo-image {
+  height: 28px !important;
+  width: auto !important;
+  object-fit: contain !important;
   display: inline-block !important;
   vertical-align: middle !important;
   flex-shrink: 0 !important;
