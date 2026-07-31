@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.3 (Fixed Logo Layering & Solid Header Background)
+   System Version: 9.9.4 (Removed Logo Background Box & Fixed Centering)
    ========================================================================== */
 
 :root {
@@ -128,9 +128,9 @@ a { text-decoration: none; color: inherit; }
   white-space: nowrap !important;
   margin: 0 !important;
   z-index: 20 !important;
-  background-color: #ffffff !important;
-  padding: 0.2rem 0.5rem !important;
-  border-radius: 4px !important;
+  background: transparent !important; /* Removed white background box */
+  padding: 0 !important; /* Removed padding */
+  border-radius: 0 !important;
 }
 
 .logo-text {
