@@ -7,119 +7,6 @@
   <link rel="stylesheet" href="index.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <style>
-    /* Modal Styling */
-    .auth-modal-overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.6);
-      backdrop-filter: blur(4px);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      z-index: 9999;
-      opacity: 0;
-      visibility: hidden;
-      transition: opacity 0.3s ease, visibility 0.3s ease;
-    }
-    .auth-modal-overlay.active {
-      opacity: 1;
-      visibility: visible;
-    }
-    .auth-modal-container {
-      background: #111111;
-      border: 1px solid #222222;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 420px;
-      padding: 2.5rem;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-      position: relative;
-      color: #ffffff;
-      transform: translateY(20px);
-      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .auth-modal-overlay.active .auth-modal-container {
-      transform: translateY(0);
-    }
-    .auth-modal-close {
-      position: absolute;
-      top: 1.25rem;
-      right: 1.25rem;
-      background: transparent;
-      border: none;
-      color: #888888;
-      cursor: pointer;
-      padding: 0.5s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: color 0.2s;
-    }
-    .auth-modal-close:hover {
-      color: #ffffff;
-    }
-    .auth-modal-close svg {
-      width: 20px;
-      height: 20px;
-    }
-    .auth-modal-logo {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1.75rem;
-    }
-    .auth-modal-title {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      letter-spacing: -0.02em;
-    }
-    .auth-modal-subtitle {
-      color: #888888;
-      font-size: 0.9rem;
-      margin-bottom: 1.75rem;
-    }
-    .auth-form-group {
-      margin-bottom: 1.25rem;
-    }
-    .auth-form-group label {
-      display: block;
-      font-size: 0.85rem;
-      font-weight: 500;
-      color: #cccccc;
-      margin-bottom: 0.5rem;
-    }
-    .auth-form-input {
-      width: 100%;
-      padding: 0.8rem 1rem;
-      background: #1a1a1a;
-      border: 1px solid #333333;
-      border-radius: 8px;
-      color: #ffffff;
-      font-size: 0.95rem;
-      transition: border-color 0.2s;
-    }
-    .auth-form-input:focus {
-      outline: none;
-      border-color: #0044ff;
-    }
-    .auth-submit-btn {
-      width: 100%;
-      padding: 0.85rem;
-      background: #0044ff;
-      color: #ffffff;
-      border: none;
-      border-radius: 8px;
-      font-weight: 600;
-      font-size: 0.95s;
-      cursor: pointer;
-      transition: background 0.2s;
-      margin-top: 0.5rem;
-    }
-    .auth-submit-btn:hover {
-      background: #0036cc;
-    }
-  </style>
 </head>
 <body>
 
@@ -186,38 +73,10 @@
 
       <!-- Sign In Action -->
       <div class="nav-actions">
-        <button type="button" class="btn btn-primary sign-in-btn" id="openLoginBtn">Sign in</button>
+        <button type="button" class="btn btn-primary sign-in-btn" id="openLoginBtn" onclick="window.location.href='signin.html'">Sign in</button>
       </div>
     </div>
   </header>
-
-  <!-- SIGN IN MODAL POPUP -->
-  <div class="auth-modal-overlay" id="authModal">
-    <div class="auth-modal-container">
-      <button type="button" class="auth-modal-close" id="closeAuthModal" aria-label="Close modal">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-      </button>
-      
-      <div class="auth-modal-logo">
-        <span class="logo-text"><span class="logo-accent" style="color: #ffffff; font-weight: 900; margin-right: 0.15rem;">VERCEL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
-      </div>
-
-      <h2 class="auth-modal-title">Welcome back</h2>
-      <p class="auth-modal-subtitle">Please enter your details to sign in to your secure account.</p>
-
-      <form id="authLoginForm" onsubmit="event.preventDefault();">
-        <div class="auth-form-group">
-          <label for="loginEmail">Email address</label>
-          <input type="email" id="loginEmail" class="auth-form-input" placeholder="name@example.com" required>
-        </div>
-        <div class="auth-form-group">
-          <label for="loginPassword">Password</label>
-          <input type="password" id="loginPassword" class="auth-form-input" placeholder="••••••••" required>
-        </div>
-        <button type="submit" class="auth-submit-btn">Sign in</button>
-      </form>
-    </div>
-  </div>
 
   <main>
     <!-- HERO SECTION -->
@@ -386,31 +245,5 @@
   </footer>
 
   <script src="app.js"></script>
-  <script>
-    // Inline modal functionality to handle opening and closing the popup
-    const openLoginBtn = document.getElementById('openLoginBtn');
-    const authModal = document.getElementById('authModal');
-    const closeAuthModal = document.getElementById('closeAuthModal');
-
-    if (openLoginBtn && authModal) {
-      openLoginBtn.addEventListener('click', () => {
-        authModal.classList.add('active');
-      });
-    }
-
-    if (closeAuthModal && authModal) {
-      closeAuthModal.addEventListener('click', () => {
-        authModal.classList.remove('active');
-      });
-    }
-
-    if (authModal) {
-      authModal.addEventListener('click', (e) => {
-        if (e.target === authModal) {
-          authModal.classList.remove('active');
-        }
-      });
-    }
-  </script>
 </body>
 </html>
