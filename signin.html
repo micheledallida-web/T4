@@ -12,8 +12,8 @@
        SIGN-IN PAGE SPECIFIC STYLING (VERCEL BANK BRANDED)
        ========================================================================== */
     body.signin-page {
-      /* Split background: Dark cinematic top section, main page color bottom section */
-      background: linear-gradient(to bottom, #070d19 0%, #0d1b2a 55%, #f8f9fa 55%, #f8f9fa 100%) !important;
+      /* Dark cinematic gradient background for the upper/main portion */
+      background: linear-gradient(135deg, #050b14 0%, #0d1b2a 50%, #1b263b 100%) !important;
       background-attachment: fixed !important;
       min-height: 100vh;
       display: flex;
@@ -23,7 +23,7 @@
     }
 
     body.signin-page::before {
-      display: none;
+      display: none; /* Removed image overlay to keep the clean cinematic night theme */
     }
 
     .signin-header, .signin-main, .signin-footer {
@@ -32,7 +32,9 @@
     }
 
     .signin-header {
-      background-color: transparent;
+      background-color: rgba(10, 15, 25, 0.75);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
       padding: 1.5rem 0;
       text-align: center;
     }
@@ -95,7 +97,7 @@
       max-width: 440px;
       border-radius: 8px;
       padding: 2.25rem 2rem;
-      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
     }
 
     .input-group {
@@ -247,7 +249,7 @@
 
     /* Footer styling maintained as original */
     .signin-footer {
-      background-color: #f8f9fa;
+      background-color: #ffffff;
       padding: 2rem 1rem;
       text-align: center;
       border-top: 1px solid #e5e7eb;
