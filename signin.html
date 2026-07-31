@@ -43,7 +43,7 @@
       text-align: center;
     }
 
-    /* Exact matching header logo style with bold, clean pronunciation */
+    /* Header logo style */
     .signin-header .logo {
       display: inline-flex !important;
       flex-direction: row !important;
@@ -63,7 +63,7 @@
     .signin-header .logo-text {
       display: inline-flex !important;
       align-items: center !important;
-      gap: 0.15rem !important;
+      gap: 0.02rem !important;
     }
 
     .signin-header .logo-accent {
@@ -72,6 +72,17 @@
       opacity: 1 !important;
       margin-right: 0.2rem;
       filter: drop-shadow(0 1px 2px rgba(0,0,0,0.5));
+      display: inline-flex !important;
+      align-items: center !important;
+    }
+
+    /* Custom inline SVG letter 'i' with a prominent dot */
+    .inline-i-symbol {
+      display: inline-block;
+      width: 0.55em;
+      height: 0.9em;
+      vertical-align: middle;
+      fill: currentColor;
     }
 
     .signin-header .logo-main {
@@ -255,7 +266,7 @@
       stroke: currentColor;
     }
 
-    /* Original Footer styling preserved */
+    /* Footer styling */
     .signin-footer {
       background-color: #ffffff;
       padding: 2rem 1rem;
@@ -303,7 +314,12 @@
   <!-- SIGN IN HEADER LOGO -->
   <header class="signin-header">
     <a href="index.html" class="logo">
-      <span class="logo-text"><span class="logo-accent">VERCEIL</span><span class="logo-main">BANK</span></span>
+      <span class="logo-text">
+        <span class="logo-accent">
+          VERCE<svg class="inline-i-symbol" viewBox="0 0 20 32" aria-label="I"><circle cx="10" cy="4" r="4.5" /><rect x="5.5" y="11" width="9" height="21" rx="1.5" /></svg>L
+        </span>
+        <span class="logo-main">BANK</span>
+      </span>
       <img src="logo.png" alt="Verceil Bank" class="logo-image">
     </a>
   </header>
