@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.9.12 (Updated Blended Blog Card Styling)
+   System Version: 9.9.13 (Locked Hero Title Wrapper & Smooth Rotator)
    ========================================================================== */
 
 :root {
@@ -355,12 +355,20 @@ a { text-decoration: none; color: inherit; }
 .hero-content-wrapper { position: relative; z-index: 2; }
 .hero-content { max-width: 600px; text-align: left; }
 
+/* Locked Hero Title Wrapper to prevent content shifting below */
+.hero-title-wrapper {
+  min-height: 145px;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+}
+
 .hero-title {
   font-size: 3.25rem;
   font-weight: 800;
   line-height: 1.2;
   color: #ffffff;
-  margin-bottom: 1rem;
+  margin-bottom: 0;
   letter-spacing: -0.02em;
   display: inline-block;
   transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
