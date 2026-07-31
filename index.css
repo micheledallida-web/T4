@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 8.1.0 (Balanced Responsive Navigation & Crisp Typography)
+   System Version: 8.2.0 (Hidden Mobile Drawer & Clean Responsive Navbar)
    ========================================================================== */
 
 :root {
@@ -19,7 +19,6 @@
   --color-accent-blue-hover: #084ccf;
   --color-icon-gray: #4b5563;
 
-  /* Native System Font Stack matching iOS/macOS Safari standards */
   --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --container-max-width: 1280px;
 }
@@ -137,7 +136,7 @@ a { text-decoration: none; color: inherit; }
 }
 .desktop-nav-links .nav-link:hover { color: var(--color-accent-blue); }
 
-/* Hidden on Desktop */
+/* Mobile Drawer Elements Hidden by Default on Desktop */
 .nav-links { display: none; }
 .drawer-header, .drawer-search, .drawer-category, .chevron, .close-drawer { display: none; }
 .mobile-menu-toggle { display: none; }
@@ -250,7 +249,7 @@ a { text-decoration: none; color: inherit; }
 .footer-legal-strip { border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; font-size: 0.8rem; }
 
 /* --------------------------------------------------------------------------
-   RESPONSIVE MOBILE BREAKPOINT & SIDE DRAWER
+   RESPONSIVE MOBILE BREAKPOINT & HIDDEN SIDE DRAWER
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
   .hero-title { font-size: 2.75rem; }
@@ -259,12 +258,12 @@ a { text-decoration: none; color: inherit; }
 }
 
 @media (max-width: 768px) {
-  /* Hide desktop horizontal links on mobile */
+  /* Hide desktop horizontal links completely on mobile */
   .desktop-nav-links {
     display: none !important;
   }
 
-  /* Center Header Layout */
+  /* Center Header Layout: Hamburger Left, Logo Center, Sign-In Right */
   .nav-container { 
     position: relative !important; 
     justify-content: center !important; 
@@ -313,7 +312,7 @@ a { text-decoration: none; color: inherit; }
     font-size: 0.85rem !important; 
   }
 
-  /* Backdrop Layer */
+  /* Backdrop Layer (Hidden until active) */
   .menu-backdrop {
     display: block !important; 
     position: fixed !important; 
@@ -329,7 +328,7 @@ a { text-decoration: none; color: inherit; }
   }
   .menu-backdrop.active { opacity: 1 !important; pointer-events: auto !important; }
 
-  /* Fully Scrollable & Solid Opaque White Side Drawer */
+  /* Fully Hidden Side Drawer by default, slides in when .active is applied */
   .nav-links {
     position: fixed !important; 
     top: 0 !important; 
@@ -346,13 +345,13 @@ a { text-decoration: none; color: inherit; }
     flex-direction: column !important; 
     align-items: stretch !important; 
     gap: 0 !important;
-    transform: translateX(-100%) !important; 
+    transform: translateX(-100%) !important; /* Hidden off-screen */
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
     box-shadow: 20px 0 50px rgba(0, 0, 0, 0.3) !important;
     overflow-y: auto !important;
     -webkit-overflow-scrolling: touch;
   }
-  .nav-links.active { transform: translateX(0) !important; }
+  .nav-links.active { transform: translateX(0) !important; } /* Slides in on tap */
 
   .drawer-header {
     display: flex !important; 
