@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 9.3.0 (Perfect Centered Flex Logo Alignment)
+   System Version: 9.4.0 (Precise Centered Logo Balance)
    ========================================================================== */
 
 :root {
@@ -74,9 +74,10 @@ a { text-decoration: none; color: inherit; }
 .nav-container {
   position: relative !important;
   display: flex !important;
-  justify-content: center !important;
+  justify-content: space-between !important;
   align-items: center !important;
-  min-height: 40px;
+  min-height: 44px;
+  padding: 0 1rem;
 }
 
 /* Hamburger Menu (Left) */
@@ -89,11 +90,9 @@ a { text-decoration: none; color: inherit; }
   background: none !important; 
   border: none !important; 
   cursor: pointer !important;
-  position: absolute !important; 
-  left: 1.25rem !important; 
-  top: 50% !important; 
-  transform: translateY(-50%) !important;
+  flex-shrink: 0 !important;
   padding: 0 !important;
+  z-index: 2;
 }
 .mobile-menu-toggle span { 
   display: block !important; 
@@ -103,26 +102,28 @@ a { text-decoration: none; color: inherit; }
   border-radius: 2px !important; 
 }
 
-/* Perfectly Centered Unified Logo Container */
+/* True Absolute Center Alignment Between Hamburger and Sign In */
 .logo {
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  transform: translate(-50%, -50%) !important;
   display: inline-flex !important;
   flex-direction: row !important;
   align-items: center !important;
   justify-content: center !important;
-  gap: 0.5rem !important;
+  gap: 0.35rem !important; /* Neatly close spacing between logo mark and text */
   font-weight: 800 !important;
-  font-size: 1.35rem !important;
+  font-size: 1.25rem !important;
   letter-spacing: -0.03em !important;
   color: var(--color-text-primary) !important;
   text-transform: uppercase !important;
-  margin: 0 auto !important;
-  position: relative !important;
-  left: auto !important;
-  transform: none !important;
+  white-space: nowrap !important;
+  margin: 0 !important;
 }
 
 .logo-image {
-  height: 24px !important;
+  height: 21px !important;
   width: auto !important;
   object-fit: contain !important;
   display: inline-block !important;
@@ -133,7 +134,7 @@ a { text-decoration: none; color: inherit; }
 .logo-text {
   display: inline-flex !important;
   align-items: center !important;
-  gap: 0.15rem !important;
+  gap: 0.1rem !important;
 }
 
 .logo-main { 
@@ -147,10 +148,10 @@ a { text-decoration: none; color: inherit; }
 
 /* Sign In Action (Right) */
 .nav-actions {
-  position: absolute !important; 
-  right: 1.25rem !important; 
-  top: 50% !important; 
-  transform: translateY(-50%) !important; 
+  display: flex !important;
+  align-items: center !important;
+  flex-shrink: 0 !important;
+  z-index: 2;
 }
 
 .btn {
@@ -243,6 +244,8 @@ a { text-decoration: none; color: inherit; }
 .drawer-logo { 
   font-size: 1.1rem !important; 
   margin: 0 !important; 
+  position: static !important;
+  transform: none !important;
   justify-content: flex-start !important;
 }
 .close-drawer {
