@@ -1,6 +1,6 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 7.1.0 (Strict Center Grid Integration)
+   System Version: 7.2.0 (Solid White Drawer & Strict Grid Integration)
    ========================================================================== */
 
 :root {
@@ -271,7 +271,7 @@ a { text-decoration: none; color: inherit; }
   .nav-actions { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
   .sign-in-btn { height: 36px; padding: 0 1rem; font-size: 0.85rem; }
 
-  /* Side Drawer Navigation */
+  /* Side Drawer Navigation (Opaque White Fix) */
   .menu-backdrop {
     display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.6); z-index: 199; opacity: 0; pointer-events: none;
@@ -282,7 +282,9 @@ a { text-decoration: none; color: inherit; }
   .nav-links {
     position: fixed; top: 0; left: 0; 
     width: 85%; max-width: 360px; height: 100vh;
-    background: #ffffff; z-index: 200;
+    background-color: #ffffff !important; 
+    background: #ffffff !important; 
+    z-index: 200;
     flex-direction: column; align-items: stretch; gap: 0;
     transform: translateX(-100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     box-shadow: 4px 0 20px rgba(0,0,0,0.1);
