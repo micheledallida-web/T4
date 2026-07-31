@@ -1,30 +1,27 @@
 /* ==========================================================================
    VERCEL BANK — INSTITUTIONAL DESIGN SYSTEM
-   System Version: 6.0.0 (Chase Bank Pattern Match & Drawer Integration)
+   System Version: 7.0.0 (Clean Icon Grid Integration)
    ========================================================================== */
 
 :root {
   --color-bg-primary: #ffffff;
-  --color-bg-secondary: #f8fafc;
-  --color-bg-alt: #f3f6fa;
   --color-surface-dark: #0f172a;
   
-  --color-text-primary: #111827;
+  --color-text-primary: #111827; /* Dark Gray for Title */
   --color-text-secondary: #4b5563;
   --color-text-muted: #6b7280;
-  --color-text-inverse: #ffffff;
   
   --color-border-subtle: #e5e7eb;
-  --color-border-medium: #cbd5e1;
-  --color-border-dark: #1e293b;
   
-  /* Chase-style Primary Blue */
+  /* Chase-style Primary Blue for texts and links */
   --color-accent-blue: #0b5cff;
   --color-accent-blue-hover: #084ccf;
   
+  /* Icon Gray Color */
+  --color-icon-gray: #4b5563;
+
   --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
   --container-max-width: 1280px;
-  --section-padding-y: 90px;
 }
 
 *, *::before, *::after {
@@ -61,7 +58,7 @@ body {
 a { text-decoration: none; color: inherit; }
 
 /* --------------------------------------------------------------------------
-   HEADER & SIDE DRAWER NAVIGATION (Matches Images 9 & 10)
+   HEADER & SIDE DRAWER NAVIGATION
    -------------------------------------------------------------------------- */
 .main-header {
   background-color: #ffffff;
@@ -69,7 +66,7 @@ a { text-decoration: none; color: inherit; }
   position: sticky;
   top: 0;
   z-index: 150;
-  padding: 0.875rem 0; /* Compact top padding */
+  padding: 0.875rem 0; 
 }
 
 .nav-container {
@@ -78,7 +75,6 @@ a { text-decoration: none; color: inherit; }
   align-items: center;
 }
 
-/* Base Logo */
 .logo {
   display: flex;
   align-items: center;
@@ -91,7 +87,6 @@ a { text-decoration: none; color: inherit; }
 }
 .logo-main { color: var(--color-accent-blue); font-weight: 700; }
 
-/* Buttons */
 .btn {
   font-family: var(--font-sans);
   font-size: 0.9375rem;
@@ -109,14 +104,12 @@ a { text-decoration: none; color: inherit; }
   color: #ffffff;
 }
 
-/* Image 10: "Sign in" Rectangular button */
 .sign-in-btn {
   height: 40px;
   padding: 0 1.5rem;
-  border-radius: 4px; /* Classic sharp radius */
+  border-radius: 4px; 
 }
 
-/* Image 8: "Get Started" Pill button */
 .btn-pill {
   height: 52px;
   padding: 0 2.5rem;
@@ -128,7 +121,6 @@ a { text-decoration: none; color: inherit; }
 }
 .btn-pill:hover { transform: translateY(-2px); }
 
-/* Desktop Navigation List */
 .nav-links {
   display: flex;
   align-items: center;
@@ -140,14 +132,12 @@ a { text-decoration: none; color: inherit; }
   color: var(--color-text-secondary);
 }
 .nav-link:hover { color: var(--color-accent-blue); }
-.drawer-header, .drawer-search, .drawer-category, .chevron, .close-drawer {
-  display: none; /* Hide drawer specifics on desktop */
-}
+.drawer-header, .drawer-search, .drawer-category, .chevron, .close-drawer { display: none; }
 .mobile-menu-toggle { display: none; }
 .menu-backdrop { display: none; }
 
 /* --------------------------------------------------------------------------
-   CINEMATIC FULL BLEED HERO (Matches Image 8)
+   CINEMATIC FULL BLEED HERO
    -------------------------------------------------------------------------- */
 .hero {
   position: relative;
@@ -173,22 +163,68 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* --------------------------------------------------------------------------
-   GENERAL SECTIONS
+   "CHOOSE WHAT'S RIGHT FOR YOU" ICON GRID (Matches Image 11)
    -------------------------------------------------------------------------- */
-.ecosystem-section, .credibility-section { padding: var(--section-padding-y) 0; }
-.section-subtitle { color: var(--color-accent-blue); font-weight: 700; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 0.1em; display: block; margin-bottom: 0.5rem; }
-.section-title { font-size: 2.5rem; font-weight: 800; color: var(--color-text-primary); margin-bottom: 1.25rem; letter-spacing: -0.02em;}
-.section-lead { font-size: 1.125rem; color: var(--color-text-secondary); max-width: 700px; margin: 0 auto 4rem auto;}
-.text-center { text-align: center; }
-
-.feature-card-item {
-  background: #ffffff; border: 1px solid var(--color-border-subtle);
-  border-radius: 12px; padding: 2rem; box-shadow: var(--box-shadow-soft);
+.quick-links-section {
+  padding: 5rem 0 6rem 0;
+  background-color: var(--color-bg-primary);
 }
-.feature-icon { width: 45px; height: 45px; background: var(--color-accent-light-blue); color: var(--color-accent-blue); border-radius: 8px; display: flex; align-items: center; justify-content: center; margin-bottom: 1.5rem;}
-.feature-icon svg { width: 22px; height: 22px; }
-.feature-card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; }
-.feature-card-text { color: var(--color-text-secondary); font-size: 0.95rem; }
+
+.quick-links-title {
+  font-size: 2rem;
+  font-weight: 600;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin-bottom: 3.5rem;
+  letter-spacing: -0.01em;
+}
+
+/* The Grid Container */
+.quick-links-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 4 columns on Desktop */
+  gap: 3rem 1rem;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* Individual Items */
+.quick-link-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.quick-link-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Thin-line Gray Icons */
+.quick-link-icon {
+  width: 44px;
+  height: 44px;
+  color: var(--color-icon-gray);
+  margin-bottom: 0.875rem;
+  /* Ensure SVG lines stay delicate */
+  stroke-width: 1.2;
+}
+
+/* Primary Blue Text */
+.quick-link-text {
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--color-accent-blue);
+}
+
+.quick-link-item:hover .quick-link-text {
+  color: var(--color-accent-blue-hover);
+  text-decoration: underline;
+}
 
 /* --------------------------------------------------------------------------
    FOOTER
@@ -204,18 +240,18 @@ a { text-decoration: none; color: inherit; }
 .footer-legal-strip { border-top: 1px solid #1e293b; padding-top: 2rem; text-align: center; font-size: 0.8rem; }
 
 /* --------------------------------------------------------------------------
-   STRICT MOBILE LAYOUT (Drawer + Header Override)
+   STRICT MOBILE LAYOUT (Drawer + Grid Fixes)
    -------------------------------------------------------------------------- */
 @media (max-width: 991px) {
   .hero-title { font-size: 2.75rem; }
+  .quick-links-grid { grid-template-columns: repeat(3, 1fr); gap: 3rem 1rem; } /* 3 columns on tablet */
   .footer-grid { grid-template-columns: 1fr; gap: 2.5rem; }
 }
 
 @media (max-width: 768px) {
   /* Header Structural Override */
-  .nav-container { position: relative; justify-content: center; } /* Logo Center */
+  .nav-container { position: relative; justify-content: center; } 
   
-  /* 1. Hamburger Left */
   .mobile-menu-toggle {
     display: flex; flex-direction: column; justify-content: space-between;
     width: 22px; height: 16px; background: none; border: none; cursor: pointer;
@@ -223,16 +259,11 @@ a { text-decoration: none; color: inherit; }
   }
   .mobile-menu-toggle span { display: block; width: 100%; height: 2px; background: #000; border-radius: 2px; }
 
-  /* 2. Logo Centered perfectly */
   .logo { font-size: 1.4rem; }
-
-  /* 3. Button Right */
   .nav-actions { position: absolute; right: 1.25rem; top: 50%; transform: translateY(-50%); }
   .sign-in-btn { height: 36px; padding: 0 1rem; font-size: 0.85rem; }
 
-  /* =======================================
-     SIDE DRAWER NAVIGATION (Matches Image 9)
-     ======================================= */
+  /* Side Drawer Navigation */
   .menu-backdrop {
     display: block; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
     background: rgba(0, 0, 0, 0.6); z-index: 199; opacity: 0; pointer-events: none;
@@ -251,7 +282,6 @@ a { text-decoration: none; color: inherit; }
   }
   .nav-links.active { transform: translateX(0); }
 
-  /* Drawer Top Header (Logo + X) */
   .drawer-header {
     display: flex; justify-content: space-between; align-items: center;
     padding: 1.25rem; border-bottom: 1px solid var(--color-border-subtle);
@@ -263,7 +293,6 @@ a { text-decoration: none; color: inherit; }
   }
   .close-drawer svg { width: 24px; height: 24px; }
 
-  /* Drawer Search Bar */
   .drawer-search {
     display: flex; align-items: center;
     margin: 1.25rem; padding: 0.75rem;
@@ -272,7 +301,6 @@ a { text-decoration: none; color: inherit; }
   .drawer-search .search-icon { width: 18px; height: 18px; color: var(--color-text-muted); margin-right: 0.5rem; }
   .drawer-search input { border: none; outline: none; width: 100%; font-size: 1rem; color: var(--color-text-primary); font-family: var(--font-sans); }
 
-  /* Drawer List Items */
   .drawer-items { display: flex; flex-direction: column; padding: 0 1.25rem 2rem 1.25rem; }
   .nav-link {
     display: flex; justify-content: space-between; align-items: center;
@@ -289,8 +317,11 @@ a { text-decoration: none; color: inherit; }
   /* Mobile Hero Tweaks */
   .hero-title { font-size: 2.25rem; word-wrap: break-word; }
   .hero-description { font-size: 1.05rem; }
-}
-  <script src="app.js"></script>
-</body>
-</html>
 
+  /* Mobile Grid (Image 11 shows exactly 2 columns on mobile) */
+  .quick-links-title { font-size: 1.75rem; margin-bottom: 2.5rem; }
+  .quick-links-grid { 
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 2.5rem 1rem; 
+  }
+}
