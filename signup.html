@@ -208,7 +208,24 @@
       font-size: 0.85rem;
       color: #6b7280;
     }
+
+    .error-msg {
+      color: #ef4444;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-msg {
+      color: #10b981;
+      font-size: 0.85rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      display: none;
+    }
   </style>
+  <!-- Include Supabase JS SDK CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="signup-page">
 
@@ -234,7 +251,10 @@
       <h1>Let's get to know you</h1>
       <p class="subtitle">Tell us your full legal name as it appears on your government ID, along with your secure credentials and date of birth.</p>
 
-      <form onsubmit="event.preventDefault(); alert('Proceeding to next step...');">
+      <div id="errorBanner" class="error-msg"></div>
+      <div id="successBanner" class="success-msg">Account created successfully! Redirecting to dashboard...</div>
+
+      <form id="signupForm">
         
         <div class="input-group">
           <label for="firstName">First name</label>
@@ -277,7 +297,7 @@
           <input type="password" id="password" required>
         </div>
 
-        <button type="submit" class="btn-next-full">Next</button>
+        <button type="update" id="submitBtn" class="btn-next-full">Next</button>
 
       </form>
     </div>
@@ -288,5 +308,64 @@
     <p>© 2026 Verceil Bank, N.A. Member FDIC. Equal Housing Lender.</p>
   </footer>
 
+  <script>
+    // Initialize Supabase Client
+    // Replace with your actual Supabase URL and Anon Key
+    const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
+    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
+    const signupForm = document.getElementById('signupForm');
+    const errorBanner = document.getElementById('errorBanner');
+    const successBanner = document.getElementById('successBanner');
+    const submitBtn = document.getElementById('submitBtn');
+
+    signupForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      errorBanner.style.display = 'none';
+      successBanner.style.display = 'none';
+      submitBtn.textContent = 'Creating Account...';
+      submitBtn.disabled = true;
+
+      const firstName = document.getElementById('firstName').value.trim();
+      const middleName = document.getElementById('middleName').value.trim();
+      const lastName = document.getElementById('lastName').value.trim();
+      const suffix = document.getElementById('suffix').value;
+      const dob = document.getElementById('dob').value;
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value;
+
+      try {
+        // Sign up with Supabase Auth
+        const { data, error } = await supabaseClient.auth.signUp({
+          email: email,
+          password: password,
+          options: {
+            data: {
+              first_name: firstName,
+              middle_name: middleName,
+              last_name: lastName,
+              suffix: suffix,
+              date_of_birth: dob
+            }
+          }
+        });
+
+        if (error) throw error;
+
+        // Display success message and route to dashboard
+        successBanner.style.display = 'block';
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 1200);
+
+      } catch (err) {
+        errorBanner.textContent = err.message || 'An error occurred during registration.';
+        errorBanner.style.display = 'block';
+        submitBtn.textContent = 'Next';
+        submitBtn.disabled = false;
+      }
+    });
+  </script>
 </body>
 </html>
