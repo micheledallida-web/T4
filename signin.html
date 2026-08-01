@@ -412,13 +412,13 @@
   </footer>
 
   <script>
-    // Initialize Supabase Client with fail-safe checks
-    const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // Configured with your exact Supabase credentials
+    const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
     
     let supabaseClient = null;
     try {
-      if (window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_URL.supabase.co') {
+      if (window.supabase) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
     } catch (err) {
@@ -436,7 +436,7 @@
       successBanner.style.display = 'none';
 
       if (!supabaseClient) {
-        errorBanner.textContent = 'Network configuration error: Please check your Supabase credentials.';
+        errorBanner.textContent = 'Network configuration error: Supabase failed to initialize.';
         errorBanner.style.display = 'block';
         return;
       }
@@ -455,7 +455,6 @@
 
         if (error) throw error;
 
-        // Show Chase-level enterprise green success state before loading dashboard
         successBanner.style.display = 'block';
         submitBtn.style.backgroundColor = '#059669';
         submitBtn.textContent = 'Success! Launching...';
@@ -465,7 +464,6 @@
         }, 800);
 
       } catch (err) {
-        // Enforce secure enterprise grade invalid credential handling
         errorBanner.textContent = 'Invalid login credentials.';
         errorBanner.style.display = 'block';
         submitBtn.textContent = 'Sign in';
@@ -474,7 +472,6 @@
       }
     });
 
-    // Simple show/hide password toggle button
     const passwordInput = document.getElementById('password');
     const togglePasswordBtn = document.getElementById('togglePassword');
 
