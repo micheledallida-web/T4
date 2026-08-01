@@ -129,10 +129,10 @@
     }
 
     .progress-bar-fill {
-      width: 75%; /* Set initial load width to 75% */
+      width: 75%;
       height: 100%;
       background: #0044ff;
-      transition: width 0.4s ease-in-out; /* Smooth transition when moving to full */
+      transition: width 0.4s ease-in-out;
     }
 
     .signup-card h1 {
@@ -211,15 +211,23 @@
     }
 
     .error-msg {
+      background-color: #fef2f2;
+      border: 1px solid #f87171;
       color: #ef4444;
-      font-size: 0.85rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
       margin-bottom: 1rem;
       display: none;
     }
 
     .success-msg {
-      color: #10b981;
-      font-size: 0.85rem;
+      background-color: #ecfdf5;
+      border: 1px solid #34d399;
+      color: #059669;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
       margin-bottom: 1rem;
       font-weight: 600;
       display: none;
@@ -253,7 +261,7 @@
       <p class="subtitle">Tell us your full legal name as it appears on your government ID, along with your secure credentials and date of birth.</p>
 
       <div id="errorBanner" class="error-msg"></div>
-      <div id="successBanner" class="success-msg">Account created successfully! Redirecting to dashboard...</div>
+      <div id="successBanner" class="success-msg">Account created successfully! Launching dashboard...</div>
 
       <form id="signupForm">
         
@@ -327,11 +335,10 @@
       errorBanner.style.display = 'none';
       successBanner.style.display = 'none';
       
-      // Animate progress bar to 100% upon click submit
-      progressBarFill.style.width = '100%';
-
-      submitBtn.textContent = 'Creating Account...';
+      // Step 1: Immediate visual feedback showing account creation process
+      submitBtn.textContent = 'Creating account...';
       submitBtn.disabled = true;
+      progressBarFill.style.width = '100%';
 
       const firstName = document.getElementById('firstName').value.trim();
       const middleName = document.getElementById('middleName').value.trim();
@@ -341,8 +348,18 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
+      // Basic password policy check for Supabase auth requirement if needed
+      if (password.length < 6) {
+        errorBanner.textContent = 'Password should be at least 6 characters.';
+        errorBanner.style.display = 'block';
+        submitBtn.textContent = 'Next';
+        submitBtn.disabled = false;
+        progressBarFill.style.width = '75%';
+        return;
+      }
+
       try {
-        // Sign up with Supabase Auth
+        // Step 2: Attempt user creation in Supabase Auth
         const { data, error } = await supabaseClient.auth.signUp({
           email: email,
           password: password,
@@ -359,19 +376,39 @@
 
         if (error) throw error;
 
-        // Display success message and route to dashboard
+        // Step 3: Handle automatic login post-signup or redirect confirmation
+        // If Supabase has email confirmation enabled, data.session might be null until verified.
+        // To handle automatic seamless login if email confirmations are disabled in your Supabase project:
+        if (!data.session) {
+          // If session is absent, immediately attempt sign in with credentials provided
+          const loginRes = await supabaseClient.auth.signInWithPassword({
+            email: email,
+            password: password
+          });
+          if (loginRes.error) throw loginRes.error;
+        }
+
+        // Step 4: Show successful green login banner and launch dashboard
         successBanner.style.display = 'block';
+        submitBtn.style.backgroundColor = '#059669'; // Green success theme
+        submitBtn.textContent = 'Success! Launching...';
+
         setTimeout(() => {
           window.location.href = 'dashboard.html';
-        }, 1200);
+        }, 1000);
 
       } catch (err) {
-        errorBanner.textContent = err.message || 'An error occurred during registration.';
+        // Step 5: Handle authentication errors appropriately
+        let message = err.message || 'An error occurred during registration.';
+        if (message.toLowerCase().includes('invalid') || message.toLowerCase().includes('credentials')) {
+          message = 'Invalid login credentials.';
+        }
+        
+        errorBanner.textContent = message;
         errorBanner.style.display = 'block';
         submitBtn.textContent = 'Next';
         submitBtn.disabled = false;
-        // Revert progress bar back to 75% if an error happens
-        progressBarFill.style.width = '75%';
+        progressBarFill.style.width = '75%'; // Reset progress bar indicator
       }
     });
   </script>
