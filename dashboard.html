@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,9 +36,9 @@
       background: #003CD4;
       color: #FFFFFF;
     }
-    /* Dark Mode: Deep Navy background matching second reference image */
+    /* Dark Mode: Deep Navy */
     body.dark {
-      background: linear-gradient(to bottom, #071224 0%, #040A14 50%, #02050A 100%);
+      background: linear-gradient(to bottom, #0E1A33 0%, #0B1426 50%, #070D1A 100%);
       background-attachment: fixed;
       color: #FFFFFF;
     }
@@ -46,7 +46,7 @@
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="antialiased relative selection:bg-[#2563EB] selection:text-white">
+<body class="antialiased relative selection:bg-[#2563EB] selection:text-white dark">
 
   <!-- APP SHELL CONTAINER (Max width 430px, 16px left/right padding, centered) -->
   <div class="w-full max-w-[430px] mx-auto px-[16px]">
@@ -94,7 +94,8 @@
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CHECKING</div>
         
         <!-- Standard Account Card (Height: 84px, Radius: 18px, Padding: 16px) -->
-        <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+          <!-- Left Section (flex: 1, align-items: center) -->
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#003CD4] dark:bg-[#2563EB] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
@@ -105,6 +106,7 @@
             </div>
           </div>
 
+          <!-- Right Section (Width: 120px, text-right, flex-col, align-end) -->
           <div class="w-[120px] flex flex-col justify-center items-end flex-shrink-0 ml-3">
             <div class="flex items-center justify-end w-full gap-1">
               <span class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$24,850.00</span>
@@ -138,8 +140,8 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">SAVINGS</div>
         
-        <!-- Savings Account Card -->
-        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <!-- Savings Account Card (Same dimensions: Height 84px, Radius 18px) -->
+        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#16A34A] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -164,8 +166,8 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">INVESTMENTS</div>
         
-        <!-- Investment Portfolio Card -->
-        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
+        <!-- Investment Portfolio Card (Height: 180px, Radius: 20px, Padding: 18px) -->
+        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
           <div class="flex items-center justify-between">
             <div class="flex items-center flex-1 min-w-0">
               <div class="w-[48px] h-[48px] rounded-[14px] bg-[#7C3AED] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -191,6 +193,7 @@
               ▲ $4,250.30 (2.34%) <span class="text-[#6B7280] dark:text-white/60 font-normal">Today</span>
             </div>
 
+            <!-- Chart height: 52px -->
             <div class="relative h-[52px] w-full">
               <svg class="absolute inset-0 w-full h-full stroke-[#7C3AED]" viewBox="0 0 400 52" fill="none" preserveAspectRatio="none">
                 <path d="M0 40 C 60 25, 120 30, 180 18 C 240 6, 320 22, 400 10" stroke-width="2.5" stroke-linecap="round"/>
@@ -204,6 +207,7 @@
               </svg>
             </div>
 
+            <!-- Time filter buttons (28px height, 13px text) -->
             <div class="flex items-center justify-between text-[13px] font-medium text-[#6B7280] dark:text-white/70 h-[28px]">
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1D</span>
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1W</span>
@@ -220,8 +224,8 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CREDIT CARDS</div>
         
-        <!-- Credit Card -->
-        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <!-- Credit Card (Height: 84px, Radius: 18px) -->
+        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#DC2626] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
@@ -250,8 +254,9 @@
         </div>
         
         <!-- Recent Activity Container -->
-        <div class="w-full bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
+        <div class="w-full bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
           
+          <!-- Row Height: 60px -->
           <div class="flex items-center justify-between h-[60px] first:pt-0 last:pb-0">
             <div class="flex items-center gap-[14px]">
               <div class="w-[34px] h-[34px] rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">WF</div>
@@ -315,7 +320,7 @@
 
   <!-- INTERACTIVE MODAL OVERLAY -->
   <div id="actionModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-gray-200 dark:border-[rgba(255,255,255,0.08)] rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
+    <div class="bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
       <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-[#003CD4] dark:text-[#2563EB] flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
       <h3 id="modalTitle" class="text-base font-bold">Secure Action</h3>
       <p id="modalDesc" class="text-xs text-[#6B7280] dark:text-white/70 leading-relaxed">Connecting securely to your Vercel Private Banking session...</p>
@@ -389,19 +394,23 @@
     const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
     if (savedTheme === 'dark') {
       htmlElement.classList.add('dark');
+      document.body.classList.add('dark');
       themeToggleIcon.textContent = '🌙';
     } else {
       htmlElement.classList.remove('dark');
+      document.body.classList.remove('dark');
       themeToggleIcon.textContent = '☀️';
     }
 
     themeToggleBtn.addEventListener('click', () => {
       if (htmlElement.classList.contains('dark')) {
         htmlElement.classList.remove('dark');
+        document.body.classList.remove('dark');
         themeToggleIcon.textContent = '☀️';
         localStorage.setItem('vercel_bank_theme', 'light');
       } else {
         htmlElement.classList.add('dark');
+        document.body.classList.add('dark');
         themeToggleIcon.textContent = '🌙';
         localStorage.setItem('vercel_bank_theme', 'dark');
       }
