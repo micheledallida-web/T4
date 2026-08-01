@@ -318,11 +318,18 @@
   </footer>
 
   <script>
-    // Initialize Supabase Client
-    // Replace with your actual Supabase URL and Anon Key
+    // Initialize Supabase Client with fail-safe checks
     const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    let supabaseClient = null;
+    try {
+      if (window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_URL.supabase.co') {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (err) {
+      console.error('Supabase initialization error:', err);
+    }
 
     const signupForm = document.getElementById('signupForm');
     const errorBanner = document.getElementById('errorBanner');
@@ -334,8 +341,14 @@
       e.preventDefault();
       errorBanner.style.display = 'none';
       successBanner.style.display = 'none';
-      
-      // Step 1: Immediate visual feedback showing account creation process
+
+      if (!supabaseClient) {
+        errorBanner.textContent = 'Network configuration error: Please check your Supabase credentials.';
+        errorBanner.style.display = 'block';
+        return;
+      }
+
+      // Industrial workflow feedback matching Chase-level sign-in UX
       submitBtn.textContent = 'Creating account...';
       submitBtn.disabled = true;
       progressBarFill.style.width = '100%';
@@ -348,7 +361,6 @@
       const email = document.getElementById('email').value.trim();
       const password = document.getElementById('password').value;
 
-      // Basic password policy check for Supabase auth requirement if needed
       if (password.length < 6) {
         errorBanner.textContent = 'Password should be at least 6 characters.';
         errorBanner.style.display = 'block';
@@ -359,7 +371,6 @@
       }
 
       try {
-        // Step 2: Attempt user creation in Supabase Auth
         const { data, error } = await supabaseClient.auth.signUp({
           email: email,
           password: password,
@@ -376,11 +387,8 @@
 
         if (error) throw error;
 
-        // Step 3: Handle automatic login post-signup or redirect confirmation
-        // If Supabase has email confirmation enabled, data.session might be null until verified.
-        // To handle automatic seamless login if email confirmations are disabled in your Supabase project:
+        // Ensure session token exists immediately post-signup
         if (!data.session) {
-          // If session is absent, immediately attempt sign in with credentials provided
           const loginRes = await supabaseClient.auth.signInWithPassword({
             email: email,
             password: password
@@ -388,27 +396,26 @@
           if (loginRes.error) throw loginRes.error;
         }
 
-        // Step 4: Show successful green login banner and launch dashboard
+        // Green success indicator state before dashboard transition
         successBanner.style.display = 'block';
-        submitBtn.style.backgroundColor = '#059669'; // Green success theme
+        submitBtn.style.backgroundColor = '#059669';
         submitBtn.textContent = 'Success! Launching...';
 
         setTimeout(() => {
           window.location.href = 'dashboard.html';
-        }, 1000);
+        }, 800);
 
       } catch (err) {
-        // Step 5: Handle authentication errors appropriately
-        let message = err.message || 'An error occurred during registration.';
-        if (message.toLowerCase().includes('invalid') || message.toLowerCase().includes('credentials')) {
-          message = 'Invalid login credentials.';
+        let message = err.message || 'Load failed. Please check your network or try again.';
+        if (message.toLowerCase().includes('invalid') || message.toLowerCase().includes('credentials') || message.toLowerCase().includes('already registered')) {
+          message = 'Invalid registration details or email already in use.';
         }
         
         errorBanner.textContent = message;
         errorBanner.style.display = 'block';
         submitBtn.textContent = 'Next';
         submitBtn.disabled = false;
-        progressBarFill.style.width = '75%'; // Reset progress bar indicator
+        progressBarFill.style.width = '75%';
       }
     });
   </script>
