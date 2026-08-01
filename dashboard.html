@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -45,7 +45,7 @@
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="antialiased relative selection:bg-[#2563EB] selection:text-white">
+<body class="antialiased relative selection:bg-[#2563EB] selection:text-white dark">
 
   <!-- APP SHELL CONTAINER (Max width 430px, 16px left/right padding, centered) -->
   <div class="w-full max-w-[430px] mx-auto px-[16px]">
@@ -59,9 +59,9 @@
 
       <div class="flex items-center gap-[10px]">
         
-        <!-- Apple-Style Theme Toggle Switch -->
+        <!-- Apple-Style Theme Toggle Switch (Dark on Left = translate-x-0, Light on Right = translate-x-[22px]) -->
         <button id="themeToggleBtn" class="relative w-[48px] h-[26px] rounded-full bg-[rgba(0,0,0,0.2)] dark:bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.25)] p-0.5 transition-colors focus:outline-none shadow-inner cursor-pointer" aria-label="Toggle Theme">
-          <div id="themeToggleThumb" class="w-[22px] h-[22px] rounded-full bg-white shadow-md transform translate-x-0 dark:translate-x-[22px] transition-transform flex items-center justify-center text-[10px]">
+          <div id="themeToggleThumb" class="w-[22px] h-[22px] rounded-full bg-white shadow-md transform translate-x-[22px] dark:translate-x-0 transition-transform flex items-center justify-center text-[10px]">
             <span id="themeToggleIcon">☀️</span>
           </div>
         </button>
@@ -329,6 +329,7 @@
     const greetingLine1 = document.getElementById('greetingLine1');
     const greetingLine2 = document.getElementById('greetingLine2');
     const themeToggleBtn = document.getElementById('themeToggleBtn');
+    const themeToggleThumb = document.getElementById('themeToggleThumb');
     const themeToggleIcon = document.getElementById('themeToggleIcon');
     const notifBtn = document.getElementById('notifBtn');
     const msgBtn = document.getElementById('msgBtn');
@@ -384,26 +385,27 @@
 
     fetchRealtimeUserAndGreeting();
 
-    // Apple-Style Theme Switcher logic (Fixed local storage persistence and proper light/dark switching)
-    const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
-    if (savedTheme === 'dark') {
-      htmlElement.classList.add('dark');
-      themeToggleIcon.textContent = '🌙';
-    } else {
-      htmlElement.classList.remove('dark');
-      themeToggleIcon.textContent = '☀️';
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-      if (htmlElement.classList.contains('dark')) {
-        htmlElement.classList.remove('dark');
-        themeToggleIcon.textContent = '☀️';
-        localStorage.setItem('vercel_bank_theme', 'light');
-      } else {
+    // Corrected Theme Switcher Logic: Left = Dark Mode, Right = Light Mode
+    function updateThemeUI(isDark) {
+      if (isDark) {
         htmlElement.classList.add('dark');
+        themeToggleThumb.style.transform = 'translateX(0px)';
         themeToggleIcon.textContent = '🌙';
         localStorage.setItem('vercel_bank_theme', 'dark');
+      } else {
+        htmlElement.classList.remove('dark');
+        themeToggleThumb.style.transform = 'translateX(22px)';
+        themeToggleIcon.textContent = '☀️';
+        localStorage.setItem('vercel_bank_theme', 'light');
       }
+    }
+
+    const savedTheme = localStorage.getItem('vercel_bank_theme') || 'dark';
+    updateThemeUI(savedTheme === 'dark');
+
+    themeToggleBtn.addEventListener('click', () => {
+      const isCurrentlyDark = htmlElement.classList.contains('dark');
+      updateThemeUI(!isCurrentlyDark);
     });
 
     function showModal(title, desc) {
@@ -457,7 +459,7 @@
       showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
     });
     document.getElementById('navPayments').addEventListener('click', () => {
-      show/Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
+      showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
     });
     document.getElementById('navInvest').addEventListener('click', () => {
       showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...');
