@@ -129,9 +129,10 @@
     }
 
     .progress-bar-fill {
-      width: 33%;
+      width: 75%; /* Set initial load width to 75% */
       height: 100%;
       background: #0044ff;
+      transition: width 0.4s ease-in-out; /* Smooth transition when moving to full */
     }
 
     .signup-card h1 {
@@ -244,7 +245,7 @@
       <div class="progress-container">
         <span class="progress-label">Your information</span>
         <div class="progress-bar-track">
-          <div class="progress-bar-fill"></div>
+          <div class="progress-bar-fill" id="progressBarFill"></div>
         </div>
       </div>
 
@@ -297,7 +298,7 @@
           <input type="password" id="password" required>
         </div>
 
-        <button type="update" id="submitBtn" class="btn-next-full">Next</button>
+        <button type="submit" id="submitBtn" class="btn-next-full">Next</button>
 
       </form>
     </div>
@@ -319,11 +320,16 @@
     const errorBanner = document.getElementById('errorBanner');
     const successBanner = document.getElementById('successBanner');
     const submitBtn = document.getElementById('submitBtn');
+    const progressBarFill = document.getElementById('progressBarFill');
 
     signupForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorBanner.style.display = 'none';
       successBanner.style.display = 'none';
+      
+      // Animate progress bar to 100% upon click submit
+      progressBarFill.style.width = '100%';
+
       submitBtn.textContent = 'Creating Account...';
       submitBtn.disabled = true;
 
@@ -364,6 +370,8 @@
         errorBanner.style.display = 'block';
         submitBtn.textContent = 'Next';
         submitBtn.disabled = false;
+        // Revert progress bar back to 75% if an error happens
+        progressBarFill.style.width = '75%';
       }
     });
   </script>
