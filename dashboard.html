@@ -321,6 +321,8 @@
       margin-bottom: 0.75rem;
     }
   </style>
+  <!-- Include Supabase JS SDK CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body class="dashboard-page">
 
@@ -371,14 +373,14 @@
           <a href="#" class="nav-link">Customer service <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
 
           <div class="drawer-bottom-action">
-            <a href="index.html" class="nav-link nav-link-espanol" style="color: #ef4444; font-weight: 700;">Sign Out</a>
+            <a href="#" id="signOutDrawerBtn" class="nav-link" style="color: #ef4444; font-weight: 700;">Sign Out</a>
           </div>
         </div>
       </nav>
 
       <!-- Sign Out Action -->
       <div class="nav-actions">
-        <a href="index.html" class="btn btn-primary sign-in-btn" id="openLoginBtn" style="background-color: #ef4444 !important;">Sign out</a>
+        <button id="signOutBtn" class="btn btn-primary" style="background-color: #ef4444 !important; border: none; cursor: pointer;">Sign out</button>
       </div>
     </div>
   </header>
@@ -387,7 +389,7 @@
   <main class="dashboard-container">
     <div class="welcome-banner">
       <div>
-        <h1>Welcome back, Valued Client</h1>
+        <h1 id="welcomeTitle">Welcome back, Valued Client</h1>
         <p class="last-login">Last login: Today, 12:02 AM WAT from trusted device</p>
       </div>
       <span style="background: #e0e7ff; color: #3730a3; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Secure Session Active</span>
@@ -573,6 +575,55 @@
   </footer>
 
   <script>
+    // Supabase Connection & Session Protection Guard
+    const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
+    
+    let supabaseClient = null;
+    try {
+      if (window.supabase) {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (err) {
+      console.error('Supabase initialization error:', err);
+    }
+
+    async function checkUserSession() {
+      if (!supabaseClient) return;
+      
+      const { data: { session }, error } = await supabaseClient.auth.getSession();
+      
+      // If no active session exists, immediately bounce back to signin page
+      if (!session || error) {
+        window.location.href = 'signin.html';
+        return;
+      }
+
+      // Populate user metadata dynamically if available
+      const user = session.user;
+      if (user && user.user_metadata) {
+        const firstName = user.user_metadata.first_name || 'Valued Client';
+        document.getElementById('welcomeTitle').textContent = `Welcome back, ${firstName}`;
+      }
+    }
+
+    // Run session check on dashboard load
+    checkUserSession();
+
+    // Handle Sign Out Actions
+    async function handleSignOut() {
+      if (supabaseClient) {
+        await supabaseClient.auth.signOut();
+      }
+      window.location.href = 'signin.html';
+    }
+
+    document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
+    document.getElementById('signOutDrawerBtn').addEventListener('click', (e) => {
+      e.preventDefault();
+      handleSignOut();
+    });
+
     // Accordion functionality for Citi-style footer
     const accordions = document.querySelectorAll('.footer-section-header');
     accordions.forEach(acc => {
