@@ -318,13 +318,13 @@
   </footer>
 
   <script>
-    // Initialize Supabase Client with fail-safe checks matching your new project connection
-    const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
-    const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
+    // Configured with your exact Supabase credentials
+    const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
+    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
     
     let supabaseClient = null;
     try {
-      if (window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_URL.supabase.co') {
+      if (window.supabase) {
         supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
       }
     } catch (err) {
@@ -343,12 +343,11 @@
       successBanner.style.display = 'none';
 
       if (!supabaseClient) {
-        errorBanner.textContent = 'Network configuration error: Please update your Supabase URL and Anon Key.';
+        errorBanner.textContent = 'Network configuration error: Supabase failed to initialize.';
         errorBanner.style.display = 'block';
         return;
       }
 
-      // Institutional-grade workflow feedback matching Chase-level sign-in UX
       submitBtn.textContent = 'Creating account...';
       submitBtn.disabled = true;
       progressBarFill.style.width = '100%';
@@ -387,7 +386,6 @@
 
         if (error) throw error;
 
-        // Ensure session token exists immediately post-signup
         if (!data.session) {
           const loginRes = await supabaseClient.auth.signInWithPassword({
             email: email,
@@ -396,7 +394,6 @@
           if (loginRes.error) throw loginRes.error;
         }
 
-        // Green success indicator state before dashboard transition
         successBanner.style.display = 'block';
         submitBtn.style.backgroundColor = '#059669';
         submitBtn.textContent = 'Success! Launching...';
