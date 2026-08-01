@@ -327,7 +327,7 @@
     </div>
   </div>
 
-  <!-- REAL-TIME SUPABASE USER GREETING & INTERACTIVE SCRIPT -->
+  <!-- REAL-TIME SUPABASE GREETING, INITIAL FETCH & REALTIME WEBSOCKET SCRIPT -->
   <script>
     const greetingLine1 = document.getElementById('greetingLine1');
     const greetingLine2 = document.getElementById('greetingLine2');
@@ -356,7 +356,8 @@
       console.error('Supabase init error:', err);
     }
 
-    async function fetchRealtimeUserAndGreeting() {
+    // Fetch initial balance from database and listen for real-time updates
+    async function initSupabaseData() {
       const now = new Date();
       const hours = now.getHours();
       let timeOfDay = 'Good Afternoon';
@@ -367,6 +368,7 @@
 
       if (supabaseClient) {
         try {
+          // Fetch user session/meta
           const { data: { session } } = await supabaseClient.auth.getSession();
           if (session && session.user) {
             const meta = session.user.user_metadata;
@@ -376,8 +378,41 @@
               userName = session.user.email.split('@')[0];
             }
           }
+
+          // Fetch initial checking balance from table
+          const { data: accountsData, error: accountsError } = await supabaseClient
+            .from('accounts')
+            .select('*')
+            .eq('account_type', 'checking')
+            .single();
+
+          if (accountsData && !accountsError) {
+            const checkingEl = document.getElementById('checkingBalance');
+            if (checkingEl) {
+              checkingEl.textContent = `$${Number(accountsData.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
+          }
+
+          // Setup Supabase Realtime WebSocket Listener
+          supabaseClient
+            .channel('public:accounts')
+            .on(
+              'postgres_changes',
+              { event: 'UPDATE', schema: 'public', table: 'accounts' },
+              (payload) => {
+                const updated = payload.new;
+                if (updated.account_type === 'checking') {
+                  const el = document.getElementById('checkingBalance');
+                  if (el) {
+                    el.textContent = `$${Number(updated.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+                  }
+                }
+              }
+            )
+            .subscribe();
+
         } catch (e) {
-          console.error('Session retrieval error:', e);
+          console.error('Supabase data fetch error:', e);
         }
       }
 
@@ -386,27 +421,7 @@
       profileBtn.textContent = userName.charAt(0).toUpperCase();
     }
 
-    fetchRealtimeUserAndGreeting();
-
-    // Setup Supabase Realtime listener to update UI live when balances change
-    if (supabaseClient) {
-      supabaseClient
-        .channel('public:accounts')
-        .on(
-          'postgres_changes',
-          { event: 'UPDATE', schema: 'public', table: 'accounts' },
-          (payload) => {
-            const updated = payload.new;
-            if (updated.account_type === 'checking') {
-              const el = document.getElementById('checkingBalance');
-              if (el) {
-                el.textContent = `$${Number(updated.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-              }
-            }
-          }
-        )
-        .subscribe();
-    }
+    initSupabaseData();
 
     // Theme Toggle Switch Behavior:
     // Light Mode (Default): Knob on the left (translate-x-0), Sun icon visible, Blue background (#0B4CC2)
