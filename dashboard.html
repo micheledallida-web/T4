@@ -46,7 +46,7 @@
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="antialiased relative selection:bg-[#2563EB] selection:text-white dark">
+<body class="antialiased relative selection:bg-[#2563EB] selection:text-white">
 
   <!-- APP SHELL CONTAINER (Max width 430px, 16px left/right padding, centered) -->
   <div class="w-full max-w-[430px] mx-auto px-[16px]">
@@ -193,7 +193,6 @@
               ▲ $4,250.30 (2.34%) <span class="text-[#6B7280] dark:text-white/60 font-normal">Today</span>
             </div>
 
-            <!-- Chart height: 52px -->
             <div class="relative h-[52px] w-full">
               <svg class="absolute inset-0 w-full h-full stroke-[#7C3AED]" viewBox="0 0 400 52" fill="none" preserveAspectRatio="none">
                 <path d="M0 40 C 60 25, 120 30, 180 18 C 240 6, 320 22, 400 10" stroke-width="2.5" stroke-linecap="round"/>
@@ -207,7 +206,6 @@
               </svg>
             </div>
 
-            <!-- Time filter buttons (28px height, 13px text) -->
             <div class="flex items-center justify-between text-[13px] font-medium text-[#6B7280] dark:text-white/70 h-[28px]">
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1D</span>
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1W</span>
@@ -224,7 +222,7 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CREDIT CARDS</div>
         
-        <!-- Credit Card (Height: 84px, Radius: 18px) -->
+        <!-- Credit Card -->
         <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#DC2626] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -256,7 +254,6 @@
         <!-- Recent Activity Container -->
         <div class="w-full bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
           
-          <!-- Row Height: 60px -->
           <div class="flex items-center justify-between h-[60px] first:pt-0 last:pb-0">
             <div class="flex items-center gap-[14px]">
               <div class="w-[34px] h-[34px] rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">WF</div>
@@ -390,7 +387,7 @@
 
     fetchRealtimeUserAndGreeting();
 
-    // Apple-Style Theme Switcher logic (Default to Light Mode matching reference screenshot)
+    // Apple-Style Theme Switcher logic (Restored light background mode support on toggle left)
     const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
     if (savedTheme === 'dark') {
       htmlElement.classList.add('dark');
@@ -445,7 +442,7 @@
       showModal('Interest Checking Upgrade', 'Initiating fast-track digital activation for your new interest-bearing account...');
     });
     document.getElementById('cardSavings').addEventListener('click', () => {
-      showModal('Vercel Savings (•6543)', 'Managing interest accumulation and automated savings rules...');
+      showModal('High-Yield Savings (•6543)', 'Managing high-yield interest accumulation and automated savings rules...');
     });
     document.getElementById('cardInvestments').addEventListener('click', () => {
       showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...');
@@ -460,7 +457,7 @@
 
     // Bottom Navigation Handlers
     document.getElementById('navAccounts').addEventListener('click', () => {
-      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary perfectly aligned.');
+      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
     });
     document.getElementById('navPayments').addEventListener('click', () => {
       showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
@@ -469,7 +466,7 @@
       showModal('Bank Services', 'Accessing check deposits, stop payments, and card replacement requests...');
     });
     document.getElementById('navProfile').addEventListener('click', () => {
-      showModal('Profile & Security', 'Managing multi-factor authentication, trusted devices, and contact details...');
+      showModal('Profile Settings', 'Managing account preferences, security credentials, and trusted devices...');
     });
   </script>
 </body>
