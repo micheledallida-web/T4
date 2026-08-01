@@ -17,7 +17,7 @@
           colors: {
             brandDark: {
               bg: '#0A0C10',
-              sidebar: '#07090D',
+              sidebar: '#0F172A',
               card: '#11141A',
               border: 'rgba(255,255,255,0.08)',
               textPrimary: '#FFFFFF',
@@ -42,16 +42,13 @@
           },
           fontFamily: {
             sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-          },
-          spacing: {
-            '22': '5.5rem',
           }
         }
       }
     }
   </script>
   <style>
-    /* Smooth Theme Transition */
+    /* Smooth Theme & Sidebar Transitions */
     *, *::before, *::after {
       transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out, color 300ms ease-in-out, box-shadow 300ms ease-in-out;
     }
@@ -87,6 +84,21 @@
       pointer-events: none;
       z-index: 0;
     }
+
+    /* Hamburger Animation Utility */
+    .hamburger-line {
+      transform-origin: center;
+      transition: transform 300ms ease, opacity 300ms ease;
+    }
+    .hamburger.active .line-1 {
+      transform: translateY(6px) rotate(45deg);
+    }
+    .hamburger.active .line-2 {
+      opacity: 0;
+    }
+    .hamburger.active .line-3 {
+      transform: translateY(-6px) rotate(-45deg);
+    }
   </style>
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -99,8 +111,8 @@
   <!-- APP SHELL CONTAINER -->
   <div class="flex min-h-screen relative z-10">
 
-    <!-- SIDEBAR (Desktop Fixed 280px) -->
-    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-[280px] bg-brandLight-sidebar dark:bg-brandDark-sidebar border-r border-brandLight-border dark:border-brandDark-border flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
+    <!-- SIDEBAR (Fixed Off-Canvas Panel with z-index 50, No Overlay/Dimming) -->
+    <aside id="sidebar" class="fixed top-0 left-0 h-screen w-[280px] bg-brandLight-sidebar dark:bg-brandDark-sidebar border-r border-[rgba(0,0,0,0.06)] dark:border-[rgba(255,255,255,0.08)] flex flex-col transition-transform duration-300 ease-in-out -translate-x-full lg:translate-x-0 z-50 shadow-2xl lg:shadow-none">
       
       <!-- Sidebar Logo Header -->
       <div class="h-20 px-6 flex items-center justify-between border-b border-brandLight-border dark:border-brandDark-border">
@@ -200,13 +212,15 @@
     <!-- MAIN WRAPPER (Fluid content with 280px left margin on desktop) -->
     <div class="flex-1 flex flex-col lg:pl-[280px] min-w-0">
 
-      <!-- TOP HEADER (80px height) -->
-      <header class="h-20 bg-brandLight-card/80 dark:bg-brandDark-card/80 backdrop-blur-xl border-b border-brandLight-border dark:border-brandDark-border sticky top-0 z-40 px-4 sm:px-8 flex items-center justify-between gap-4">
+      <!-- TOP HEADER (80px height, Fully visible and bright) -->
+      <header class="h-20 bg-brandLight-card/90 dark:bg-brandDark-card/90 backdrop-blur-xl border-b border-brandLight-border dark:border-brandDark-border sticky top-0 z-40 px-4 sm:px-8 flex items-center justify-between gap-4">
         
-        <!-- Left: Mobile Toggle & Search Trigger -->
+        <!-- Left: Hamburger Toggle & Search Trigger -->
         <div class="flex items-center gap-4 flex-1 max-w-xl">
-          <button id="openSidebarMobile" class="lg:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-brandLight-textSecondary dark:text-brandDark-textSecondary">
-            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          <button id="openSidebarMobile" class="hamburger lg:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-brandLight-textSecondary dark:text-brandDark-textSecondary flex flex-col justify-center items-center w-11 h-11 focus:outline-none" aria-label="Toggle Navigation">
+            <span class="hamburger-line line-1 w-5 h-0.5 bg-current mb-1.5 rounded-full"></span>
+            <span class="hamburger-line line-2 w-5 h-0.5 bg-current mb-1.5 rounded-full"></span>
+            <span class="hamburger-line line-3 w-5 h-0.5 bg-current rounded-full"></span>
           </button>
           
           <div class="relative w-full hidden sm:block">
@@ -264,11 +278,9 @@
       <!-- CONTENT AREA (1440px Centered Container, 24px gaps) -->
       <main class="flex-1 max-w-[1440px] w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
 
-        <!-- WELCOME SECTION (Hero Card with subtle blue gradient) -->
+        <!-- WELCOME SECTION -->
         <section class="relative overflow-hidden rounded-[20px] bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
-          <!-- Background geometric pattern -->
           <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-          
           <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
             <div>
               <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-3">
@@ -290,10 +302,10 @@
           </div>
         </section>
 
-        <!-- ACCOUNT SUMMARY GRID (4 Equal Premium Cards) -->
+        <!-- ACCOUNT SUMMARY GRID -->
         <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
           
-          <!-- CHECKING CARD -->
+          <!-- CHECKING -->
           <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-600"></div>
             <div>
@@ -301,9 +313,7 @@
                 <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
                 </div>
-                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </button>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
               </div>
               <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Vercel Checking</div>
               <div class="text-xs text-gray-400 mb-3 font-mono">****4892</div>
@@ -311,12 +321,12 @@
               <div class="text-xs font-medium text-blue-600 dark:text-blue-400 mb-6">Available Balance</div>
             </div>
             <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
-              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-blue-600 dark:hover:text-blue-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-blue-600 text-xs font-semibold transition-colors">View Details</a>
               <a href="#" class="flex-1 py-2 text-center rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white text-xs font-semibold transition-colors">Transfer</a>
             </div>
           </div>
 
-          <!-- SAVINGS CARD -->
+          <!-- SAVINGS -->
           <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
             <div>
@@ -324,9 +334,7 @@
                 <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </button>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
               </div>
               <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">High-Yield Savings</div>
               <div class="text-xs text-gray-400 mb-3 font-mono">****9104</div>
@@ -334,12 +342,12 @@
               <div class="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-6">Available Balance</div>
             </div>
             <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
-              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-emerald-600 dark:hover:text-emerald-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-emerald-600 text-xs font-semibold transition-colors">View Details</a>
               <a href="#" class="flex-1 py-2 text-center rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-600 text-emerald-600 dark:text-emerald-400 hover:text-white text-xs font-semibold transition-colors">Deposit</a>
             </div>
           </div>
 
-          <!-- INVESTMENT ACCOUNT CARD -->
+          <!-- INVESTMENT ACCOUNT -->
           <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
             <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-600"></div>
             <div>
@@ -347,19 +355,15 @@
                 <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
                 </div>
-                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </button>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
               </div>
               <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Investment Account</div>
               <div class="text-xs text-gray-400 mb-3 font-mono">****7721</div>
               <div class="text-2xl sm:text-3xl font-extrabold text-brandLight-textPrimary dark:text-brandDark-textPrimary tracking-tight mb-1">$185,730.25</div>
-              <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-6 flex items-center gap-1">
-                <span>▲ $4,250.30 (2.34%)</span>
-              </div>
+              <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-6 flex items-center gap-1"><span>▲ $4,250.30 (2.34%)</span></div>
             </div>
             <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
-              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-purple-50 dark:hover:bg-purple-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-purple-600 dark:hover:text-purple-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-purple-50 dark:hover:bg-purple-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-purple-600 text-xs font-semibold transition-colors">View Details</a>
               <a href="#" class="flex-1 py-2 text-center rounded-xl bg-purple-50 dark:bg-purple-950/40 hover:bg-purple-600 text-purple-600 dark:text-purple-400 hover:text-white text-xs font-semibold transition-colors">Invest</a>
             </div>
           </div>
@@ -372,9 +376,7 @@
                 <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center font-bold">
                   <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
                 </div>
-                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
-                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
-                </button>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg></button>
               </div>
               <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Vercel Signature Card</div>
               <div class="text-xs text-gray-400 mb-3 font-mono">****1234</div>
@@ -382,81 +384,65 @@
               <div class="text-xs font-medium text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-6">Avail. Credit: <span class="text-emerald-500 font-bold">$17,514.25</span></div>
             </div>
             <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
-              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-red-50 dark:hover:bg-red-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-red-50 dark:hover:bg-red-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-red-600 text-xs font-semibold transition-colors">View Details</a>
               <a href="#" class="flex-1 py-2 text-center rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-600 text-red-600 dark:text-red-400 hover:text-white text-xs font-semibold transition-colors">Pay Bill</a>
             </div>
           </div>
 
         </section>
 
-        <!-- QUICK ACTIONS HORIZONTAL GRID -->
+        <!-- QUICK ACTIONS -->
         <section class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm">
           <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary mb-4">Quick Actions</h3>
           <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
             
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Transfer</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Pay Bills</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3"></circle></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3"></circle></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Deposit Check</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Send Money</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Wire Transfer</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Manage Cards</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Add Account</span>
             </a>
 
             <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
-              <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
-                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
-              </div>
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform"><svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg></div>
               <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Statements</span>
             </a>
 
           </div>
         </section>
 
-        <!-- MAIN ANALYTICS & TRANSACTIONS SECTION (Multi-column Grid) -->
+        <!-- TRANSACTIONS & INVESTMENT OVERVIEW -->
         <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
           
-          <!-- LEFT: RECENT TRANSACTIONS (Span 1 or 2 depending on layout) -->
+          <!-- RECENT TRANSACTIONS -->
           <div class="lg:col-span-1 rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex items-center justify-between mb-6">
@@ -465,7 +451,6 @@
               </div>
 
               <div class="space-y-4">
-                
                 <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
                   <div class="flex items-center gap-3">
                     <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-sm">🛒</div>
@@ -507,35 +492,6 @@
                     <div class="text-[10px] text-gray-400">Completed</div>
                   </div>
                 </div>
-
-                <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
-                  <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 flex items-center justify-center font-bold text-sm">🔄</div>
-                    <div>
-                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Transfer to Savings</div>
-                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Jul 27 • Auto-Save</div>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$500.00</div>
-                    <div class="text-[10px] text-gray-400">Completed</div>
-                  </div>
-                </div>
-
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center gap-3">
-                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-sm">🎵</div>
-                    <div>
-                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Spotify</div>
-                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Jul 25 • Subscription</div>
-                    </div>
-                  </div>
-                  <div class="text-right">
-                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$9.99</div>
-                    <div class="text-[10px] text-gray-400">Completed</div>
-                  </div>
-                </div>
-
               </div>
             </div>
             
@@ -546,197 +502,40 @@
             </div>
           </div>
 
-          <!-- CENTER: INVESTMENT OVERVIEW & PERFORMANCE CHART -->
+          <!-- INVESTMENT OVERVIEW -->
           <div class="lg:col-span-2 rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
             <div>
               <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
                 <div>
                   <div class="flex items-center justify-between">
                     <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Investment Overview</h3>
-                    <a href="#" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline lg:hidden">View Dashboard</a>
                   </div>
                   <div class="text-2xl sm:text-3xl font-black text-brandLight-textPrimary dark:text-brandDark-textPrimary mt-1">$185,730.25</div>
                   <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">▲ $4,250.30 (2.34% Today)</div>
                 </div>
                 
-                <!-- Time Filters -->
                 <div class="flex items-center bg-brandLight-bg dark:bg-brandDark-bg p-1 rounded-xl border border-brandLight-border dark:border-brandDark-border self-start">
-                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1D</button>
-                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1W</button>
-                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1M</button>
-                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">3M</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary">1D</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary">1W</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary">1M</button>
                   <button class="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-sm">1Y</button>
-                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">ALL</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary">ALL</button>
                 </div>
               </div>
 
-              <!-- Large Purple Performance Chart Mockup -->
+              <!-- Chart mockup -->
               <div class="h-48 w-full bg-purple-500/5 dark:bg-purple-950/20 border border-purple-500/10 rounded-2xl p-4 relative flex items-end justify-between gap-2 mb-6">
-                <!-- SVG Waveform / Line Chart -->
                 <svg class="absolute inset-0 w-full h-full p-4 stroke-purple-600 dark:stroke-purple-400" viewBox="0 0 500 150" fill="none" preserveAspectRatio="none">
                   <path d="M0 120 C 80 90, 150 110, 230 60 C 310 10, 400 40, 500 20" stroke-width="3" stroke-linecap="round"/>
-                  <path d="M0 120 C 80 90, 150 110, 230 60 C 310 10, 400 40, 500 20 L 500 150 L 0 150 Z" fill="url(#purpleGrad)" opacity="0.15"/>
-                  <defs>
-                    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                      <stop offset="0%" stop-color="#8B5CF6" />
-                      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0" />
-                    </linearGradient>
-                  </defs>
                 </svg>
-                <div class="absolute bottom-4 left-4 text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/40 px-2 py-1 rounded-lg">Live Performance Feed</div>
-              </div>
-
-              <!-- Top Holdings & Allocations -->
-              <div>
-                <h4 class="text-xs font-bold uppercase tracking-wider text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-3">Top Holdings & Allocation</h4>
-                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
-                  
-                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
-                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Apple</div>
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">28.4%</div>
-                  </div>
-
-                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
-                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Microsoft</div>
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">22.1%</div>
-                  </div>
-
-                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
-                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">NVIDIA</div>
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">18.5%</div>
-                  </div>
-
-                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
-                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">S&P 500 ETF</div>
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">16.2%</div>
-                  </div>
-
-                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border col-span-2 sm:col-span-1">
-                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Tesla</div>
-                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">14.8%</div>
-                  </div>
-
-                </div>
               </div>
             </div>
-
-            <div class="pt-4 mt-6 border-t border-brandLight-border dark:border-brandDark-border flex justify-between items-center">
-              <span class="text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary">Managed by Vercel Private Wealth</span>
-              <a href="#" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">View Full Portfolio &rarr;</a>
+            <div class="pt-4 mt-6 border-t border-brandLight-border dark:border-brandDark-border flex justify-between items-center text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary">
+              <span>Managed by Vercel Private Wealth</span>
+              <a href="#" class="font-bold text-blue-600 dark:text-blue-400 hover:underline">View Full Portfolio &rarr;</a>
             </div>
           </div>
 
-        </section>
-
-        <!-- SECONDARY GRID: SPENDING INSIGHTS & WEALTH MANAGEMENT PROMO -->
-        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-          
-          <!-- SPENDING INSIGHTS DONUT CHART -->
-          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
-            <div>
-              <div class="flex items-center justify-between mb-4">
-                <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Spending Insights</h3>
-                <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-lg">-4.2% vs last mo</span>
-              </div>
-              
-              <!-- Donut representation mockup -->
-              <div class="flex items-center justify-center my-6">
-                <div class="w-36 h-36 rounded-full border-8 border-blue-600 border-t-purple-500 border-r-emerald-500 border-b-amber-500 flex items-center justify-center relative shadow-inner">
-                  <div class="text-center">
-                    <div class="text-[10px] text-gray-400 font-bold uppercase">Total Spent</div>
-                    <div class="text-lg font-black text-brandLight-textPrimary dark:text-brandDark-textPrimary">$2,840</div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Categories breakdown -->
-              <div class="space-y-2.5">
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>Dining</span>
-                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">35% ($994)</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>Shopping</span>
-                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">25% ($710)</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Transportation</span>
-                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">18% ($511)</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Entertainment</span>
-                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">12% ($340)</span>
-                </div>
-                <div class="flex items-center justify-between text-xs">
-                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>Healthcare & Other</span>
-                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">10% ($285)</span>
-                </div>
-              </div>
-            </div>
-
-            <div class="pt-4 mt-6 border-t border-brandLight-border dark:border-brandDark-border">
-              <a href="#" class="block text-center w-full py-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:border-blue-500 transition-colors">View Budget Analytics</a>
-            </div>
-          </div>
-
-          <!-- WEALTH MANAGEMENT CARD (Promotional Gradient Card) -->
-          <div class="lg:col-span-2 rounded-[20px] bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 p-8 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden flex flex-col justify-between">
-            <div class="absolute right-0 top-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
-            
-            <div class="relative z-10 max-w-lg">
-              <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider mb-4">Vercel Private Client</span>
-              <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Grow your wealth with Vercel Bank</h3>
-              <p class="text-blue-100 text-sm leading-relaxed mb-6">Explore advanced investment strategies, custom retirement planning, tax-loss harvesting, and personalized portfolio management from dedicated private wealth advisors.</p>
-              
-              <div class="flex flex-wrap items-center gap-4">
-                <button class="px-6 py-3 rounded-xl bg-white text-blue-600 font-bold text-sm shadow-lg hover:bg-blue-50 transition-all transform active:scale-95">
-                  Explore Investments
-                </button>
-                <button class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition-all">
-                  Schedule Advisor Call
-                </button>
-              </div>
-            </div>
-
-            <div class="relative z-10 pt-6 mt-8 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-medium text-blue-100">
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                <span>Dedicated Advisor</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                <span>Fiduciary Standard</span>
-              </div>
-              <div class="flex items-center gap-2">
-                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                <span>Custom Asset Allocation</span>
-              </div>
-            </div>
-          </div>
-
-        </section>
-
-        <!-- SECURITY CENTER (Full-width Bottom Card) -->
-        <section class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
-          <div class="flex items-start gap-4">
-            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold flex-shrink-0">
-              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
-            </div>
-            <div>
-              <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary mb-1">Security Center & Protection</h3>
-              <p class="text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-3">Your private banking environment is safeguarded by military-grade security protocols.</p>
-              
-              <div class="flex flex-wrap items-center gap-3 sm:gap-6 text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary">
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> 2FA Enabled</span>
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Biometric Login Active</span>
-                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Fraud Monitoring 24/7</span>
-              </div>
-            </div>
-          </div>
-
-          <button class="px-6 py-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border hover:border-blue-500 text-brandLight-textPrimary dark:text-brandDark-textPrimary font-semibold text-xs transition-colors flex-shrink-0">
-            Manage Security Settings
-          </button>
         </section>
 
       </main>
@@ -748,7 +547,6 @@
           <div class="flex items-center gap-6">
             <a href="#" class="hover:underline">Privacy Policy</a>
             <a href="#" class="hover:underline">Terms of Service</a>
-            <a href="#" class="hover:underline">Security Disclosures</a>
             <a href="#" class="hover:underline">Support</a>
           </div>
         </div>
@@ -758,17 +556,13 @@
 
   </div>
 
-  <!-- MOBILE SIDEBAR BACKDROP -->
-  <div id="sidebarBackdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity"></div>
-
-  <!-- SCRIPT FOR THEME TOGGLE & MOBILE SIDEBAR -->
+  <!-- SCRIPT FOR THEME TOGGLE, SMOOTH SIDEBAR SLIDE & BODY SCROLL LOCK -->
   <script>
     const themeToggleBtn = document.getElementById('themeToggle');
     const htmlElement = document.documentElement;
     const sidebar = document.getElementById('sidebar');
     const openSidebarMobile = document.getElementById('openSidebarMobile');
     const closeSidebarMobile = document.getElementById('closeSidebarMobile');
-    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
 
     // Theme Toggle Handler
     themeToggleBtn.addEventListener('click', () => {
@@ -781,15 +575,25 @@
       }
     });
 
-    // Mobile Sidebar Handlers
+    // Mobile Sidebar Toggle with Body Scroll Lock & Hamburger Morph Animation
+    let isSidebarOpen = false;
+
     function toggleSidebar() {
-      sidebar.classList.toggle('-translate-x-full');
-      sidebarBackdrop.classList.toggle('hidden');
+      isSidebarOpen = !isSidebarOpen;
+      
+      if (isSidebarOpen) {
+        sidebar.classList.remove('-translate-x-full');
+        openSidebarMobile.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.add('-translate-x-full');
+        openSidebarMobile.classList.remove('active');
+        document.body.style.overflow = '';
+      }
     }
 
     openSidebarMobile.addEventListener('click', toggleSidebar);
     closeSidebarMobile.addEventListener('click', toggleSidebar);
-    sidebarBackdrop.addEventListener('click', toggleSidebar);
   </script>
 </body>
 </html>
