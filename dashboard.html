@@ -109,7 +109,7 @@
           <!-- Right Section (Exact fixed width alignment wrapper to match reference layout) -->
           <div class="w-[145px] flex items-center justify-end flex-shrink-0 ml-3">
             <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$24,850.00</div>
+              <div id="checkingBalance" class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$24,850.00</div>
               <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#A8B4C6] mt-1">Available Balance</div>
             </div>
             <svg class="w-[18px] h-[18px] text-[#6B7280] dark:text-[#94A3B8] flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -387,6 +387,26 @@
     }
 
     fetchRealtimeUserAndGreeting();
+
+    // Setup Supabase Realtime listener to update UI live when balances change
+    if (supabaseClient) {
+      supabaseClient
+        .channel('public:accounts')
+        .on(
+          'postgres_changes',
+          { event: 'UPDATE', schema: 'public', table: 'accounts' },
+          (payload) => {
+            const updated = payload.new;
+            if (updated.account_type === 'checking') {
+              const el = document.getElementById('checkingBalance');
+              if (el) {
+                el.textContent = `$${Number(updated.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+              }
+            }
+          }
+        )
+        .subscribe();
+    }
 
     // Theme Toggle Switch Behavior:
     // Light Mode (Default): Knob on the left (translate-x-0), Sun icon visible, Blue background (#0B4CC2)
