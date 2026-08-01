@@ -318,7 +318,7 @@
   </footer>
 
   <script>
-    // Initialize Supabase Client with fail-safe checks
+    // Initialize Supabase Client with fail-safe checks matching your new project connection
     const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
     
@@ -343,12 +343,12 @@
       successBanner.style.display = 'none';
 
       if (!supabaseClient) {
-        errorBanner.textContent = 'Network configuration error: Please check your Supabase credentials.';
+        errorBanner.textContent = 'Network configuration error: Please update your Supabase URL and Anon Key.';
         errorBanner.style.display = 'block';
         return;
       }
 
-      // Industrial workflow feedback matching Chase-level sign-in UX
+      // Institutional-grade workflow feedback matching Chase-level sign-in UX
       submitBtn.textContent = 'Creating account...';
       submitBtn.disabled = true;
       progressBarFill.style.width = '100%';
