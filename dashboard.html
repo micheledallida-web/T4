@@ -1,472 +1,748 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Vercel Bank | Mobile Wealth Dashboard</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-          }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Vercel Bank Mobile Dashboard</title>
+    <style>
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Helvetica, Arial, sans-serif;
+            -webkit-font-smoothing: antialiased;
         }
-      }
-    }
-  </script>
-  <style>
-    *, *::before, *::after {
-      transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out, color 300ms ease-in-out, box-shadow 300ms ease-in-out;
-    }
-    body {
-      font-family: 'Inter', sans-serif;
-      min-height: 100vh;
-      margin: 0;
-      padding-top: 16px;
-      padding-bottom: 110px;
-    }
-    /* Light Mode: Vibrant Citi Royal Blue matching reference screenshot exactly */
-    body:not(.dark) {
-      background: #003CD4;
-      color: #FFFFFF;
-    }
-    /* Dark Mode: Deep Navy */
-    body.dark {
-      background: linear-gradient(to bottom, #0E1A33 0%, #0B1426 50%, #070D1A 100%);
-      background-attachment: fixed;
-      color: #FFFFFF;
-    }
-  </style>
-  <!-- Include Supabase JS SDK CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+        body {
+            background-color: #0A2F7A;
+            background-image: radial-gradient(circle at top left, rgba(37, 99, 235, 0.4) 0%, transparent 60%);
+            color: #FFFFFF;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ========================================
+           APP CONTAINER (MOBILE VIEWPORT WRAPPER)
+           ======================================== */
+        .app-container {
+            width: 100%;
+            max-width: 430px;
+            min-width: 360px;
+            min-height: 100vh;
+            background: linear-gradient(145deg, #0B4CC2 0%, #0A2F7A 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding-top: env(safe-area-inset-top, 44px);
+            padding-bottom: calc(80px + env(safe-area-inset-bottom, 34px));
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ========================================
+           HEADER
+           ======================================== */
+        .header-section {
+            margin: 20px 20px 28px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .header-text-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .greeting-label {
+            font-size: 20px;
+            font-weight: 500;
+            color: #FFFFFF;
+            margin-bottom: 4px;
+        }
+
+        .user-name {
+            font-size: clamp(40px, 11vw, 48px);
+            font-weight: 700;
+            line-height: 52px;
+            color: #FFFFFF;
+        }
+
+        .header-actions {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding-top: 4px;
+        }
+
+        .action-btn {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .action-btn svg {
+            width: 24px;
+            height: 24px;
+            stroke: #FFFFFF;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            width: 18px;
+            height: 18px;
+            background: #EF4444;
+            border-radius: 50%;
+            font-size: 11px;
+            font-weight: 700;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #FFFFFF;
+            border: 2px solid #0B4CC2;
+        }
+
+        /* ========================================
+           SECTION LABELS
+           ======================================== */
+        .section-label {
+            font-size: 12px;
+            font-weight: 700;
+            letter-spacing: 1.6px;
+            color: rgba(255, 255, 255, 0.75);
+            margin: 28px 20px 12px 20px;
+            text-transform: uppercase;
+        }
+
+        /* ========================================
+           CARD LAYOUTS & CONTAINERS
+           ======================================== */
+        .card-container {
+            width: calc(100% - 40px);
+            margin-left: 20px;
+            margin-right: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        /* Standard Account Card */
+        .account-card {
+            width: 100%;
+            height: 96px;
+            border-radius: 20px;
+            background: #FFFFFF;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .account-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .account-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 16px;
+            background: #2563EB;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .account-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: #FFFFFF;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .account-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .account-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #111827;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .account-number {
+            font-size: 15px;
+            font-weight: 500;
+            color: #6B7280;
+            margin-top: 6px;
+        }
+
+        .account-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 140px;
+            text-align: right;
+            justify-content: flex-end;
+            flex-shrink: 0;
+        }
+
+        .balance-group {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+        }
+
+        .account-balance {
+            font-size: clamp(22px, 6vw, 34px);
+            font-weight: 700;
+            line-height: 36px;
+            color: #111827;
+            white-space: nowrap;
+        }
+
+        .balance-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #6B7280;
+        }
+
+        .chevron-icon {
+            width: 20px;
+            height: 20px;
+            stroke: #9CA3AF;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            flex-shrink: 0;
+        }
+
+        /* Promotional Card */
+        .promo-card {
+            width: 100%;
+            height: 144px;
+            border-radius: 24px;
+            background: linear-gradient(135deg, #2563EB 0%, #5B3DF5 100%);
+            padding: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
+        }
+
+        .promo-content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .promo-top-label {
+            font-size: 12px;
+            font-weight: 700;
+            color: rgba(255, 255, 255, 0.85);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .promo-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .promo-subtitle {
+            font-size: 15px;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .promo-apy {
+            font-size: 16px;
+            font-weight: 700;
+            color: #FACC15;
+            margin-top: 2px;
+        }
+
+        .promo-btn {
+            height: 48px;
+            padding: 0 22px;
+            border-radius: 999px;
+            background: #FFFFFF;
+            color: #2563EB;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            white-space: nowrap;
+        }
+
+        /* Investment Card */
+        .investment-card {
+            width: 100%;
+            height: 210px;
+            border-radius: 24px;
+            background: #FFFFFF;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        . инвести-top-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .investment-header-left {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .portfolio-val {
+            font-size: 32px;
+            font-weight: 700;
+            color: #111827;
+            line-height: 38px;
+        }
+
+        .portfolio-gain {
+            font-size: 16px;
+            font-weight: 600;
+            color: #16A34A;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 2px;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 72px;
+            margin-top: 20px;
+            position: relative;
+        }
+
+        .chart-svg {
+            width: 100%;
+            height: 100%;
+            overflow: visible;
+        }
+
+        .time-filters {
+            display: flex;
+            gap: 6px;
+            margin-top: 16px;
+            background: #F3F4F6;
+            padding: 3px;
+            border-radius: 12px;
+        }
+
+        .time-tab {
+            flex: 1;
+            height: 32px;
+            border-radius: 10px;
+            background: transparent;
+            border: none;
+            font-size: 12px;
+            font-weight: 600;
+            color: #4B5563;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .time-tab.active {
+            background: #2563EB;
+            color: #FFFFFF;
+            box-shadow: 0 2px 6px rgba(37, 99, 235, 0.3);
+        }
+
+        /* Recent Activity Card */
+        .activity-card {
+            width: 100%;
+            border-radius: 20px;
+            background: #FFFFFF;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .activity-row {
+            height: 72px;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid #E5E7EB;
+        }
+
+        .activity-row:last-child {
+            border-bottom: none;
+        }
+
+        .activity-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .activity-icon-box {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: #F3F4F6;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-shrink: 0;
+        }
+
+        .activity-icon-box svg {
+            width: 20px;
+            height: 20px;
+            stroke: #374151;
+            fill: none;
+            stroke-width: 2;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .activity-details {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .merchant-name {
+            font-size: 17px;
+            font-weight: 600;
+            color: #111827;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .activity-date {
+            font-size: 14px;
+            font-weight: 400;
+            color: #6B7280;
+            margin-top: 2px;
+        }
+
+        .activity-amount {
+            font-size: 18px;
+            font-weight: 700;
+            white-space: nowrap;
+        }
+
+        .amount-negative {
+            color: #111827;
+        }
+
+        .amount-positive {
+            color: #16A34A;
+        }
+
+        /* ========================================
+           BOTTOM NAVIGATION
+           ======================================== */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            max-width: 430px;
+            height: calc(80px + env(safe-area-inset-bottom, 0px));
+            background: #FFFFFF;
+            border-top: 1px solid #E5E7EB;
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-start;
+            padding-top: 12px;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+            z-index: 1000;
+            box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.06);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: none;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            gap: 4px;
+        }
+
+        .nav-item svg {
+            width: 24px;
+            height: 24px;
+            stroke-width: 2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+
+        .nav-item.active svg {
+            stroke: #2563EB;
+        }
+
+        .nav-item.inactive svg {
+            stroke: #6B7280;
+        }
+
+        .nav-label {
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .nav-item.active .nav-label {
+            color: #2563EB;
+        }
+
+        .nav-item.inactive .nav-label {
+            color: #6B7280;
+        }
+
+        /* Spacing spacer for bottom scroll area */
+        .scroll-spacer {
+            height: 120px;
+            width: 100%;
+        }
+    </style>
 </head>
-<body class="antialiased relative selection:bg-[#2F6BFF] selection:text-white dark">
+<body>
 
-  <!-- APP SHELL CONTAINER (Strictly Centered & Aligned) -->
-  <div class="w-full max-w-[420px] mx-auto px-[16px] space-y-[20px]">
-
-    <!-- TOP HEADER -->
-    <header class="pt-[10px] flex items-center justify-between">
-      <div>
-        <div id="greetingLine1" class="text-[15px] font-normal text-white/90 leading-tight">Good Morning,</div>
-        <div id="greetingLine2" class="text-[28px] font-bold text-[#FFFFFF] tracking-tight leading-tight mt-0.5">Michele</div>
-      </div>
-
-      <div class="flex items-center gap-[10px]">
+    <div class="app-container">
         
-        <!-- Apple-Style Theme Toggle Switch -->
-        <button id="themeToggleBtn" class="relative w-[52px] h-[28px] rounded-full bg-[rgba(0,0,0,0.2)] dark:bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.25)] p-0.5 transition-colors focus:outline-none shadow-inner cursor-pointer" aria-label="Toggle Theme">
-          <div id="themeToggleThumb" class="w-[24px] h-[24px] rounded-full bg-white shadow-md transform translate-x-0 dark:translate-x-6 transition-transform flex items-center justify-center text-xs">
-            <span id="themeToggleIcon">☀️</span>
-          </div>
-        </button>
-
-        <!-- Notifications Button with Blue Badge -->
-        <button id="notifBtn" class="relative w-[40px] h-[40px] rounded-full bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.2)] flex items-center justify-center text-white hover:bg-[rgba(255,255,255,0.25)] transition-all cursor-pointer" aria-label="Notifications">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
-          <span class="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full bg-[#2563EB] text-white text-[10px] font-bold flex items-center justify-center shadow-md">3</span>
-        </button>
-
-        <!-- Messages Button -->
-        <button id="msgBtn" class="w-[40px] h-[40px] rounded-full bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.2)] flex items-center justify-center text-white hover:bg-[rgba(255,255,255,0.25)] transition-all cursor-pointer" aria-label="Messages">
-          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
-        </button>
-
-        <!-- Profile Avatar Button -->
-        <button id="profileBtn" class="w-[40px] h-[40px] rounded-full bg-[#2563EB] border border-[rgba(255,255,255,0.2)] flex items-center justify-center text-white font-bold text-base hover:opacity-90 transition-all shadow-md cursor-pointer" aria-label="Profile">
-          M
-        </button>
-
-      </div>
-    </header>
-
-    <!-- ACCOUNT STACK CONTAINER -->
-    <div class="space-y-[18px]">
-
-      <!-- ================= CHECKING SECTION ================= -->
-      <div>
-        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 mb-[6px]">CHECKING</div>
-        
-        <!-- Checking Account Card -->
-        <div id="cardChecking" class="w-full h-[72px] bg-white text-[#1E293B] rounded-[16px] px-[18px] flex items-center justify-between shadow-lg hover:bg-gray-50 transition-all cursor-pointer">
-          <div class="flex items-center gap-[14px]">
-            <div class="w-[42px] h-[42px] rounded-[12px] bg-[#003CD4] flex items-center justify-center text-white shadow-md flex-shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+        <!-- HEADER -->
+        <div class="header-section">
+            <div class="header-text-group">
+                <span class="greeting-label">Good Morning,</span>
+                <h1 class="user-name">Michele</h1>
             </div>
-            <div class="flex flex-col justify-center">
-              <div class="text-[16px] font-bold text-[#1E293B] leading-tight">Vercel Checking</div>
-              <div class="text-[13px] font-medium text-[#64748B] font-mono mt-0.5">•1964</div>
+            <div class="header-actions">
+                <button class="action-btn" aria-label="Search">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+                <button class="action-btn" aria-label="Notifications">
+                    <svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+                    <span class="notification-badge">3</span>
+                </button>
             </div>
-          </div>
-
-          <div class="flex items-center gap-[12px]">
-            <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-extrabold text-[#1E293B] tracking-tight leading-none">$24,972.09</div>
-              <div class="text-[11px] font-medium text-[#64748B] mt-1">Account Balance</div>
-            </div>
-            <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
-        </div>
-      </div>
-
-      <!-- ================= PROMO CARD ================= -->
-      <div id="promoBanner" class="w-full h-[120px] bg-gradient-to-r from-[#1E40AF] via-[#2563EB] to-[#4F46E5] rounded-[16px] px-[18px] py-[16px] text-white shadow-xl relative overflow-hidden cursor-pointer hover:opacity-95 transition-all flex flex-col justify-between">
-        <div class="flex items-start justify-between">
-          <div>
-            <div class="text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-0.5">RECOMMENDED FOR YOU</div>
-            <div class="text-[16px] font-bold leading-tight">Vercel Interest Checking</div>
-            <div class="text-[12px] text-blue-100 font-medium">Benefits That Grow</div>
-          </div>
-          <div class="text-right">
-            <div class="text-[13px] font-bold text-[#FACC15]">Up to 1.00% APY*</div>
-            <div class="text-[10px] text-blue-200">No Monthly Fees</div>
-          </div>
         </div>
 
-        <div class="flex justify-end">
-          <button id="getStartedBtn" class="h-[32px] px-[16px] rounded-full bg-white text-[#2563EB] font-bold text-[12px] shadow-md flex items-center gap-1 hover:bg-blue-50 transition-all active:scale-95">
-            <span>Get Started</span>
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </button>
+        <!-- SECTION: CHECKING -->
+        <div class="section-label">CHECKING</div>
+        <div class="card-container">
+            <div class="account-card">
+                <div class="account-left">
+                    <div class="account-icon">
+                        <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg>
+                    </div>
+                    <div class="account-info">
+                        <div class="account-title">Total Checking</div>
+                        <div class="account-number">•••• 4892</div>
+                    </div>
+                </div>
+                <div class="account-right">
+                    <div class="balance-group">
+                        <div class="account-balance">$14,850.00</div>
+                        <div class="balance-label">Available</div>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+            </div>
         </div>
-      </div>
 
-      <!-- ================= SAVINGS SECTION ================= -->
-      <div>
-        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 mb-[6px]">SAVINGS</div>
-        
-        <!-- Savings Account Card -->
-        <div id="cardSavings" class="w-full h-[72px] bg-white text-[#1E293B] rounded-[16px] px-[18px] flex items-center justify-between shadow-lg hover:bg-gray-50 transition-all cursor-pointer">
-          <div class="flex items-center gap-[14px]">
-            <div class="w-[42px] h-[42px] rounded-[12px] bg-[#16A34A] flex items-center justify-center text-white shadow-md flex-shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+        <!-- SECTION: SAVINGS -->
+        <div class="section-label">SAVINGS</div>
+        <div class="card-container">
+            <div class="account-card">
+                <div class="account-left">
+                    <div class="account-icon">
+                        <svg viewBox="0 0 24 24"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"></path></svg>
+                    </div>
+                    <div class="account-info">
+                        <div class="account-title">High Yield</div>
+                        <div class="account-number">•••• 8124</div>
+                    </div>
+                </div>
+                <div class="account-right">
+                    <div class="balance-group">
+                        <div class="account-balance">$42,390.50</div>
+                        <div class="balance-label">Balance</div>
+                    </div>
+                    <svg class="chevron-icon" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
             </div>
-            <div class="flex flex-col justify-center">
-              <div class="text-[16px] font-bold text-[#1E293B] leading-tight">Vercel Savings</div>
-              <div class="text-[13px] font-medium text-[#64748B] font-mono mt-0.5">•6543</div>
-            </div>
-          </div>
 
-          <div class="flex items-center gap-[12px]">
-            <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-extrabold text-[#1E293B] tracking-tight leading-none">$2,367.54</div>
-              <div class="text-[11px] font-medium text-[#64748B] mt-1">Account Balance</div>
+            <!-- PROMOTIONAL CARD -->
+            <div class="promo-card">
+                <div class="promo-content">
+                    <span class="promo-top-label">Vercel Earn</span>
+                    <div class="promo-title">Grow your cash</div>
+                    <div class="promo-subtitle">No lock-up period</div>
+                    <div class="promo-apy">4.85% APY</div>
+                </div>
+                <button class="promo-btn">Invest</button>
             </div>
-            <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
         </div>
-      </div>
 
-      <!-- ================= INVESTMENTS SECTION ================= -->
-      <div>
-        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 mb-[6px]">INVESTMENTS</div>
-        
-        <!-- Investment Portfolio Card (Exact Match to Screenshot) -->
-        <div id="cardInvestments" class="w-full bg-white text-[#1E293B] rounded-[16px] p-[18px] shadow-lg flex flex-col justify-between cursor-pointer hover:bg-gray-50 transition-all">
-          <div class="flex items-center justify-between mb-3">
-            <div class="flex items-center gap-[14px]">
-              <div class="w-[42px] h-[42px] rounded-[12px] bg-[#7C3AED] flex items-center justify-center text-white shadow-md flex-shrink-0">
-                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-              </div>
-              <div class="flex flex-col justify-center">
-                <div class="text-[16px] font-bold text-[#1E293B] leading-tight">Investment Portfolio</div>
-                <div class="text-[13px] font-medium text-[#64748B] font-mono mt-0.5">•7721</div>
-              </div>
-            </div>
+        <!-- SECTION: INVESTMENTS -->
+        <div class="section-label">INVESTMENTS</div>
+        <div class="card-container">
+            <div class="investment-card">
+                <div class=" инвести-top-row" style="display: flex; justify-content: space-between; align-items: flex-start; width: 100%;">
+                    <div class="investment-header-left">
+                        <div class="balance-label" style="font-size: 13px; font-weight: 500; color: #6B7280;">Portfolio Value</div>
+                        <div class="portfolio-val">$89,420.15</div>
+                        <div class="portfolio-gain">
+                            <svg style="width: 14px; height: 14px; stroke: #16A34A; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;" viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+                            +$2,140.30 (2.45%)
+                        </div>
+                    </div>
+                    <svg class="chevron-icon" style="margin-top: 4px;" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                </div>
+                
+                <!-- Chart Preview Mock -->
+                <div class="chart-container">
+                    <svg class="chart-svg" viewBox="0 0 350 72" preserveAspectRatio="none">
+                        <path d="M0,60 Q50,45 100,50 T200,30 T300,15 L350,10" fill="none" stroke="#2563EB" stroke-width="2.5" stroke-linecap="round"/>
+                        <path d="M0,60 Q50,45 100,50 T200,30 T300,15 L350,10 L350,72 L0,72 Z" fill="rgba(37,99,235,0.06)"/>
+                    </svg>
+                </div>
 
-            <div class="flex items-center gap-[12px]">
-              <div class="text-right flex flex-col justify-center">
-                <div class="text-[20px] font-extrabold text-[#1E293B] tracking-tight leading-none">$185,730.25</div>
-                <div class="text-[11px] font-medium text-[#64748B] mt-1">Total Value</div>
-              </div>
-              <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                <!-- Time Filters -->
+                <div class="time-filters">
+                    <button class="time-tab">1D</button>
+                    <button class="time-tab">1W</button>
+                    <button class="time-tab active">1M</button>
+                    <button class="time-tab">3M</button>
+                    <button class="time-tab">1Y</button>
+                    <button class="time-tab">ALL</button>
+                </div>
             </div>
-          </div>
-
-          <div class="space-y-2 pt-1 border-t border-gray-100">
-            <div class="text-[12px] font-semibold text-[#16A34A] flex items-center justify-end gap-1">
-              <span>▲ $4,250.30 (2.34%)</span> <span class="text-[#64748B] font-normal">Today</span>
-            </div>
-
-            <div class="relative h-10 w-full">
-              <svg class="absolute inset-0 w-full h-full stroke-[#7C3AED]" viewBox="0 0 400 40" fill="none" preserveAspectRatio="none">
-                <path d="M0 30 C 60 20, 120 25, 180 15 C 240 5, 320 20, 400 8" stroke-width="2" stroke-linecap="round"/>
-                <path d="M0 30 C 60 20, 120 25, 180 15 C 240 5, 320 20, 400 8 L 400 40 L 0 40 Z" fill="url(#purpleGrad)" opacity="0.15"/>
-                <defs>
-                  <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                    <stop offset="0%" stop-color="#7C3AED"/>
-                    <stop offset="100%" stop-color="#7C3AED" stop-opacity="0"/>
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-
-            <div class="flex items-center justify-between text-[11px] font-semibold text-[#64748B] pt-1">
-              <span class="hover:text-[#1E293B] cursor-pointer px-2 py-0.5 rounded">1D</span>
-              <span class="hover:text-[#1E293B] cursor-pointer px-2 py-0.5 rounded">1W</span>
-              <span class="hover:text-[#1E293B] cursor-pointer px-2 py-0.5 rounded">1M</span>
-              <span class="hover:text-[#1E293B] cursor-pointer px-2 py-0.5 rounded">3M</span>
-              <span class="bg-[#EFF6FF] text-[#2563EB] px-2.5 py-0.5 rounded-full shadow-sm font-bold">1Y</span>
-              <span class="hover:text-[#1E293B] cursor-pointer px-2 py-0.5 rounded">ALL</span>
-            </div>
-          </div>
         </div>
-      </div>
 
-      <!-- ================= CREDIT CARD SECTION ================= -->
-      <div>
-        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 mb-[6px]">CREDIT CARD</div>
-        
-        <!-- Credit Card Card -->
-        <div id="cardCredit" class="w-full h-[72px] bg-white text-[#1E293B] rounded-[16px] px-[18px] flex items-center justify-between shadow-lg hover:bg-gray-50 transition-all cursor-pointer">
-          <div class="flex items-center gap-[14px]">
-            <div class="w-[42px] h-[42px] rounded-[12px] bg-[#DC2626] flex items-center justify-center text-white shadow-md flex-shrink-0">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+        <!-- SECTION: RECENT ACTIVITY -->
+        <div class="section-label">RECENT ACTIVITY</div>
+        <div class="card-container">
+            <div class="activity-card">
+                <!-- Row 1 -->
+                <div class="activity-row">
+                    <div class="activity-left">
+                        <div class="activity-icon-box">
+                            <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg>
+                        </div>
+                        <div class="activity-details">
+                            <div class="merchant-name">Apple Store</div>
+                            <div class="activity-date">Today, 2:45 PM</div>
+                        </div>
+                    </div>
+                    <div class="activity-amount amount-negative">-$1,299.00</div>
+                </div>
+                <!-- Row 2 -->
+                <div class="activity-row">
+                    <div class="activity-left">
+                        <div class="activity-icon-box">
+                            <svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                        </div>
+                        <div class="activity-details">
+                            <div class="merchant-name">Direct Deposit - Vercel</div>
+                            <div class="activity-date">Yesterday, 9:00 AM</div>
+                        </div>
+                    </div>
+                    <div class="activity-amount amount-positive">+$4,500.00</div>
+                </div>
+                <!-- Row 3 -->
+                <div class="activity-row">
+                    <div class="activity-left">
+                        <div class="activity-icon-box">
+                            <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"></path><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path><line x1="6" y1="1" x2="6" y2="4"></line><line x1="10" y1="1" x2="10" y2="4"></line><line x1="14" y1="1" x2="14" y2="4"></line></svg>
+                        </div>
+                        <div class="activity-details">
+                            <div class="merchant-name">Blue Bottle Coffee</div>
+                            <div class="activity-date">July 28, 8:15 AM</div>
+                        </div>
+                    </div>
+                    <div class="activity-amount amount-negative">-$6.50</div>
+                </div>
             </div>
-            <div class="flex flex-col justify-center">
-              <div class="text-[16px] font-bold text-[#1E293B] leading-tight">Vercel Double Cash Card</div>
-              <div class="text-[13px] font-medium text-[#64748B] font-mono mt-0.5">•7642</div>
-            </div>
-          </div>
-
-          <div class="flex items-center gap-[12px]">
-            <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-extrabold text-[#1E293B] tracking-tight leading-none">$246.86</div>
-              <div class="text-[11px] font-medium text-[#64748B] mt-1">Account Balance</div>
-            </div>
-            <svg class="w-4 h-4 text-gray-400 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-          </div>
         </div>
-      </div>
 
-      <!-- ================= RECENT ACTIVITY SECTION ================= -->
-      <div>
-        <div class="flex items-center justify-between mb-[6px]">
-          <div class="text-[11px] font-bold tracking-[1.2px] text-white/75">RECENT ACTIVITY</div>
-          <a href="#" id="viewAllActivity" class="text-[13px] font-semibold text-white hover:underline">View All</a>
-        </div>
-        
-        <div class="w-full bg-white text-[#1E293B] rounded-[16px] p-[18px] shadow-lg divide-y divide-gray-100">
-          
-          <div class="flex items-center justify-between py-3 first:pt-0 last:pb-0">
-            <div class="flex items-center gap-[12px]">
-              <div class="w-[36px] h-[36px] rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">WF</div>
-              <div>
-                <div class="text-[14px] font-bold text-[#1E293B]">Whole Foods Market</div>
-                <div class="text-[11px] text-[#64748B]">May 31, 2025 • Debit Card</div>
-              </div>
-            </div>
-            <div class="text-[15px] font-bold text-[#1E293B]">-$89.47</div>
-          </div>
-
-          <div class="flex items-center justify-between py-3 first:pt-0 last:pb-0">
-            <div class="flex items-center gap-[12px]">
-              <div class="w-[36px] h-[36px] rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">↓</div>
-              <div>
-                <div class="text-[14px] font-bold text-[#1E293B]">Payroll Deposit</div>
-                <div class="text-[11px] text-[#64748B]">May 30, 2025 • Checking •••• 4892</div>
-              </div>
-            </div>
-            <div class="text-[15px] font-bold text-[#16A34A]">+$3,200.00</div>
-          </div>
-
-        </div>
-      </div>
+        <!-- Extra spacing buffer to ensure content never touches bottom nav -->
+        <div class="scroll-spacer"></div>
 
     </div>
 
-  </div>
+    <!-- BOTTOM NAVIGATION -->
+    <nav class="bottom-nav">
+        <button class="nav-item active" aria-label="Accounts">
+            <svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            <span class="nav-label">Accounts</span>
+        </button>
+        <button class="nav-item inactive" aria-label="Payments">
+            <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"></line><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>
+            <span class="nav-label">Payments</span>
+        </button>
+        <button class="nav-item inactive" aria-label="Invest">
+            <svg viewBox="0 0 24 24"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline><polyline points="17 6 23 6 23 12"></polyline></svg>
+            <span class="nav-label">Invest</span>
+        </button>
+        <button class="nav-item inactive" aria-label="Support">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+            <span class="nav-label">Support</span>
+        </button>
+        <button class="nav-item inactive" aria-label="Profile">
+            <svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            <span class="nav-label">Profile</span>
+        </button>
+    </nav>
 
-  <!-- FIXED BOTTOM NAVIGATION BAR -->
-  <nav class="fixed bottom-0 left-0 right-0 z-50 h-[74px] pb-[16px] bg-white dark:bg-[#07142B] border-t border-gray-200 dark:border-white/10 px-[16px] flex items-center justify-between shadow-2xl">
-    <div class="w-full max-w-[420px] mx-auto flex items-center justify-around">
-      
-      <button id="navAccounts" class="flex flex-col items-center gap-1 text-[#003CD4] dark:text-[#4F7CFF] focus:outline-none group cursor-pointer">
-        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
-        <span class="text-[11px] font-bold">Accounts</span>
-      </button>
-
-      <button id="navPayments" class="flex flex-col items-center gap-1 text-gray-400 dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
-        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
-        <span class="text-[11px] font-medium">Payments</span>
-      </button>
-
-      <button id="navServices" class="flex flex-col items-center gap-1 text-gray-400 dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
-        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
-        <span class="text-[11px] font-medium">Services</span>
-      </button>
-
-      <button id="navProfile" class="flex flex-col items-center gap-1 text-gray-400 dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
-        <svg class="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-        <span class="text-[11px] font-medium">Profile</span>
-      </button>
-
-    </div>
-  </nav>
-
-  <!-- INTERACTIVE MODAL OVERLAY -->
-  <div id="actionModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#111C33] text-gray-900 dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
-      <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-[#003CD4] dark:text-[#4F7CFF] flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
-      <h3 id="modalTitle" class="text-base font-bold">Secure Action</h3>
-      <p id="modalDesc" class="text-xs text-gray-600 dark:text-white/70 leading-relaxed">Connecting securely to your Verceil Private Banking session...</p>
-      <button id="modalCloseBtn" class="w-full py-2.5 rounded-xl bg-[#003CD4] dark:bg-[#4F7CFF] hover:opacity-90 text-white font-semibold text-xs transition-all shadow-md cursor-pointer">
-        Continue
-      </button>
-    </div>
-  </div>
-
-  <!-- REAL-TIME SUPABASE USER GREETING & INTERACTIVE SCRIPT -->
-  <script>
-    const greetingLine1 = document.getElementById('greetingLine1');
-    const greetingLine2 = document.getElementById('greetingLine2');
-    const themeToggleBtn = document.getElementById('themeToggleBtn');
-    const themeToggleIcon = document.getElementById('themeToggleIcon');
-    const notifBtn = document.getElementById('notifBtn');
-    const msgBtn = document.getElementById('msgBtn');
-    const profileBtn = document.getElementById('profileBtn');
-    const actionModal = document.getElementById('actionModal');
-    const modalTitle = document.getElementById('modalTitle');
-    const modalDesc = document.getElementById('modalDesc');
-    const modalCloseBtn = document.getElementById('modalCloseBtn');
-    const htmlElement = document.documentElement;
-
-    // Real-Time Time-Based Greeting & User Name Integration via Supabase
-    const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
-    
-    let supabaseClient = null;
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-      }
-    } catch (err) {
-      console.error('Supabase init error:', err);
-    }
-
-    async function fetchRealtimeUserAndGreeting() {
-      const now = new Date();
-      const hours = now.getHours();
-      let timeOfDay = 'Good Afternoon';
-      if (hours < 12) timeOfDay = 'Good Morning';
-      else if (hours >= 17) timeOfDay = 'Good Evening';
-
-      let userName = 'Michele';
-
-      if (supabaseClient) {
-        try {
-          const { data: { session } } = await supabaseClient.auth.getSession();
-          if (session && session.user) {
-            const meta = session.user.user_metadata;
-            if (meta && meta.first_name) {
-              userName = meta.first_name;
-            } else if (session.user.email) {
-              userName = session.user.email.split('@')[0];
-            }
-          }
-        } catch (e) {
-          console.error('Session retrieval error:', e);
-        }
-      }
-
-      greetingLine1.textContent = `${timeOfDay},`;
-      greetingLine2.textContent = userName;
-      profileBtn.textContent = userName.charAt(0).toUpperCase();
-    }
-
-    fetchRealtimeUserAndGreeting();
-
-    // Apple-Style Theme Switcher logic (Default to Light Mode matching screenshot)
-    const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
-    if (savedTheme === 'dark') {
-      htmlElement.classList.add('dark');
-      document.body.classList.add('dark');
-      themeToggleIcon.textContent = '🌙';
-    } else {
-      htmlElement.classList.remove('dark');
-      document.body.classList.remove('dark');
-      themeToggleIcon.textContent = '☀️';
-    }
-
-    themeToggleBtn.addEventListener('click', () => {
-      if (htmlElement.classList.contains('dark')) {
-        htmlElement.classList.remove('dark');
-        document.body.classList.remove('dark');
-        themeToggleIcon.textContent = '☀️';
-        localStorage.setItem('vercel_bank_theme', 'light');
-      } else {
-        htmlElement.classList.add('dark');
-        document.body.classList.add('dark');
-        themeToggleIcon.textContent = '🌙';
-        localStorage.setItem('vercel_bank_theme', 'dark');
-      }
-    });
-
-    function showModal(title, desc) {
-      modalTitle.textContent = title;
-      modalDesc.textContent = desc;
-      actionModal.classList.remove('hidden');
-    }
-
-    modalCloseBtn.addEventListener('click', () => {
-      actionModal.classList.add('hidden');
-    });
-
-    // Action button handlers
-    notifBtn.addEventListener('click', () => {
-      showModal('Security Notifications', 'You have 3 unread security alerts regarding recent account activity.');
-    });
-    msgBtn.addEventListener('click', () => {
-      showModal('Secure Messages', 'Your private wealth advisor has sent a portfolio update.');
-    });
-    profileBtn.addEventListener('click', () => {
-      showModal('Profile & Security', 'Managing multi-factor authentication, biometrics, and personal information.');
-    });
-
-    // Card click handlers
-    document.getElementById('cardChecking').addEventListener('click', () => {
-      showModal('Vercel Checking (•1964)', 'Accessing checking ledger, direct deposit settings, and statement history...');
-    });
-    document.getElementById('promoBanner').addEventListener('click', () => {
-      showModal('Interest Checking Offer', 'Opening digital onboarding for up to 1.00% APY high-yield checking account upgrade...');
-    });
-    document.getElementById('getStartedBtn').addEventListener('click', (e) => {
-      e.stopPropagation();
-      showModal('Interest Checking Upgrade', 'Initiating fast-track digital activation for your new interest-bearing account...');
-    });
-    document.getElementById('cardSavings').addEventListener('click', () => {
-      showModal('Vercel Savings (•6543)', 'Managing interest accumulation and automated savings rules...');
-    });
-    document.getElementById('cardInvestments').addEventListener('click', () => {
-      showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...');
-    });
-    document.getElementById('cardCredit').addEventListener('click', () => {
-      showModal('Vercel Double Cash Card (•7642)', 'Reviewing statement balances, cashback rewards, and payment scheduling...');
-    });
-    document.getElementById('viewAllActivity').addEventListener('click', (e) => {
-      e.preventDefault();
-      showModal('Transaction History', 'Loading full ledger history with advanced filtering and search options...');
-    });
-
-    // Bottom Navigation Handlers
-    document.getElementById('navAccounts').addEventListener('click', () => {
-      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
-    });
-    document.getElementById('navPayments').addEventListener('click', () => {
-      showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
-    });
-    document.getElementById('navServices').addEventListener('click', () => {
-      showModal('Bank Services', 'Accessing check deposits, stop payments, and card replacement requests...');
-    });
-    document.getElementById('navProfile').addEventListener('click', () => {
-      showModal('Profile & Security', 'Managing multi-factor authentication, trusted devices, and contact details...');
-    });
-  </script>
 </body>
 </html>
