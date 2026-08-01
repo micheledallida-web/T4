@@ -12,7 +12,6 @@
        SIGN-IN PAGE SPECIFIC STYLING (VERCEIL BANK BRANDED)
        ========================================================================== */
     body.signin-page {
-      /* Split background: Lighter cinematic top gradient for readability, original background bottom */
       background: 
         linear-gradient(to bottom, #1e293b 0%, #0f172a 40%, rgba(15, 23, 42, 0.4) 55%, transparent 55%),
         url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat fixed !important;
@@ -43,7 +42,6 @@
       text-align: center;
     }
 
-    /* Exact matching header logo style with bold, clean pronunciation */
     .signin-header .logo {
       display: inline-flex !important;
       flex-direction: row !important;
@@ -255,7 +253,6 @@
       stroke: currentColor;
     }
 
-    /* Original Footer styling preserved */
     .signin-footer {
       background-color: #ffffff;
       padding: 2rem 1rem;
@@ -298,9 +295,25 @@
     }
 
     .error-msg {
+      background-color: #fef2f2;
+      border: 1px solid #f87171;
       color: #ef4444;
-      font-size: 0.85rem;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
       margin-bottom: 1rem;
+      display: none;
+    }
+
+    .success-msg {
+      background-color: #ecfdf5;
+      border: 1px solid #34d399;
+      color: #059669;
+      padding: 0.75rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
       display: none;
     }
   </style>
@@ -322,6 +335,7 @@
     <div class="signin-card">
       
       <div id="errorBanner" class="error-msg"></div>
+      <div id="successBanner" class="success-msg">Successful login! Launching secure session...</div>
 
       <form id="signinForm">
         
@@ -398,20 +412,36 @@
   </footer>
 
   <script>
-    // Initialize Supabase Client
-    // Replace with your actual Supabase URL and Anon Key
+    // Initialize Supabase Client with fail-safe checks
     const SUPABASE_URL = 'https://YOUR_SUPABASE_URL.supabase.co';
     const SUPABASE_ANON_KEY = 'YOUR_SUPABASE_ANON_KEY';
-    const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    
+    let supabaseClient = null;
+    try {
+      if (window.supabase && SUPABASE_URL !== 'https://YOUR_SUPABASE_URL.supabase.co') {
+        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+      }
+    } catch (err) {
+      console.error('Supabase initialization error:', err);
+    }
 
     const signinForm = document.getElementById('signinForm');
     const errorBanner = document.getElementById('errorBanner');
+    const successBanner = document.getElementById('successBanner');
     const submitBtn = document.getElementById('submitBtn');
 
     signinForm.addEventListener('submit', async (e) => {
       e.preventDefault();
       errorBanner.style.display = 'none';
-      submitBtn.textContent = 'Signing in...';
+      successBanner.style.display = 'none';
+
+      if (!supabaseClient) {
+        errorBanner.textContent = 'Network configuration error: Please check your Supabase credentials.';
+        errorBanner.style.display = 'block';
+        return;
+      }
+
+      submitBtn.textContent = 'Authenticating...';
       submitBtn.disabled = true;
 
       const email = document.getElementById('username').value.trim();
@@ -425,14 +455,22 @@
 
         if (error) throw error;
 
-        // Redirect to dashboard upon successful login
-        window.location.href = 'dashboard.html';
+        // Show Chase-level enterprise green success state before loading dashboard
+        successBanner.style.display = 'block';
+        submitBtn.style.backgroundColor = '#059669';
+        submitBtn.textContent = 'Success! Launching...';
+
+        setTimeout(() => {
+          window.location.href = 'dashboard.html';
+        }, 800);
 
       } catch (err) {
-        errorBanner.textContent = err.message || 'Invalid login credentials.';
+        // Enforce secure enterprise grade invalid credential handling
+        errorBanner.textContent = 'Invalid login credentials.';
         errorBanner.style.display = 'block';
         submitBtn.textContent = 'Sign in';
         submitBtn.disabled = false;
+        submitBtn.style.backgroundColor = '#0044ff';
       }
     });
 
