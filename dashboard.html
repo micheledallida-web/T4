@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -36,7 +36,7 @@
       background: #003CD4;
       color: #FFFFFF;
     }
-    /* Dark Mode: Pure Dark Navy matching the second reference image completely */
+    /* Dark Mode: Pure Dark Navy */
     body.dark {
       background: #071022;
       color: #FFFFFF;
@@ -45,7 +45,7 @@
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="antialiased relative selection:bg-[#2563EB] selection:text-white dark">
+<body class="antialiased relative selection:bg-[#2563EB] selection:text-white">
 
   <!-- APP SHELL CONTAINER (Max width 430px, 16px left/right padding, centered) -->
   <div class="w-full max-w-[430px] mx-auto px-[16px]">
@@ -62,7 +62,7 @@
         <!-- Apple-Style Theme Toggle Switch -->
         <button id="themeToggleBtn" class="relative w-[48px] h-[26px] rounded-full bg-[rgba(0,0,0,0.2)] dark:bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.25)] p-0.5 transition-colors focus:outline-none shadow-inner cursor-pointer" aria-label="Toggle Theme">
           <div id="themeToggleThumb" class="w-[22px] h-[22px] rounded-full bg-white shadow-md transform translate-x-0 dark:translate-x-[22px] transition-transform flex items-center justify-center text-[10px]">
-            <span id="themeToggleIcon">🌙</span>
+            <span id="themeToggleIcon">☀️</span>
           </div>
         </button>
 
@@ -92,9 +92,8 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CHECKING</div>
         
-        <!-- Standard Account Card (Height: 84px, Radius: 18px, Padding: 16px) -->
+        <!-- Standard Account Card -->
         <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
-          <!-- Left Section (flex: 1, align-items: center) -->
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#003CD4] dark:bg-[#2563EB] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
@@ -105,7 +104,6 @@
             </div>
           </div>
 
-          <!-- Right Section (Exact fixed width alignment wrapper to match reference layout) -->
           <div class="w-[145px] flex items-center justify-end flex-shrink-0 ml-3">
             <div class="text-right flex flex-col justify-center">
               <div class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$24,850.00</div>
@@ -140,7 +138,7 @@
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">SAVINGS</div>
         
         <!-- Savings Account Card -->
-        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#16A34A] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
@@ -166,7 +164,7 @@
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">INVESTMENTS</div>
         
         <!-- Investment Portfolio Card -->
-        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
+        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
           <div class="flex items-center justify-between">
             <div class="flex items-center flex-1 min-w-0">
               <div class="w-[48px] h-[48px] rounded-[14px] bg-[#7C3AED] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -222,7 +220,7 @@
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CREDIT CARDS</div>
         
         <!-- Credit Card -->
-        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#DC2626] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
@@ -251,7 +249,7 @@
         </div>
         
         <!-- Recent Activity Container -->
-        <div class="w-full bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
+        <div class="w-full bg-white dark:bg-[#101C33] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
           
           <div class="flex items-center justify-between h-[60px] first:pt-0 last:pb-0">
             <div class="flex items-center gap-[14px]">
@@ -386,7 +384,7 @@
 
     fetchRealtimeUserAndGreeting();
 
-    // Apple-Style Theme Switcher logic (Default to Light Mode matching reference screenshot)
+    // Apple-Style Theme Switcher logic (Fixed local storage persistence and proper light/dark switching)
     const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
     if (savedTheme === 'dark') {
       htmlElement.classList.add('dark');
@@ -459,10 +457,13 @@
       showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
     });
     document.getElementById('navPayments').addEventListener('click', () => {
-      showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
+      show/Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
     });
-    document.getElementById('navServices').addEventListener('click', () => {
-      showModal('Bank Services', 'Accessing check deposits, stop payments, and card replacement requests...');
+    document.getElementById('navInvest').addEventListener('click', () => {
+      showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...');
+    });
+    document.getElementById('navSupport').addEventListener('click', () => {
+      showModal('Private Support', 'Connecting to your dedicated 24/7 concierge banking team...');
     });
     document.getElementById('navProfile').addEventListener('click', () => {
       showModal('Profile Settings', 'Managing account preferences, security credentials, and trusted devices...');
