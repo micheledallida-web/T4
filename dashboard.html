@@ -36,9 +36,9 @@
       background: #003CD4;
       color: #FFFFFF;
     }
-    /* Dark Mode: Deep Navy */
+    /* Dark Mode: Deep Navy background matching second reference image */
     body.dark {
-      background: linear-gradient(to bottom, #0E1A33 0%, #0B1426 50%, #070D1A 100%);
+      background: linear-gradient(to bottom, #071224 0%, #040A14 50%, #02050A 100%);
       background-attachment: fixed;
       color: #FFFFFF;
     }
@@ -63,7 +63,7 @@
         <!-- Apple-Style Theme Toggle Switch -->
         <button id="themeToggleBtn" class="relative w-[48px] h-[26px] rounded-full bg-[rgba(0,0,0,0.2)] dark:bg-[rgba(255,255,255,0.15)] border border-[rgba(255,255,255,0.25)] p-0.5 transition-colors focus:outline-none shadow-inner cursor-pointer" aria-label="Toggle Theme">
           <div id="themeToggleThumb" class="w-[22px] h-[22px] rounded-full bg-white shadow-md transform translate-x-0 dark:translate-x-[22px] transition-transform flex items-center justify-center text-[10px]">
-            <span id="themeToggleIcon">☀️</span>
+            <span id="themeToggleIcon">🌙</span>
           </div>
         </button>
 
@@ -94,25 +94,25 @@
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CHECKING</div>
         
         <!-- Standard Account Card (Height: 84px, Radius: 18px, Padding: 16px) -->
-        <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
-          <!-- Left Section (flex: 1, align-items: center) -->
+        <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+          <!-- Left Section -->
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#003CD4] dark:bg-[#2563EB] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
             </div>
             <div class="ml-[14px] flex flex-col justify-center min-w-0">
               <div class="text-[17px] font-semibold text-[#1E293B] dark:text-white truncate leading-tight">Vercel Checking</div>
-              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•4892</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•1964</div>
             </div>
           </div>
 
-          <!-- Right Section (Width: 120px, text-right, flex-col, align-end) -->
-          <div class="w-[120px] flex flex-col justify-center items-end flex-shrink-0 ml-3">
-            <div class="flex items-center justify-end w-full gap-1">
-              <span class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$24,850.00</span>
-              <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <!-- Right Section -->
+          <div class="flex items-center gap-[12px] flex-shrink-0 ml-3">
+            <div class="text-right flex flex-col justify-center">
+              <div class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$24,972.09</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Account Balance</div>
             </div>
-            <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Available Balance</div>
+            <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
         </div>
       </div>
@@ -123,12 +123,12 @@
           <div>
             <div class="text-[10px] font-bold uppercase tracking-wider text-blue-200 mb-0.5">RECOMMENDED FOR YOU</div>
             <div class="text-[17px] font-bold leading-tight">Vercel Interest Checking</div>
-            <div class="text-[15px] font-normal text-blue-100 mt-0.5">Earn up to <span class="text-[#FACC15] font-bold">4.00% APY</span></div>
+            <div class="text-[15px] font-normal text-blue-100 mt-0.5">Earn up to <span class="text-[#FACC15] font-bold">1.00% APY*</span></div>
           </div>
         </div>
 
         <div class="flex items-center justify-between">
-          <div class="text-[13px] font-medium text-white/85">No monthly fees</div>
+          <div class="text-[13px] font-medium text-white/85">No Monthly Fees</div>
           <button id="getStartedBtn" class="w-[140px] h-[42px] px-[16px] rounded-full bg-white text-[#2563EB] font-semibold text-[14px] shadow-md flex items-center justify-center gap-1 hover:bg-blue-50 transition-all active:scale-95">
             <span>Get Started</span>
             <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -140,24 +140,24 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">SAVINGS</div>
         
-        <!-- Savings Account Card (Same dimensions: Height 84px, Radius 18px) -->
-        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <!-- Savings Account Card -->
+        <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#16A34A] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
             </div>
             <div class="ml-[14px] flex flex-col justify-center min-w-0">
-              <div class="text-[17px] font-semibold text-[#1E293B] dark:text-white truncate leading-tight">High-Yield Savings</div>
-              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•9104</div>
+              <div class="text-[17px] font-semibold text-[#1E293B] dark:text-white truncate leading-tight">Vercel Savings</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•6543</div>
             </div>
           </div>
 
-          <div class="w-[120px] flex flex-col justify-center items-end flex-shrink-0 ml-3">
-            <div class="flex items-center justify-end w-full gap-1">
-              <span class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$112,400.50</span>
-              <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <div class="flex items-center gap-[12px] flex-shrink-0 ml-3">
+            <div class="text-right flex flex-col justify-center">
+              <div class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$2,367.54</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Account Balance</div>
             </div>
-            <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Available Balance</div>
+            <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
         </div>
       </div>
@@ -166,8 +166,8 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">INVESTMENTS</div>
         
-        <!-- Investment Portfolio Card (Height: 180px, Radius: 20px, Padding: 18px) -->
-        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
+        <!-- Investment Portfolio Card -->
+        <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
           <div class="flex items-center justify-between">
             <div class="flex items-center flex-1 min-w-0">
               <div class="w-[48px] h-[48px] rounded-[14px] bg-[#7C3AED] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -179,12 +179,12 @@
               </div>
             </div>
 
-            <div class="w-[120px] flex flex-col justify-center items-end flex-shrink-0 ml-3">
-              <div class="flex items-center justify-end w-full gap-1">
-                <span class="text-[24px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$185,730.25</span>
-                <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            <div class="flex items-center gap-[12px] flex-shrink-0 ml-3">
+              <div class="text-right flex flex-col justify-center">
+                <div class="text-[24px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$185,730.25</div>
+                <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Total Value</div>
               </div>
-              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Total Value</div>
+              <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
           </div>
 
@@ -193,7 +193,6 @@
               ▲ $4,250.30 (2.34%) <span class="text-[#6B7280] dark:text-white/60 font-normal">Today</span>
             </div>
 
-            <!-- Chart height: 52px -->
             <div class="relative h-[52px] w-full">
               <svg class="absolute inset-0 w-full h-full stroke-[#7C3AED]" viewBox="0 0 400 52" fill="none" preserveAspectRatio="none">
                 <path d="M0 40 C 60 25, 120 30, 180 18 C 240 6, 320 22, 400 10" stroke-width="2.5" stroke-linecap="round"/>
@@ -207,7 +206,6 @@
               </svg>
             </div>
 
-            <!-- Time filter buttons (28px height, 13px text) -->
             <div class="flex items-center justify-between text-[13px] font-medium text-[#6B7280] dark:text-white/70 h-[28px]">
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1D</span>
               <span class="hover:text-[#1E293B] dark:hover:text-white cursor-pointer px-2 py-0.5 rounded">1W</span>
@@ -222,26 +220,26 @@
 
       <!-- ================= CREDIT CARDS SECTION ================= -->
       <div class="mt-[22px]">
-        <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CREDIT CARDS</div>
+        <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 mb-[10px]">CREDIT CARD</div>
         
-        <!-- Credit Card (Height: 84px, Radius: 18px) -->
-        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
+        <!-- Credit Card -->
+        <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#DC2626] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
             </div>
             <div class="ml-[14px] flex flex-col justify-center min-w-0">
-              <div class="text-[17px] font-semibold text-[#1E293B] dark:text-white truncate leading-tight">Vercel Signature Card</div>
-              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•1234</div>
+              <div class="text-[17px] font-semibold text-[#1E293B] dark:text-white truncate leading-tight">Vercel Double Cash Card</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 font-mono mt-0.5">•7642</div>
             </div>
           </div>
 
-          <div class="w-[120px] flex flex-col justify-center items-end flex-shrink-0 ml-3">
-            <div class="flex items-center justify-end w-full gap-1">
-              <span class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$2,485.75</span>
-              <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          <div class="flex items-center gap-[12px] flex-shrink-0 ml-3">
+            <div class="text-right flex flex-col justify-center">
+              <div class="text-[20px] font-bold text-[#1E293B] dark:text-white tracking-tight leading-none">$246.86</div>
+              <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Account Balance</div>
             </div>
-            <div class="text-[14px] font-normal text-[#6B7280] dark:text-white/60 mt-1">Current Balance</div>
+            <svg class="w-[18px] h-[18px] text-gray-400 dark:text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
         </div>
       </div>
@@ -254,9 +252,8 @@
         </div>
         
         <!-- Recent Activity Container -->
-        <div class="w-full bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
+        <div class="w-full bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-white/10">
           
-          <!-- Row Height: 60px -->
           <div class="flex items-center justify-between h-[60px] first:pt-0 last:pb-0">
             <div class="flex items-center gap-[14px]">
               <div class="w-[34px] h-[34px] rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold text-xs">WF</div>
@@ -300,14 +297,9 @@
         <span class="text-[11px] font-medium">Payments</span>
       </button>
 
-      <button id="navInvest" class="flex flex-col items-center gap-1 text-[#6B7280] dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
-        <svg class="w-[22px] h-[22px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
-        <span class="text-[11px] font-medium">Invest</span>
-      </button>
-
-      <button id="navSupport" class="flex flex-col items-center gap-1 text-[#6B7280] dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
-        <svg class="w-[22px] h-[22px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636l3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-        <span class="text-[11px] font-medium">Support</span>
+      <button id="navServices" class="flex flex-col items-center gap-1 text-[#6B7280] dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
+        <svg class="w-[22px] h-[22px] group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path></svg>
+        <span class="text-[11px] font-medium">Services</span>
       </button>
 
       <button id="navProfile" class="flex flex-col items-center gap-1 text-[#6B7280] dark:text-white/60 hover:text-gray-700 dark:hover:text-white focus:outline-none group transition-colors cursor-pointer">
@@ -320,7 +312,7 @@
 
   <!-- INTERACTIVE MODAL OVERLAY -->
   <div id="actionModal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
-    <div class="bg-white dark:bg-[#10203D] text-[#1E293B] dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
+    <div class="bg-white dark:bg-[#0A1222] text-[#1E293B] dark:text-white border border-gray-200 dark:border-[rgba(255,255,255,0.08)] rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
       <div class="w-12 h-12 rounded-2xl bg-blue-600/20 text-[#003CD4] dark:text-[#2563EB] flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
       <h3 id="modalTitle" class="text-base font-bold">Secure Action</h3>
       <p id="modalDesc" class="text-xs text-[#6B7280] dark:text-white/70 leading-relaxed">Connecting securely to your Vercel Private Banking session...</p>
@@ -394,23 +386,19 @@
     const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
     if (savedTheme === 'dark') {
       htmlElement.classList.add('dark');
-      document.body.classList.add('dark');
       themeToggleIcon.textContent = '🌙';
     } else {
       htmlElement.classList.remove('dark');
-      document.body.classList.remove('dark');
       themeToggleIcon.textContent = '☀️';
     }
 
     themeToggleBtn.addEventListener('click', () => {
       if (htmlElement.classList.contains('dark')) {
         htmlElement.classList.remove('dark');
-        document.body.classList.remove('dark');
         themeToggleIcon.textContent = '☀️';
         localStorage.setItem('vercel_bank_theme', 'light');
       } else {
         htmlElement.classList.add('dark');
-        document.body.classList.add('dark');
         themeToggleIcon.textContent = '🌙';
         localStorage.setItem('vercel_bank_theme', 'dark');
       }
@@ -439,23 +427,23 @@
 
     // Card click handlers
     document.getElementById('cardChecking').addEventListener('click', () => {
-      showModal('Vercel Checking (•4892)', 'Accessing checking ledger, direct deposit settings, and statement history...');
+      showModal('Vercel Checking (•1964)', 'Accessing checking ledger, direct deposit settings, and statement history...');
     });
     document.getElementById('promoBanner').addEventListener('click', () => {
-      showModal('Interest Checking Offer', 'Opening digital onboarding for 4.00% APY high-yield checking account upgrade...');
+      showModal('Interest Checking Offer', 'Opening digital onboarding for 1.00% APY high-yield checking account upgrade...');
     });
     document.getElementById('getStartedBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       showModal('Interest Checking Upgrade', 'Initiating fast-track digital activation for your new interest-bearing account...');
     });
     document.getElementById('cardSavings').addEventListener('click', () => {
-      showModal('High-Yield Savings (•9104)', 'Managing high-yield interest accumulation and automated savings rules...');
+      showModal('Vercel Savings (•6543)', 'Managing interest accumulation and automated savings rules...');
     });
     document.getElementById('cardInvestments').addEventListener('click', () => {
       showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...');
     });
     document.getElementById('cardCredit').addEventListener('click', () => {
-      showModal('Vercel Signature Card (•1234)', 'Reviewing statement balances, available credit, and payment scheduling...');
+      showModal('Vercel Double Cash Card (•7642)', 'Reviewing statement balances, cashback rewards, and payment scheduling...');
     });
     document.getElementById('viewAllActivity').addEventListener('click', (e) => {
       e.preventDefault();
@@ -464,19 +452,16 @@
 
     // Bottom Navigation Handlers
     document.getElementById('navAccounts').addEventListener('click', () => {
-      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
+      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary perfectly aligned.');
     });
     document.getElementById('navPayments').addEventListener('click', () => {
       showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
     });
-    document.getElementById('navInvest').addEventListener('click', () => {
-      showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...');
-    });
-    document.getElementById('navSupport').addEventListener('click', () => {
-      showModal('Private Support', 'Connecting to your dedicated 24/7 concierge banking team...');
+    document.getElementById('navServices').addEventListener('click', () => {
+      showModal('Bank Services', 'Accessing check deposits, stop payments, and card replacement requests...');
     });
     document.getElementById('navProfile').addEventListener('click', () => {
-      showModal('Profile Settings', 'Managing account preferences, security credentials, and trusted devices...');
+      showModal('Profile & Security', 'Managing multi-factor authentication, trusted devices, and contact details...');
     });
   </script>
 </body>
