@@ -1,643 +1,795 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Verceil Bank | Online Banking Dashboard</title>
-  <link rel="stylesheet" href="index.css?v=17">
+  <title>Vercel Bank | Premium Wealth Dashboard</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brandDark: {
+              bg: '#0A0C10',
+              sidebar: '#07090D',
+              card: '#11141A',
+              border: 'rgba(255,255,255,0.08)',
+              textPrimary: '#FFFFFF',
+              textSecondary: '#A0A7B5',
+              blue: '#4F7CFF',
+              purple: '#8B5CF6',
+              green: '#22C55E',
+              red: '#EF4444'
+            },
+            brandLight: {
+              bg: '#F5F7FB',
+              sidebar: '#FFFFFF',
+              card: '#FFFFFF',
+              border: '#E6EAF2',
+              textPrimary: '#111827',
+              textSecondary: '#6B7280',
+              blue: '#2563EB',
+              purple: '#7C3AED',
+              green: '#16A34A',
+              red: '#DC2626'
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          spacing: {
+            '22': '5.5rem',
+          }
+        }
+      }
+    }
+  </script>
   <style>
-    /* ==========================================================================
-       CITI-STYLE DASHBOARD & FOOTER STYLING
-       ========================================================================== */
-    body.dashboard-page {
-      background-color: #f4f5f7;
-      color: #111827;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
+    /* Smooth Theme Transition */
+    *, *::before, *::after {
+      transition: background-color 300ms ease-in-out, border-color 300ms ease-in-out, color 300ms ease-in-out, box-shadow 300ms ease-in-out;
     }
 
-    .dashboard-container {
-      max-width: 1200px;
-      margin: 2rem auto;
-      padding: 0 1.5rem;
-      width: 100%;
-      flex: 1;
+    body {
+      font-family: 'Inter', sans-serif;
     }
 
-    .welcome-banner {
-      background: #ffffff;
-      padding: 1.75rem 2rem;
-      border-radius: 8px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-      margin-bottom: 2rem;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 1rem;
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(150, 150, 150, 0.2);
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: rgba(150, 150, 150, 0.4);
     }
 
-    .welcome-banner h1 {
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: #111827;
-      margin: 0;
-    }
-
-    .last-login {
-      font-size: 0.9rem;
-      color: #6b7280;
-    }
-
-    .accounts-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-      gap: 1.5rem;
-      margin-bottom: 2rem;
-    }
-
-    .account-card {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 1.75rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-      border-left: 4px solid #0044ff;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .account-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 1.25rem;
-    }
-
-    .account-title {
-      font-size: 1.05rem;
-      font-weight: 600;
-      color: #374151;
-    }
-
-    .account-number {
-      font-size: 0.85rem;
-      color: #9ca3af;
-    }
-
-    .account-balance {
-      font-size: 2rem;
-      font-weight: 700;
-      color: #111827;
-      margin-bottom: 1.5rem;
-    }
-
-    .account-actions {
-      display: flex;
-      gap: 1rem;
-    }
-
-    .dashboard-btn {
-      flex: 1;
-      background-color: #f3f4f6;
-      color: #0044ff;
-      border: 1px solid #d1d5db;
-      padding: 0.65rem;
-      font-size: 0.9rem;
-      font-weight: 600;
-      border-radius: 4px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      transition: all 0.2s;
-    }
-
-    .dashboard-btn:hover {
-      background-color: #0044ff;
-      color: #ffffff;
-      border-color: #0044ff;
-    }
-
-    .quick-actions-panel {
-      background: #ffffff;
-      border-radius: 8px;
-      padding: 1.75rem 2rem;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.04);
-      margin-bottom: 2rem;
-    }
-
-    .quick-actions-panel h2 {
-      font-size: 1.2rem;
-      font-weight: 700;
-      margin-bottom: 1.25rem;
-      color: #111827;
-    }
-
-    .actions-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1rem;
-    }
-
-    .action-tile {
-      background: #f9fafb;
-      border: 1px solid #e5e7eb;
-      border-radius: 6px;
-      padding: 1.25rem 1rem;
-      text-align: center;
-      cursor: pointer;
-      text-decoration: none;
-      color: #374151;
-      font-weight: 600;
-      font-size: 0.95rem;
-      transition: all 0.2s;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .action-tile svg {
-      width: 24px;
-      height: 24px;
-      stroke: #0044ff;
-    }
-
-    .action-tile:hover {
-      background: #eff6ff;
-      border-color: #bfdbfe;
-      color: #0044ff;
-    }
-
-    /* Citi-Style Footer */
-    .main-footer {
-      background-color: #1a1a1a !important;
-      color: #ffffff !important;
-      padding: 3rem 1.5rem 2rem !important;
-      font-family: inherit;
-    }
-
-    .footer-content-wrapper {
-      max-width: 1200px;
-      margin: 0 auto;
-    }
-
-    .footer-section-item {
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .footer-section-header {
-      width: 100%;
-      background: none;
-      border: none;
-      color: #ffffff;
-      font-size: 1.15rem;
-      font-weight: 700;
-      padding: 1.25rem 0;
-      text-align: left;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      cursor: pointer;
-    }
-
-    .footer-section-header svg {
-      width: 20px;
-      height: 20px;
-      stroke: currentColor;
-      transition: transform 0.3s ease;
-    }
-
-    .footer-section-header.active svg {
-      transform: rotate(180deg);
-    }
-
-    .footer-section-links {
-      display: none;
-      padding-bottom: 1.25rem;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .footer-section-links a {
-      color: #b3b3b3;
-      text-decoration: none;
-      font-size: 0.95rem;
-      transition: color 0.2s ease;
-    }
-
-    .footer-section-links a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .footer-badges-area {
-      display: flex;
-      flex-direction: column;
-      gap: 1.5rem;
-      padding: 2rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-    }
-
-    .housing-icon-container svg {
-      width: 36px;
-      height: 36px;
-      fill: #ffffff;
-    }
-
-    .app-store-badges {
-      display: flex;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .app-badge-img {
-      height: 42px;
-      width: auto;
-      object-fit: contain;
-    }
-
-    .footer-social-icons {
-      display: flex;
-      gap: 1.5rem;
-      align-items: center;
-    }
-
-    .footer-social-icons svg {
-      width: 24px;
-      height: 24px;
-      fill: #ffffff;
-      transition: opacity 0.2s;
-    }
-
-    .footer-social-icons svg:hover {
-      opacity: 0.75;
-    }
-
-    .footer-legal-section {
-      padding: 2rem 0;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-      font-size: 0.9rem;
-      color: #b3b3b3;
-    }
-
-    .footer-copyright {
-      color: #ffffff;
-      font-weight: 600;
-      margin-bottom: 1rem;
-    }
-
-    .footer-legal-links-list {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-
-    .footer-legal-links-list a {
-      color: #b3b3b3;
-      text-decoration: none;
-    }
-
-    .footer-legal-links-list a:hover {
-      color: #ffffff;
-      text-decoration: underline;
-    }
-
-    .footer-disclosures {
-      padding-top: 2rem;
-      font-size: 0.8rem;
-      color: #8c8c8c;
-      line-height: 1.5;
-    }
-
-    .footer-disclosures h5 {
-      color: #ffffff;
-      font-size: 0.9rem;
-      font-weight: 700;
-      margin-bottom: 0.75rem;
+    /* Ambient Blue Glow Effect for Dark Mode */
+    .dark .ambient-glow {
+      position: absolute;
+      top: -100px;
+      left: 20%;
+      width: 600px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(79, 124, 255, 0.07) 0%, rgba(10, 12, 16, 0) 70%);
+      pointer-events: none;
+      z-index: 0;
     }
   </style>
   <!-- Include Supabase JS SDK CDN -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="dashboard-page">
+<body class="bg-brandLight-bg dark:bg-brandDark-bg text-brandLight-textPrimary dark:text-brandDark-textPrimary antialiased min-h-screen flex flex-col selection:bg-blue-500 selection:text-white">
 
-  <!-- MOBILE MENU BACKDROP OVERLAY -->
-  <div class="menu-backdrop" id="menuBackdrop"></div>
+  <!-- Ambient Glow in Dark Mode -->
+  <div class="ambient-glow"></div>
 
-  <!-- MAIN NAVIGATION -->
-  <header class="main-header">
-    <div class="container nav-container">
+  <!-- APP SHELL CONTAINER -->
+  <div class="flex min-h-screen relative z-10">
+
+    <!-- SIDEBAR (Desktop Fixed 280px) -->
+    <aside id="sidebar" class="fixed inset-y-0 left-0 z-50 w-[280px] bg-brandLight-sidebar dark:bg-brandDark-sidebar border-r border-brandLight-border dark:border-brandDark-border flex flex-col transition-transform duration-300 -translate-x-full lg:translate-x-0">
       
-      <!-- Hamburger Menu (Left) -->
-      <button class="mobile-menu-toggle" id="mobileMenuToggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-
-      <!-- Logo with geometric mark brought closer -->
-      <a href="index.html" class="logo" style="gap: 0.05rem !important;">
-        <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.05rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
-        <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.02rem !important;">
-      </a>
-      
-      <!-- Slide-Out Scrollable Side Drawer Menu -->
-      <nav class="nav-links" id="navLinks">
-        <div class="drawer-header">
-          <a href="index.html" class="logo drawer-logo" style="gap: 0.05rem !important;">
-            <span class="logo-text"><span class="logo-accent" style="color: #000000; font-weight: 900; margin-right: 0.05rem;">VERCEIL</span><span class="logo-main" style="color: #0044ff; font-weight: 900;">BANK</span></span>
-            <img src="logo.png" alt="Verceil Bank" class="logo-image" style="margin-left: 0.02rem !important;">
-          </a>
-          <button class="close-drawer" id="closeDrawerBtn" aria-label="Close menu">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
-          </button>
-        </div>
-
-        <div class="drawer-search">
-          <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <input type="text" placeholder="Search">
-        </div>
-
-        <div class="drawer-items">
-          <a href="#" class="nav-link">Accounts Summary <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#" class="nav-link">Transfer & Pay <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#" class="nav-link">Investments <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          <a href="#" class="nav-link">Profile & Settings <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-          
-          <div class="drawer-category">Connect with us</div>
-          <a href="#" class="nav-link">Customer service <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></a>
-
-          <div class="drawer-bottom-action">
-            <a href="#" id="signOutDrawerBtn" class="nav-link" style="color: #ef4444; font-weight: 700;">Sign Out</a>
+      <!-- Sidebar Logo Header -->
+      <div class="h-20 px-6 flex items-center justify-between border-b border-brandLight-border dark:border-brandDark-border">
+        <a href="#" class="flex items-center gap-3 group">
+          <div class="w-9 h-9 rounded-xl bg-blue-600 dark:bg-blue-500 flex items-center justify-center text-white font-black shadow-lg shadow-blue-500/30 group-hover:scale-105 transition-transform">
+            V
           </div>
-        </div>
-      </nav>
-
-      <!-- Sign Out Action -->
-      <div class="nav-actions">
-        <button id="signOutBtn" class="btn btn-primary" style="background-color: #ef4444 !important; border: none; cursor: pointer;">Sign out</button>
-      </div>
-    </div>
-  </header>
-
-  <!-- DASHBOARD MAIN CONTENT -->
-  <main class="dashboard-container">
-    <div class="welcome-banner">
-      <div>
-        <h1 id="welcomeTitle">Welcome back, Valued Client</h1>
-        <p class="last-login">Last login: Today, 12:02 AM WAT from trusted device</p>
-      </div>
-      <span style="background: #e0e7ff; color: #3730a3; padding: 0.4rem 0.8rem; border-radius: 20px; font-size: 0.85rem; font-weight: 600;">Secure Session Active</span>
-    </div>
-
-    <!-- ACCOUNTS SUMMARY GRID -->
-    <div class="accounts-grid">
-      <div class="account-card">
-        <div>
-          <div class="account-card-header">
-            <span class="account-title">Verceil Checking</span>
-            <span class="account-number">...4892</span>
+          <div class="flex flex-col">
+            <span class="text-xs font-bold tracking-widest text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase">Vercel</span>
+            <span class="text-base font-black tracking-tight text-brandLight-textPrimary dark:text-brandDark-textPrimary">BANK</span>
           </div>
-          <div class="account-balance">$24,850.00</div>
-        </div>
-        <div class="account-actions">
-          <a href="#" class="dashboard-btn">View Details</a>
-          <a href="#" class="dashboard-btn">Transfer</a>
-        </div>
-      </div>
-
-      <div class="account-card" style="border-left-color: #10b981;">
-        <div>
-          <div class="account-card-header">
-            <span class="account-title">High-Yield Savings</span>
-            <span class="account-number">...9104</span>
-          </div>
-          <div class="account-balance">$112,400.50</div>
-        </div>
-        <div class="account-actions">
-          <a href="#" class="dashboard-btn">View Details</a>
-          <a href="#" class="dashboard-btn">Deposit</a>
-        </div>
-      </div>
-
-      <div class="account-card" style="border-left-color: #f59e0b;">
-        <div>
-          <div class="account-card-header">
-            <span class="account-title">Self-Directed Investing</span>
-            <span class="account-number">...3321</span>
-          </div>
-          <div class="account-balance">$45,120.80</div>
-        </div>
-        <div class="account-actions">
-          <a href="#" class="dashboard-btn">Trade</a>
-          <a href="#" class="dashboard-btn">Portfolio</a>
-        </div>
-      </div>
-    </div>
-
-    <!-- QUICK ACTIONS PANEL -->
-    <div class="quick-actions-panel">
-      <h2>Quick Actions</h2>
-      <div class="actions-grid">
-        <a href="#" class="action-tile">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
-          Transfer Funds
         </a>
-        <a href="#" class="action-tile">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+        <button id="closeSidebarMobile" class="lg:hidden p-2 rounded-lg text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:bg-gray-100 dark:hover:bg-gray-800">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex-1 overflow-y-auto px-4 py-6 space-y-1.5">
+        
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl bg-blue-600 text-white font-semibold text-sm shadow-md shadow-blue-500/20">
+          <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+          Dashboard
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+          Accounts
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+          Transfers
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l6-6m-5.5.5h.01m4.99 5h.01M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16l4-2 4 2 4-2 4 2z"></path></svg>
+          Payments
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
           Pay Bills
         </a>
-        <a href="#" class="action-tile">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+          Credit Cards
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+          Investments
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path></svg>
+          Portfolio
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
           Statements
         </a>
-        <a href="#" class="action-tile">
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4"></path></svg>
+          Mailbox
+        </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
           Support
         </a>
+
+        <a href="#" class="flex items-center gap-3.5 px-4 py-3 rounded-xl text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary hover:bg-blue-50/50 dark:hover:bg-blue-950/20 font-medium text-sm transition-all group">
+          <svg class="w-5 h-5 text-gray-400 group-hover:text-blue-500 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+          Settings
+        </a>
+
       </div>
+
+      <!-- Sidebar Bottom Promotional Card ("Refer & Earn") -->
+      <div class="p-4 mx-4 mb-6 rounded-2xl bg-blue-50/80 dark:bg-blue-950/30 border border-blue-200/50 dark:border-blue-900/40 flex flex-col items-start">
+        <div class="w-10 h-10 rounded-xl bg-blue-600 text-white flex items-center justify-center mb-3 shadow-md shadow-blue-500/20">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v13m0-13V6a2 2 0 112 2h-2zm0 0V5.5A2.5 2.5 0 109.5 8H12zm-7 4h14M5 12a2 2 0 110-4h14a2 2 0 110 4M5 12v7a2 2 0 002 2h10a2 2 0 002-2v-7"></path></svg>
+        </div>
+        <h4 class="text-sm font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary mb-1">Refer & Earn</h4>
+        <p class="text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-3 leading-relaxed">Invite friends and earn $100 for each successful account upgrade.</p>
+        <button class="w-full py-2.5 px-4 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-semibold text-xs shadow-lg shadow-blue-500/25 transition-all transform active:scale-95">
+          Invite Friends
+        </button>
+      </div>
+
+    </aside>
+
+    <!-- MAIN WRAPPER (Fluid content with 280px left margin on desktop) -->
+    <div class="flex-1 flex flex-col lg:pl-[280px] min-w-0">
+
+      <!-- TOP HEADER (80px height) -->
+      <header class="h-20 bg-brandLight-card/80 dark:bg-brandDark-card/80 backdrop-blur-xl border-b border-brandLight-border dark:border-brandDark-border sticky top-0 z-40 px-4 sm:px-8 flex items-center justify-between gap-4">
+        
+        <!-- Left: Mobile Toggle & Search Trigger -->
+        <div class="flex items-center gap-4 flex-1 max-w-xl">
+          <button id="openSidebarMobile" class="lg:hidden p-2.5 rounded-xl bg-gray-100 dark:bg-gray-800 text-brandLight-textSecondary dark:text-brandDark-textSecondary">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+          </button>
+          
+          <div class="relative w-full hidden sm:block">
+            <span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-gray-400">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </span>
+            <input type="text" placeholder="Search transactions, investments, payees..." class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-xs sm:text-sm text-brandLight-textPrimary dark:text-brandDark-textPrimary focus:outline-none focus:ring-2 focus:ring-blue-500 transition-all placeholder:text-gray-400">
+          </div>
+        </div>
+
+        <!-- Right: Actions, Profile & Theme Toggle -->
+        <div class="flex items-center gap-3 sm:gap-4">
+          
+          <!-- Notifications -->
+          <button class="relative p-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-blue-500 transition-colors">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
+            <span class="absolute top-2 right-2 w-2 h-2 rounded-full bg-blue-600 animate-pulse"></span>
+          </button>
+
+          <!-- Messages -->
+          <button class="hidden sm:flex p-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-blue-500 transition-colors">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
+          </button>
+
+          <!-- Security Shield -->
+          <div class="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200/50 dark:border-emerald-900/40 text-emerald-600 dark:text-emerald-400 text-xs font-semibold">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            <span>Secured</span>
+          </div>
+
+          <!-- Apple-Style Theme Toggle -->
+          <button id="themeToggle" class="p-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary transition-all transform active:scale-90" aria-label="Toggle Theme">
+            <!-- Sun icon for dark mode -->
+            <svg id="themeIconSun" class="w-5 h-5 hidden dark:block text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <!-- Moon icon for light mode -->
+            <svg id="themeIconMoon" class="w-5 h-5 block dark:hidden text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path></svg>
+          </button>
+
+          <!-- Profile Avatar & Dropdown info -->
+          <div class="flex items-center gap-3 pl-2 border-l border-brandLight-border dark:border-brandDark-border">
+            <div class="relative">
+              <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="Michele" class="w-10 h-10 rounded-xl object-cover ring-2 ring-blue-500/30">
+              <span class="absolute bottom-0 right-0 w-3 h-3 rounded-full bg-emerald-500 border-2 border-brandLight-card dark:border-brandDark-card"></span>
+            </div>
+            <div class="hidden xl:block text-left">
+              <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Michele Vance</div>
+              <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Today, 12:02 AM WAT</div>
+            </div>
+          </div>
+
+        </div>
+
+      </header>
+
+      <!-- CONTENT AREA (1440px Centered Container, 24px gaps) -->
+      <main class="flex-1 max-w-[1440px] w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6">
+
+        <!-- WELCOME SECTION (Hero Card with subtle blue gradient) -->
+        <section class="relative overflow-hidden rounded-[20px] bg-gradient-to-r from-blue-600 via-blue-700 to-indigo-800 p-6 sm:p-8 text-white shadow-xl shadow-blue-600/20">
+          <!-- Background geometric pattern -->
+          <div class="absolute -right-10 -bottom-10 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+          
+          <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
+            <div>
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/20 border border-emerald-400/30 text-emerald-300 text-xs font-semibold mb-3">
+                <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                <span>Secure Session Active</span>
+              </div>
+              <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-1">Welcome back, Michele</h1>
+              <p class="text-blue-100 text-sm font-medium">Here’s your complete financial overview across all linked private portfolios.</p>
+            </div>
+            
+            <div class="flex items-center gap-3">
+              <button class="px-5 py-3 rounded-xl bg-white text-blue-600 hover:bg-blue-50 font-bold text-xs sm:text-sm shadow-lg shadow-black/10 transition-all transform active:scale-95">
+                Quick Transfer
+              </button>
+              <button class="px-5 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-xs sm:text-sm border border-white/20 backdrop-blur-md transition-all transform active:scale-95">
+                Download Statement
+              </button>
+            </div>
+          </div>
+        </section>
+
+        <!-- ACCOUNT SUMMARY GRID (4 Equal Premium Cards) -->
+        <section class="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-6">
+          
+          <!-- CHECKING CARD -->
+          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-blue-600"></div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </button>
+              </div>
+              <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Vercel Checking</div>
+              <div class="text-xs text-gray-400 mb-3 font-mono">****4892</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandLight-textPrimary dark:text-brandDark-textPrimary tracking-tight mb-2">$24,850.00</div>
+              <div class="text-xs font-medium text-blue-600 dark:text-blue-400 mb-6">Available Balance</div>
+            </div>
+            <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-blue-50 dark:hover:bg-blue-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-blue-600 dark:hover:text-blue-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-600 text-blue-600 dark:text-blue-400 hover:text-white text-xs font-semibold transition-colors">Transfer</a>
+            </div>
+          </div>
+
+          <!-- SAVINGS CARD -->
+          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-emerald-500"></div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </button>
+              </div>
+              <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">High-Yield Savings</div>
+              <div class="text-xs text-gray-400 mb-3 font-mono">****9104</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandLight-textPrimary dark:text-brandDark-textPrimary tracking-tight mb-2">$112,400.50</div>
+              <div class="text-xs font-medium text-emerald-600 dark:text-emerald-400 mb-6">Available Balance</div>
+            </div>
+            <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-emerald-50 dark:hover:bg-emerald-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-emerald-600 dark:hover:text-emerald-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-600 text-emerald-600 dark:text-emerald-400 hover:text-white text-xs font-semibold transition-colors">Deposit</a>
+            </div>
+          </div>
+
+          <!-- INVESTMENT ACCOUNT CARD -->
+          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-purple-600"></div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"></path></svg>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </button>
+              </div>
+              <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Investment Account</div>
+              <div class="text-xs text-gray-400 mb-3 font-mono">****7721</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandLight-textPrimary dark:text-brandDark-textPrimary tracking-tight mb-1">$185,730.25</div>
+              <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mb-6 flex items-center gap-1">
+                <span>▲ $4,250.30 (2.34%)</span>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-purple-50 dark:hover:bg-purple-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-purple-600 dark:hover:text-purple-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-purple-50 dark:bg-purple-950/40 hover:bg-purple-600 text-purple-600 dark:text-purple-400 hover:text-white text-xs font-semibold transition-colors">Invest</a>
+            </div>
+          </div>
+
+          <!-- CREDIT CARD -->
+          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm hover:shadow-md transition-all relative overflow-hidden flex flex-col justify-between group">
+            <div class="absolute top-0 left-0 w-1.5 h-full bg-red-600"></div>
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <div class="w-10 h-10 rounded-xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center font-bold">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+                </div>
+                <button class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                  <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="1"></circle><circle cx="12" cy="5" r="1"></circle><circle cx="12" cy="19" r="1"></circle></svg>
+                </button>
+              </div>
+              <div class="text-xs font-bold text-brandLight-textSecondary dark:text-brandDark-textSecondary uppercase tracking-wider mb-1">Vercel Signature Card</div>
+              <div class="text-xs text-gray-400 mb-3 font-mono">****1234</div>
+              <div class="text-2xl sm:text-3xl font-extrabold text-brandLight-textPrimary dark:text-brandDark-textPrimary tracking-tight mb-1">$2,485.75</div>
+              <div class="text-xs font-medium text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-6">Avail. Credit: <span class="text-emerald-500 font-bold">$17,514.25</span></div>
+            </div>
+            <div class="flex items-center gap-2 pt-4 border-t border-brandLight-border dark:border-brandDark-border">
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-gray-50 dark:bg-gray-800/50 hover:bg-red-50 dark:hover:bg-red-950/30 text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:text-red-600 dark:hover:text-red-400 text-xs font-semibold transition-colors">View Details</a>
+              <a href="#" class="flex-1 py-2 text-center rounded-xl bg-red-50 dark:bg-red-950/40 hover:bg-red-600 text-red-600 dark:text-red-400 hover:text-white text-xs font-semibold transition-colors">Pay Bill</a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- QUICK ACTIONS HORIZONTAL GRID -->
+        <section class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm">
+          <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary mb-4">Quick Actions</h3>
+          <div class="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-4">
+            
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Transfer</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Pay Bills</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-purple-50 dark:bg-purple-950/40 text-purple-600 dark:text-purple-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><circle cx="12" cy="13" r="3"></circle></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Deposit Check</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 dark:text-blue-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Send Money</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/40 text-amber-600 dark:text-amber-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Wire Transfer</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect><line x1="1" y1="10" x2="23" y2="10"></line></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Manage Cards</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3m0 0v3m0-3h3m-3 0H9m12 0a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Add Account</span>
+            </a>
+
+            <a href="#" class="flex flex-col items-center justify-center p-4 rounded-2xl bg-brandLight-bg dark:bg-brandDark-bg hover:bg-blue-50 dark:hover:bg-blue-950/30 border border-brandLight-border dark:border-brandDark-border hover:border-blue-500/30 transition-all group">
+              <div class="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/40 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mb-2.5 group-hover:scale-110 transition-transform">
+                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+              </div>
+              <span class="text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary text-center">Statements</span>
+            </a>
+
+          </div>
+        </section>
+
+        <!-- MAIN ANALYTICS & TRANSACTIONS SECTION (Multi-column Grid) -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- LEFT: RECENT TRANSACTIONS (Span 1 or 2 depending on layout) -->
+          <div class="lg:col-span-1 rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-6">
+                <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Recent Transactions</h3>
+                <a href="#" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline">View All</a>
+              </div>
+
+              <div class="space-y-4">
+                
+                <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-sm">🛒</div>
+                    <div>
+                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Whole Foods</div>
+                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Today • Apple Pay</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$89.47</div>
+                    <div class="text-[10px] text-gray-400">Completed</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 flex items-center justify-center font-bold text-sm">💼</div>
+                    <div>
+                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Payroll Deposit</div>
+                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Yesterday • ACH Direct</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-bold text-emerald-600 dark:text-emerald-400">+$3,200.00</div>
+                    <div class="text-[10px] text-gray-400">Completed</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-sm">📦</div>
+                    <div>
+                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Amazon</div>
+                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Jul 28 • Signature Card</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$54.99</div>
+                    <div class="text-[10px] text-gray-400">Completed</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between pb-3.5 border-b border-brandLight-border dark:border-brandDark-border">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-950/40 text-blue-600 flex items-center justify-center font-bold text-sm">🔄</div>
+                    <div>
+                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Transfer to Savings</div>
+                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Jul 27 • Auto-Save</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$500.00</div>
+                    <div class="text-[10px] text-gray-400">Completed</div>
+                  </div>
+                </div>
+
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-xl bg-gray-100 dark:bg-gray-800 flex items-center justify-center font-bold text-sm">🎵</div>
+                    <div>
+                      <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Spotify</div>
+                      <div class="text-[10px] text-brandLight-textSecondary dark:text-brandDark-textSecondary">Jul 25 • Subscription</div>
+                    </div>
+                  </div>
+                  <div class="text-right">
+                    <div class="text-xs font-bold text-red-600 dark:text-red-400">-$9.99</div>
+                    <div class="text-[10px] text-gray-400">Completed</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            
+            <div class="pt-4 mt-4 border-t border-brandLight-border dark:border-brandDark-border">
+              <button class="w-full py-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border hover:border-blue-500 text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary transition-colors">
+                View All Transactions
+              </button>
+            </div>
+          </div>
+
+          <!-- CENTER: INVESTMENT OVERVIEW & PERFORMANCE CHART -->
+          <div class="lg:col-span-2 rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+                <div>
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Investment Overview</h3>
+                    <a href="#" class="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:underline lg:hidden">View Dashboard</a>
+                  </div>
+                  <div class="text-2xl sm:text-3xl font-black text-brandLight-textPrimary dark:text-brandDark-textPrimary mt-1">$185,730.25</div>
+                  <div class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 mt-0.5">▲ $4,250.30 (2.34% Today)</div>
+                </div>
+                
+                <!-- Time Filters -->
+                <div class="flex items-center bg-brandLight-bg dark:bg-brandDark-bg p-1 rounded-xl border border-brandLight-border dark:border-brandDark-border self-start">
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1D</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1W</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">1M</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">3M</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold bg-blue-600 text-white shadow-sm">1Y</button>
+                  <button class="px-3 py-1 rounded-lg text-xs font-semibold text-brandLight-textSecondary dark:text-brandDark-textSecondary hover:text-brandLight-textPrimary dark:hover:text-brandDark-textPrimary">ALL</button>
+                </div>
+              </div>
+
+              <!-- Large Purple Performance Chart Mockup -->
+              <div class="h-48 w-full bg-purple-500/5 dark:bg-purple-950/20 border border-purple-500/10 rounded-2xl p-4 relative flex items-end justify-between gap-2 mb-6">
+                <!-- SVG Waveform / Line Chart -->
+                <svg class="absolute inset-0 w-full h-full p-4 stroke-purple-600 dark:stroke-purple-400" viewBox="0 0 500 150" fill="none" preserveAspectRatio="none">
+                  <path d="M0 120 C 80 90, 150 110, 230 60 C 310 10, 400 40, 500 20" stroke-width="3" stroke-linecap="round"/>
+                  <path d="M0 120 C 80 90, 150 110, 230 60 C 310 10, 400 40, 500 20 L 500 150 L 0 150 Z" fill="url(#purpleGrad)" opacity="0.15"/>
+                  <defs>
+                    <linearGradient id="purpleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                      <stop offset="0%" stop-color="#8B5CF6" />
+                      <stop offset="100%" stop-color="#8B5CF6" stop-opacity="0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+                <div class="absolute bottom-4 left-4 text-[10px] font-bold text-purple-600 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/40 px-2 py-1 rounded-lg">Live Performance Feed</div>
+              </div>
+
+              <!-- Top Holdings & Allocations -->
+              <div>
+                <h4 class="text-xs font-bold uppercase tracking-wider text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-3">Top Holdings & Allocation</h4>
+                <div class="grid grid-cols-2 sm:grid-cols-5 gap-3">
+                  
+                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
+                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Apple</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">28.4%</div>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
+                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Microsoft</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">22.1%</div>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
+                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">NVIDIA</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">18.5%</div>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border">
+                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">S&P 500 ETF</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">16.2%</div>
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border col-span-2 sm:col-span-1">
+                    <div class="text-xs font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary truncate">Tesla</div>
+                    <div class="text-[10px] text-blue-600 dark:text-blue-400 font-semibold">14.8%</div>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-6 border-t border-brandLight-border dark:border-brandDark-border flex justify-between items-center">
+              <span class="text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary">Managed by Vercel Private Wealth</span>
+              <a href="#" class="text-xs font-bold text-blue-600 dark:text-blue-400 hover:underline">View Full Portfolio &rarr;</a>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- SECONDARY GRID: SPENDING INSIGHTS & WEALTH MANAGEMENT PROMO -->
+        <section class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+          
+          <!-- SPENDING INSIGHTS DONUT CHART -->
+          <div class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 shadow-sm flex flex-col justify-between">
+            <div>
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">Spending Insights</h3>
+                <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-1 rounded-lg">-4.2% vs last mo</span>
+              </div>
+              
+              <!-- Donut representation mockup -->
+              <div class="flex items-center justify-center my-6">
+                <div class="w-36 h-36 rounded-full border-8 border-blue-600 border-t-purple-500 border-r-emerald-500 border-b-amber-500 flex items-center justify-center relative shadow-inner">
+                  <div class="text-center">
+                    <div class="text-[10px] text-gray-400 font-bold uppercase">Total Spent</div>
+                    <div class="text-lg font-black text-brandLight-textPrimary dark:text-brandDark-textPrimary">$2,840</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Categories breakdown -->
+              <div class="space-y-2.5">
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>Dining</span>
+                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">35% ($994)</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-purple-500"></span>Shopping</span>
+                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">25% ($710)</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>Transportation</span>
+                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">18% ($511)</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-amber-500"></span>Entertainment</span>
+                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">12% ($340)</span>
+                </div>
+                <div class="flex items-center justify-between text-xs">
+                  <span class="flex items-center gap-2 text-brandLight-textSecondary dark:text-brandDark-textSecondary"><span class="w-2.5 h-2.5 rounded-full bg-red-500"></span>Healthcare & Other</span>
+                  <span class="font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary">10% ($285)</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="pt-4 mt-6 border-t border-brandLight-border dark:border-brandDark-border">
+              <a href="#" class="block text-center w-full py-2.5 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary hover:border-blue-500 transition-colors">View Budget Analytics</a>
+            </div>
+          </div>
+
+          <!-- WEALTH MANAGEMENT CARD (Promotional Gradient Card) -->
+          <div class="lg:col-span-2 rounded-[20px] bg-gradient-to-br from-blue-600 via-indigo-700 to-purple-800 p-8 text-white shadow-xl shadow-indigo-600/20 relative overflow-hidden flex flex-col justify-between">
+            <div class="absolute right-0 top-0 w-96 h-96 bg-white/10 rounded-full blur-3xl pointer-events-none"></div>
+            
+            <div class="relative z-10 max-w-lg">
+              <span class="inline-block px-3 py-1 rounded-full bg-white/20 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider mb-4">Vercel Private Client</span>
+              <h3 class="text-2xl sm:text-3xl font-extrabold tracking-tight mb-3">Grow your wealth with Vercel Bank</h3>
+              <p class="text-blue-100 text-sm leading-relaxed mb-6">Explore advanced investment strategies, custom retirement planning, tax-loss harvesting, and personalized portfolio management from dedicated private wealth advisors.</p>
+              
+              <div class="flex flex-wrap items-center gap-4">
+                <button class="px-6 py-3 rounded-xl bg-white text-blue-600 font-bold text-sm shadow-lg hover:bg-blue-50 transition-all transform active:scale-95">
+                  Explore Investments
+                </button>
+                <button class="px-6 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 backdrop-blur-md transition-all">
+                  Schedule Advisor Call
+                </button>
+              </div>
+            </div>
+
+            <div class="relative z-10 pt-6 mt-8 border-t border-white/20 flex flex-wrap items-center justify-between gap-4 text-xs font-medium text-blue-100">
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Dedicated Advisor</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Fiduciary Standard</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg class="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="3"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
+                <span>Custom Asset Allocation</span>
+              </div>
+            </div>
+          </div>
+
+        </section>
+
+        <!-- SECURITY CENTER (Full-width Bottom Card) -->
+        <section class="rounded-[20px] bg-brandLight-card dark:bg-brandDark-card border border-brandLight-border dark:border-brandDark-border p-6 sm:p-8 shadow-sm flex flex-col md:flex-row items-center justify-between gap-6">
+          <div class="flex items-start gap-4">
+            <div class="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold flex-shrink-0">
+              <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+            </div>
+            <div>
+              <h3 class="text-base font-bold text-brandLight-textPrimary dark:text-brandDark-textPrimary mb-1">Security Center & Protection</h3>
+              <p class="text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary mb-3">Your private banking environment is safeguarded by military-grade security protocols.</p>
+              
+              <div class="flex flex-wrap items-center gap-3 sm:gap-6 text-xs font-semibold text-brandLight-textPrimary dark:text-brandDark-textPrimary">
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> 2FA Enabled</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Biometric Login Active</span>
+                <span class="flex items-center gap-1.5"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Fraud Monitoring 24/7</span>
+              </div>
+            </div>
+          </div>
+
+          <button class="px-6 py-3 rounded-xl bg-brandLight-bg dark:bg-brandDark-bg border border-brandLight-border dark:border-brandDark-border hover:border-blue-500 text-brandLight-textPrimary dark:text-brandDark-textPrimary font-semibold text-xs transition-colors flex-shrink-0">
+            Manage Security Settings
+          </button>
+        </section>
+
+      </main>
+
+      <!-- FOOTER -->
+      <footer class="bg-brandLight-card dark:bg-brandDark-card border-t border-brandLight-border dark:border-brandDark-border py-8 px-6 sm:px-8 mt-12 text-center text-xs text-brandLight-textSecondary dark:text-brandDark-textSecondary">
+        <div class="max-w-[1440px] mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>© 2026 Vercel Bank, N.A. Member FDIC. Equal Housing Lender.</div>
+          <div class="flex items-center gap-6">
+            <a href="#" class="hover:underline">Privacy Policy</a>
+            <a href="#" class="hover:underline">Terms of Service</a>
+            <a href="#" class="hover:underline">Security Disclosures</a>
+            <a href="#" class="hover:underline">Support</a>
+          </div>
+        </div>
+      </footer>
+
     </div>
-  </main>
 
-  <!-- CITI-STYLE ACCORDION FOOTER -->
-  <footer class="main-footer">
-    <div class="footer-content-wrapper">
-      
-      <!-- Accordion Section 1 -->
-      <div class="footer-section-item">
-        <button class="footer-section-header">
-          <span>Why Verceil</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="footer-section-links">
-          <a href="#">Our Story</a>
-          <a href="#">Security & Trust</a>
-          <a href="#">Verceil Community</a>
-        </div>
-      </div>
+  </div>
 
-      <!-- Accordion Section 2 -->
-      <div class="footer-section-item">
-        <button class="footer-section-header">
-          <span>Wealth Management</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="footer-section-links">
-          <a href="#">Investing Accounts</a>
-          <a href="#">Retirement Planning</a>
-          <a href="#">Advisory Services</a>
-        </div>
-      </div>
+  <!-- MOBILE SIDEBAR BACKDROP -->
+  <div id="sidebarBackdrop" class="fixed inset-0 bg-black/50 z-40 hidden lg:hidden backdrop-blur-sm transition-opacity"></div>
 
-      <!-- Accordion Section 3 -->
-      <div class="footer-section-item">
-        <button class="footer-section-header">
-          <span>Business Banking</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="footer-section-links">
-          <a href="#">Business Checking</a>
-          <a href="#">Commercial Loans</a>
-          <a href="#">Merchant Services</a>
-        </div>
-      </div>
-
-      <!-- Accordion Section 4 -->
-      <div class="footer-section-item">
-        <button class="footer-section-header">
-          <span>Rates</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="footer-section-links">
-          <a href="#">Savings Rates</a>
-          <a href="#">Mortgage & HELOC Rates</a>
-          <a href="#">Credit Card APRs</a>
-        </div>
-      </div>
-
-      <!-- Accordion Section 5 -->
-      <div class="footer-section-item">
-        <button class="footer-section-header">
-          <span>Help & Support</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
-        </button>
-        <div class="footer-section-links">
-          <a href="#">Customer Service</a>
-          <a href="#">Schedule a Meeting</a>
-          <a href="#">FAQs</a>
-        </div>
-      </div>
-
-      <!-- Badges, Equal Housing & Socials Area -->
-      <div class="footer-badges-area">
-        <div class="housing-icon-container">
-          <!-- Equal Housing Opportunity Icon -->
-          <svg viewBox="0 0 24 24"><path d="M12 3L2 12h3v8h14v-8h3L12 3zm0 2.84L18 11.2v6.8H6v-6.8l6-5.36z"/><rect x="9" y="13" width="6" height="5"/></svg>
-        </div>
-        <div class="app-store-badges">
-          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/7/78/Google_Play_Store_badge_EN.svg" alt="Get it on Google Play" class="app-badge-img"></a>
-          <a href="#"><img src="https://upload.wikimedia.org/wikipedia/commons/3/3c/Download_on_the_App_Store_Badge.svg" alt="Download on the App Store" class="app-badge-img"></a>
-        </div>
-        <div class="footer-social-icons">
-          <!-- Facebook -->
-          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-          <!-- X / Twitter -->
-          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
-          <!-- YouTube -->
-          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58zM9.75 15.02V8.98L15.5 12l-5.75 3.02z"/></svg>
-        </div>
-      </div>
-
-      <!-- Copyright & Legal Links -->
-      <div class="footer-legal-section">
-        <div class="footer-copyright">© 2026 Verceil Bank, N.A.</div>
-        <div class="footer-legal-links-list">
-          <a href="#">Terms & Conditions</a>
-          <a href="#">Privacy</a>
-          <a href="#">Notice at Collection</a>
-          <a href="#">Do Not Sell or Share My Personal Information</a>
-          <a href="#">Accessibility</a>
-        </div>
-      </div>
-
-      <!-- Important Legal Disclosures -->
-      <div class="footer-disclosures">
-        <h5>Important Legal Disclosures & Information</h5>
-        <p>Verceil.com provides information about and access to accounts and financial services provided by Verceil Bank, N.A. and its affiliates in the United States and its territories. This is not, and should not be construed as, an offer, invitation, or solicitation to buy or sell any of the banking or financial products mentioned herein to individuals outside of the United States.</p>
-      </div>
-
-    </div>
-  </footer>
-
+  <!-- SCRIPT FOR THEME TOGGLE & MOBILE SIDEBAR -->
   <script>
-    // Supabase Connection & Session Protection Guard
-    const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
-    const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
-    
-    let supabaseClient = null;
-    try {
-      if (window.supabase) {
-        supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+    const themeToggleBtn = document.getElementById('themeToggle');
+    const htmlElement = document.documentElement;
+    const sidebar = document.getElementById('sidebar');
+    const openSidebarMobile = document.getElementById('openSidebarMobile');
+    const closeSidebarMobile = document.getElementById('closeSidebarMobile');
+    const sidebarBackdrop = document.getElementById('sidebarBackdrop');
+
+    // Theme Toggle Handler
+    themeToggleBtn.addEventListener('click', () => {
+      if (htmlElement.classList.contains('dark')) {
+        htmlElement.classList.remove('dark');
+        localStorage.setItem('vercel_bank_theme', 'light');
+      } else {
+        htmlElement.classList.add('dark');
+        localStorage.setItem('vercel_bank_theme', 'dark');
       }
-    } catch (err) {
-      console.error('Supabase initialization error:', err);
-    }
-
-    async function checkUserSession() {
-      if (!supabaseClient) return;
-      
-      const { data: { session }, error } = await supabaseClient.auth.getSession();
-      
-      // If no active session exists, immediately bounce back to signin page
-      if (!session || error) {
-        window.location.href = 'signin.html';
-        return;
-      }
-
-      // Populate user metadata dynamically if available
-      const user = session.user;
-      if (user && user.user_metadata) {
-        const firstName = user.user_metadata.first_name || 'Valued Client';
-        document.getElementById('welcomeTitle').textContent = `Welcome back, ${firstName}`;
-      }
-    }
-
-    // Run session check on dashboard load
-    checkUserSession();
-
-    // Handle Sign Out Actions
-    async function handleSignOut() {
-      if (supabaseClient) {
-        await supabaseClient.auth.signOut();
-      }
-      window.location.href = 'signin.html';
-    }
-
-    document.getElementById('signOutBtn').addEventListener('click', handleSignOut);
-    document.getElementById('signOutDrawerBtn').addEventListener('click', (e) => {
-      e.preventDefault();
-      handleSignOut();
     });
 
-    // Accordion functionality for Citi-style footer
-    const accordions = document.querySelectorAll('.footer-section-header');
-    accordions.forEach(acc => {
-      acc.addEventListener('click', () => {
-        acc.classList.toggle('active');
-        const linksPanel = acc.nextElementSibling;
-        if (linksPanel.style.display === 'flex') {
-          linksPanel.style.display = 'none';
-        } else {
-          linksPanel.style.display = 'flex';
-        }
-      });
-    });
+    // Mobile Sidebar Handlers
+    function toggleSidebar() {
+      sidebar.classList.toggle('-translate-x-full');
+      sidebarBackdrop.classList.toggle('hidden');
+    }
+
+    openSidebarMobile.addEventListener('click', toggleSidebar);
+    closeSidebarMobile.addEventListener('click', toggleSidebar);
+    sidebarBackdrop.addEventListener('click', toggleSidebar);
   </script>
-  <script src="app.js"></script>
 </body>
 </html>
