@@ -261,25 +261,25 @@
       <div>
         <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 dark:text-[#8E9CBA] uppercase mb-[8px]">CREDIT CARDS</div>
         
-        <div id="cardCredit" class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[24px] p-[20px] flex items-center justify-between shadow-lg hover:opacity-95 transition-all cursor-pointer">
+        <div id="cardCredit" class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] p-[16px] flex items-center justify-between shadow-lg hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center min-w-0 pr-2">
-            <div class="w-[72px] h-[72px] rounded-[18px] bg-[#FF453A] flex items-center justify-center text-white shadow-md flex-shrink-0">
-              <svg class="w-[38px] h-[38px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
+            <div class="w-[44px] h-[44px] rounded-[14px] bg-[#EF4444] flex items-center justify-center text-white shadow-md flex-shrink-0">
+              <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2">
                 <rect x="2" y="5" width="20" height="14" rx="3"></rect>
                 <path d="M2 10h20"></path>
                 <path d="M6 15h4"></path>
               </svg>
             </div>
-            <div class="ml-[16px] flex flex-col justify-center min-w-0">
-              <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight whitespace-nowrap leading-tight">Vercel Signature Card</div>
+            <div class="ml-[12px] flex flex-col justify-center min-w-0">
+              <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
             </div>
           </div>
 
           <div class="flex items-center justify-end flex-shrink-0">
             <div id="creditCardRightContent" class="text-right flex flex-col items-end justify-center">
-              <div class="flex items-center space-x-1.5">
-                <span class="text-[22px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight">Apply</span>
-                <svg class="w-[20px] h-[20px] text-[#111827] dark:text-white stroke-[3]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              <div class="flex items-center space-x-1">
+                <span class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF]">Apply</span>
+                <svg class="w-[18px] h-[18px] text-[#111827] dark:text-white stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="9 18 15 12 9 6"></polyline></svg>
               </div>
               <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Subject to credit approval</div>
             </div>
@@ -475,12 +475,12 @@
                         <div class="text-[10px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Available Credit $${availVal}</div>
                       `;
                     }
-                    const titleDiv = document.querySelector('#cardCredit .ml-\\[16px\\]');
+                    const titleDiv = document.querySelector('#cardCredit .ml-\\[12px\\]');
                     if (titleDiv && acc.account_number) {
                       titleDiv.innerHTML = `
-                        <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight whitespace-nowrap leading-tight">Vercel Signature Card</div>
-                        <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
-                          <span class="inline-block w-2 h-2 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-1 align-middle"></span>${acc.account_number.slice(-4)}
+                        <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
+                        <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
+                          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-0.5 align-middle"></span>${acc.account_number.slice(-4)}
                         </div>
                       `;
                     }
@@ -531,12 +531,12 @@
                         <div class="text-[10px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Available Credit $${availVal}</div>
                       `;
                     }
-                    const titleDiv = document.querySelector('#cardCredit .ml-\\[16px\\]');
+                    const titleDiv = document.querySelector('#cardCredit .ml-\\[12px\\]');
                     if (titleDiv && updated.account_number) {
                       titleDiv.innerHTML = `
-                        <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight whitespace-nowrap leading-tight">Vercel Signature Card</div>
-                        <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
-                          <span class="inline-block w-2 h-2 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-1 align-middle"></span>${updated.account_number.slice(-4)}
+                        <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
+                        <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
+                          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-0.5 align-middle"></span>${updated.account_number.slice(-4)}
                         </div>
                       `;
                     }
