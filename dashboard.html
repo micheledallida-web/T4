@@ -272,19 +272,17 @@
             </div>
             <div class="ml-[12px] flex flex-col justify-center min-w-0">
               <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
-              <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
-                <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-0.5 align-middle"></span>1234
-              </div>
             </div>
           </div>
 
           <div class="flex items-center justify-end flex-shrink-0">
-            <div class="text-right flex flex-col justify-center">
-              <div id="creditBalance" class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$0.00</div>
-              <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">Current Balance</div>
-              <div id="creditAvailable" class="text-[10px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Available Credit $0.00</div>
+            <div id="creditCardRightContent" class="text-right flex flex-col justify-center">
+              <div class="flex items-center justify-end space-x-1">
+                <span class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF]">Apply</span>
+                <svg class="w-[18px] h-[18px] text-[#111827] dark:text-white stroke-[2.5]" fill="none" viewBox="0 0 24 24" stroke="currentColor"><polyline points="9 18 15 12 9 6"></polyline></svg>
+              </div>
+              <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Subject to credit approval</div>
             </div>
-            <svg class="w-[16px] h-[16px] text-[#6B7280] dark:text-[#52607D] flex-shrink-0 ml-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
           </div>
         </div>
       </div>
@@ -466,12 +464,26 @@
                   const el = document.getElementById('investmentsBalance');
                   if (el) el.textContent = `$${val}`;
                 } else if (acc.account_type === 'credit') {
-                  const el = document.getElementById('creditBalance');
-                  if (el) el.textContent = `$${val}`;
-                  const availEl = document.getElementById('creditAvailable');
-                  if (availEl && acc.available_credit !== undefined) {
-                    const availVal = Number(acc.available_credit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    availEl.textContent = `Available Credit $${availVal}`;
+                  // If credit card has an approved status or balance from DB, render active details; otherwise keep default Apply state
+                  if (acc.status === 'approved' || Number(acc.balance) > 0 || (acc.available_credit !== undefined && Number(acc.available_credit) > 0)) {
+                    const rightContainer = document.getElementById('creditCardRightContent');
+                    if (rightContainer) {
+                      const availVal = acc.available_credit !== undefined ? Number(acc.available_credit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
+                      rightContainer.innerHTML = `
+                        <div class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$${val}</div>
+                        <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">Current Balance</div>
+                        <div class="text-[10px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Available Credit $${availVal}</div>
+                      `;
+                    }
+                    const titleDiv = document.querySelector('#cardCredit .ml-\\[12px\\]');
+                    if (titleDiv && acc.account_number) {
+                      titleDiv.innerHTML = `
+                        <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
+                        <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
+                          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-0.5 align-middle"></span>${acc.account_number.slice(-4)}
+                        </div>
+                      `;
+                    }
                   }
                 }
               });
@@ -509,12 +521,25 @@
                   const el = document.getElementById('investmentsBalance');
                   if (el) el.textContent = `$${val}`;
                 } else if (updated.account_type === 'credit') {
-                  const el = document.getElementById('creditBalance');
-                  if (el) el.textContent = `$${val}`;
-                  const availEl = document.getElementById('creditAvailable');
-                  if (availEl && updated.available_credit !== undefined) {
-                    const availVal = Number(updated.available_credit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-                    availEl.textContent = `Available Credit $${availVal}`;
+                  if (updated.status === 'approved' || Number(updated.balance) > 0) {
+                    const rightContainer = document.getElementById('creditCardRightContent');
+                    if (rightContainer) {
+                      const availVal = updated.available_credit !== undefined ? Number(updated.available_credit).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) : '0.00';
+                      rightContainer.innerHTML = `
+                        <div class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$${val}</div>
+                        <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">Current Balance</div>
+                        <div class="text-[10px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-0.5">Available Credit $${availVal}</div>
+                      `;
+                    }
+                    const titleDiv = document.querySelector('#cardCredit .ml-\\[12px\\]');
+                    if (titleDiv && updated.account_number) {
+                      titleDiv.innerHTML = `
+                        <div class="text-[16px] font-semibold text-[#111827] dark:text-[#FFFFFF] whitespace-nowrap leading-tight">Vercel Signature Card</div>
+                        <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">
+                          <span class="inline-block w-1.5 h-1.5 rounded-full bg-[#6B7280] dark:bg-[#8E9CBA] mr-0.5 align-middle"></span>${updated.account_number.slice(-4)}
+                        </div>
+                      `;
+                    }
                   }
                 }
               }
@@ -604,7 +629,7 @@
     });
     document.getElementById('cardSavings').addEventListener('click', () => showModal('High-Yield Savings (•9104)', 'Managing high-yield interest accumulation and automated savings rules...'));
     document.getElementById('cardInvestments').addEventListener('click', () => showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...'));
-    document.getElementById('cardCredit').addEventListener('click', () => showModal('Vercel Signature Card (•1234)', 'Reviewing statement balances, available credit, and payment scheduling...'));
+    document.getElementById('cardCredit').addEventListener('click', () => showModal('Vercel Signature Card Application', 'Opening secure credit card application form. Subject to credit approval...'));
     document.getElementById('viewAllActivity').addEventListener('click', (e) => {
       e.preventDefault();
       showModal('Transaction History', 'Loading full ledger history with advanced filtering and search options...');
