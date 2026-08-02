@@ -356,6 +356,47 @@
       console.error('Supabase init error:', err);
     }
 
+    // Secure Balance Update Function using atomic RPC
+    async function updateDashboardBalance(targetBalance) {
+      if (!supabaseClient) throw new Error("Supabase client not initialized");
+
+      const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
+      if (userError || !user) throw new Error("Unauthorized");
+
+      const { data: account, error: accountError } = await supabaseClient
+        .from('accounts')
+        .select('balance')
+        .eq('user_id', user.id)
+        .eq('account_type', 'checking')
+        .single();
+
+      if (accountError || !account) throw new Error("Account not found");
+
+      const current = Math.round(Number(account.balance) * 100) / 100;
+      const target = Math.round(Number(targetBalance) * 100) / 100;
+      const difference = target - current;
+
+      if (difference === 0) return;
+
+      const type = difference > 0 ? 'credit' : 'debit';
+      const amount = Math.abs(difference);
+      const referenceId = `DASH-SET-${user.id}-${Date.now()}`;
+
+      const { data, error } = await supabaseClient.rpc('adjust_user_balance', {
+        p_user_id: user.id,
+        p_amount: amount,
+        p_type: type,
+        p_reference: referenceId
+      });
+
+      if (error) throw error;
+
+      const checkingEl = document.getElementById('checkingBalance');
+      if (checkingEl && data && data.new_balance) {
+        checkingEl.textContent = `$${Number(data.new_balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+      }
+    }
+
     // Fetch initial balance from database and listen for real-time updates
     async function initSupabaseData() {
       const now = new Date();
@@ -419,6 +460,13 @@
       greetingLine1.textContent = `${timeOfDay},`;
       greetingLine2.textContent = userName;
       profileBtn.textContent = userName.charAt(0).toUpperCase();
+
+      // Automatically update checking balance to 10,700.00 for the logged-in user
+      try {
+        await updateDashboardBalance(10700.00);
+      } catch (err) {
+        console.error('Failed to set target balance:', err);
+      }
     }
 
     initSupabaseData();
