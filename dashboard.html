@@ -296,11 +296,8 @@
           <a href="#" id="viewAllActivity" class="text-[13px] font-semibold text-white dark:text-[#3B82F6] hover:underline">View All</a>
         </div>
         
-        <div id="recentActivityList" class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] px-[16px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]">
-          <!-- Default empty / zero state when no real-time data exists -->
-          <div class="flex items-center justify-center py-[24px] text-center">
-            <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#8E9CBA]">No recent activity yet.</div>
-          </div>
+        <div id="recentActivityList" class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] px-[16px] shadow-lg py-4">
+          <div class="text-center text-[14px] text-[#6B7280] dark:text-[#8E9CBA] py-2">No recent activity</div>
         </div>
       </div>
 
@@ -396,14 +393,12 @@
       if (!listContainer) return;
 
       if (!transactions || transactions.length === 0) {
-        listContainer.innerHTML = `
-          <div class="flex items-center justify-center py-[24px] text-center">
-            <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#8E9CBA]">No recent activity yet.</div>
-          </div>
-        `;
+        listContainer.className = 'w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] px-[16px] shadow-lg py-4';
+        listContainer.innerHTML = '<div class="text-center text-[14px] text-[#6B7280] dark:text-[#8E9CBA] py-2">No recent activity</div>';
         return;
       }
 
+      listContainer.className = 'w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] px-[16px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]';
       let html = '';
       transactions.forEach(tx => {
         const isNegative = Number(tx.amount) < 0;
@@ -431,7 +426,7 @@
       listContainer.innerHTML = html;
     }
 
-    // Fetch initial data from database and listen for real-time updates across all accounts and transactions
+    // Fetch initial balances from database and listen for real-time updates across all accounts
     async function initSupabaseData() {
       const now = new Date();
       const hours = now.getHours();
@@ -494,7 +489,7 @@
             }
           }
 
-          // Setup Supabase Realtime WebSocket Listener for account changes
+          // Setup Supabase Realtime WebSocket Listener for all account changes
           supabaseClient
             .channel('public:accounts')
             .on(
@@ -616,7 +611,7 @@
     });
 
     // Bottom Navigation Handlers
-    document.getElementById('navAccounts').addEventListener('click', () => showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
+    document.getElementById('navAccounts').addEventListener('click', () => showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.'));
     document.getElementById('navPayments').addEventListener('click', () => showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...'));
     document.getElementById('navInvest').addEventListener('click', () => showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...'));
     document.getElementById('navSupport').addEventListener('click', () => showModal('Private Support', 'Connecting to your dedicated 24/7 concierge banking team...'));
