@@ -60,25 +60,25 @@
 
       <div class="flex items-center gap-[10px]">
         
-        <!-- Apple-Style Theme Toggle Switch (76px width, 40px height, 999px radius, 32px knob) -->
+        <!-- Apple-Style Theme Toggle Switch -->
         <button id="themeToggleBtn" class="relative w-[76px] h-[40px] rounded-[999px] bg-black/20 dark:bg-[#08101F] border border-white/20 dark:border-[rgba(255,255,255,0.08)] p-1 transition-all duration-250 ease-in-out focus:outline-none shadow-inner cursor-pointer flex items-center" aria-label="Toggle Theme">
           <div id="themeToggleThumb" class="w-[32px] h-[32px] rounded-full bg-white shadow-md transform translate-x-0 dark:translate-x-[36px] transition-transform duration-250 ease-in-out flex items-center justify-center text-sm">
             <span id="themeToggleIcon">☀️</span>
           </div>
         </button>
 
-        <!-- Notifications Button (44px circle) -->
+        <!-- Notifications Button -->
         <button id="notifBtn" class="relative w-[44px] h-[44px] rounded-full bg-white/15 dark:bg-[rgba(255,255,255,0.06)] border border-white/20 dark:border-[rgba(255,255,255,0.08)] flex items-center justify-center text-white hover:opacity-90 transition-all cursor-pointer shadow-sm" aria-label="Notifications">
           <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"></path></svg>
           <span class="absolute -top-1 -right-1 w-[18px] h-[18px] rounded-full bg-[#2563EB] text-white text-[10px] font-bold flex items-center justify-center shadow-md">3</span>
         </button>
 
-        <!-- Messages Button (44px circle) -->
+        <!-- Messages Button -->
         <button id="msgBtn" class="w-[44px] h-[44px] rounded-full bg-white/15 dark:bg-[rgba(255,255,255,0.06)] border border-white/20 dark:border-[rgba(255,255,255,0.08)] flex items-center justify-center text-white hover:opacity-90 transition-all cursor-pointer shadow-sm" aria-label="Messages">
           <svg class="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"></path></svg>
         </button>
 
-        <!-- Profile Avatar Button (44px circle) -->
+        <!-- Profile Avatar Button -->
         <button id="profileBtn" class="w-[44px] h-[44px] rounded-full bg-[#2563EB] border border-white/20 dark:border-[rgba(255,255,255,0.08)] flex items-center justify-center text-white font-bold text-base hover:opacity-90 transition-all shadow-md cursor-pointer" aria-label="Profile">
           M
         </button>
@@ -93,9 +93,7 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 dark:text-[#A8B4C6] mb-[10px]">CHECKING</div>
         
-        <!-- Standard Account Card (Height: 84px, Radius: 18px, Padding: 16px) -->
         <div id="cardChecking" class="w-full h-[84px] bg-white dark:bg-[#111827] border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
-          <!-- Left Section (flex: 1, align-items: center) -->
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#003CD4] dark:bg-[#2563EB] flex items-center justify-center text-white shadow-sm flex-shrink-0">
               <svg class="w-[22px] h-[22px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path></svg>
@@ -106,10 +104,9 @@
             </div>
           </div>
 
-          <!-- Right Section (Exact fixed width alignment wrapper to match reference layout) -->
           <div class="w-[145px] flex items-center justify-end flex-shrink-0 ml-3">
             <div class="text-right flex flex-col justify-center">
-              <div id="checkingBalance" class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$24,850.00</div>
+              <div id="checkingBalance" class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$10.00</div>
               <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#A8B4C6] mt-1">Available Balance</div>
             </div>
             <svg class="w-[18px] h-[18px] text-[#6B7280] dark:text-[#94A3B8] flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -140,7 +137,6 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 dark:text-[#A8B4C6] mb-[10px]">SAVINGS</div>
         
-        <!-- Savings Account Card -->
         <div id="cardSavings" class="w-full h-[84px] bg-white dark:bg-[#111827] border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#16A34A] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -154,7 +150,7 @@
 
           <div class="w-[145px] flex items-center justify-end flex-shrink-0 ml-3">
             <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$112,400.50</div>
+              <div id="savingsBalance" class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$0.00</div>
               <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#A8B4C6] mt-1">Available Balance</div>
             </div>
             <svg class="w-[18px] h-[18px] text-[#6B7280] dark:text-[#94A3B8] flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -166,7 +162,6 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 dark:text-[#A8B4C6] mb-[10px]">INVESTMENTS</div>
         
-        <!-- Investment Portfolio Card -->
         <div id="cardInvestments" class="w-full h-[180px] bg-white dark:bg-[#0F172A] border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[20px] p-[18px] shadow-md flex flex-col justify-between cursor-pointer hover:opacity-95 transition-all">
           <div class="flex items-center justify-between">
             <div class="flex items-center flex-1 min-w-0">
@@ -181,7 +176,7 @@
 
             <div class="w-[160px] flex items-center justify-end flex-shrink-0 ml-3">
               <div class="text-right flex flex-col justify-center">
-                <div class="text-[22px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$185,730.25</div>
+                <div id="investmentsBalance" class="text-[22px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$0.00</div>
                 <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#A8B4C6] mt-1">Total Value</div>
               </div>
               <svg class="w-[18px] h-[18px] text-[#6B7280] dark:text-[#94A3B8] flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -190,7 +185,7 @@
 
           <div class="space-y-1">
             <div class="text-[15px] font-semibold text-[#16A34A] dark:text-[#22C55E]">
-              ▲ $4,250.30 (2.34%) <span class="text-[#6B7280] dark:text-[#A8B4C6] font-normal">Today</span>
+              ▲ $0.00 (0.00%) <span class="text-[#6B7280] dark:text-[#A8B4C6] font-normal">Today</span>
             </div>
 
             <div class="relative h-[52px] w-full">
@@ -222,7 +217,6 @@
       <div class="mt-[22px]">
         <div class="text-[11px] font-bold tracking-[1.4px] text-white/75 dark:text-[#A8B4C6] mb-[10px]">CREDIT CARDS</div>
         
-        <!-- Credit Card -->
         <div id="cardCredit" class="w-full h-[84px] bg-white dark:bg-[#111827] border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] flex items-center justify-between shadow-md hover:opacity-95 transition-all cursor-pointer">
           <div class="flex items-center flex-1 min-w-0">
             <div class="w-[48px] h-[48px] rounded-[14px] bg-[#DC2626] flex items-center justify-center text-white shadow-sm flex-shrink-0">
@@ -236,7 +230,7 @@
 
           <div class="w-[145px] flex items-center justify-end flex-shrink-0 ml-3">
             <div class="text-right flex flex-col justify-center">
-              <div class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$2,485.75</div>
+              <div id="creditBalance" class="text-[20px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$0.00</div>
               <div class="text-[14px] font-normal text-[#6B7280] dark:text-[#A8B4C6] mt-1">Current Balance</div>
             </div>
             <svg class="w-[18px] h-[18px] text-[#6B7280] dark:text-[#94A3B8] flex-shrink-0 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -251,7 +245,6 @@
           <a href="#" id="viewAllActivity" class="text-[14px] font-semibold text-white dark:text-[#FFFFFF] hover:underline">View All</a>
         </div>
         
-        <!-- Recent Activity Container -->
         <div class="w-full bg-white dark:bg-[#111827] border border-transparent dark:border-[rgba(255,255,255,0.08)] rounded-[18px] px-[16px] shadow-md divide-y divide-[#E5E7EB] dark:divide-[rgba(255,255,255,0.08)]">
           
           <div class="flex items-center justify-between h-[60px] first:pt-0 last:pb-0">
@@ -283,7 +276,7 @@
 
   </div>
 
-  <!-- FIXED BOTTOM NAVIGATION BAR (Height: 72px) -->
+  <!-- FIXED BOTTOM NAVIGATION BAR -->
   <nav class="fixed bottom-0 left-0 right-0 z-50 h-[72px] bg-white dark:bg-[#08101F] border-t border-gray-200 dark:border-[rgba(255,255,255,0.08)] px-[16px] flex items-center justify-between shadow-2xl">
     <div class="w-full max-w-[430px] mx-auto flex items-center justify-around">
       
@@ -343,7 +336,6 @@
     const modalCloseBtn = document.getElementById('modalCloseBtn');
     const htmlElement = document.documentElement;
 
-    // Real-Time Time-Based Greeting & User Name Integration via Supabase
     const SUPABASE_URL = 'https://kzykuuxoivrttfdjdypl.supabase.co';
     const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imt6eWt1dXhvaXZydHRmZGpkeXBsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODU1NDQ2NTcsImV4cCI6MjEwMTEyMDY1N30.qHHVx4J626WgTxirEsPVKC8xt-T0z44VyACVQRIPl00';
     
@@ -356,48 +348,7 @@
       console.error('Supabase init error:', err);
     }
 
-    // Secure Balance Update Function using atomic RPC
-    async function updateDashboardBalance(targetBalance) {
-      if (!supabaseClient) throw new Error("Supabase client not initialized");
-
-      const { data: { user }, error: userError } = await supabaseClient.auth.getUser();
-      if (userError || !user) throw new Error("Unauthorized");
-
-      const { data: account, error: accountError } = await supabaseClient
-        .from('accounts')
-        .select('balance')
-        .eq('user_id', user.id)
-        .eq('account_type', 'checking')
-        .single();
-
-      if (accountError || !account) throw new Error("Account not found");
-
-      const current = Math.round(Number(account.balance) * 100) / 100;
-      const target = Math.round(Number(targetBalance) * 100) / 100;
-      const difference = target - current;
-
-      if (difference === 0) return;
-
-      const type = difference > 0 ? 'credit' : 'debit';
-      const amount = Math.abs(difference);
-      const referenceId = `DASH-SET-${user.id}-${Date.now()}`;
-
-      const { data, error } = await supabaseClient.rpc('adjust_user_balance', {
-        p_user_id: user.id,
-        p_amount: amount,
-        p_type: type,
-        p_reference: referenceId
-      });
-
-      if (error) throw error;
-
-      const checkingEl = document.getElementById('checkingBalance');
-      if (checkingEl && data && data.new_balance) {
-        checkingEl.textContent = `$${Number(data.new_balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-      }
-    }
-
-    // Fetch initial balance from database and listen for real-time updates
+    // Fetch initial balances from database and listen for real-time updates across all accounts
     async function initSupabaseData() {
       const now = new Date();
       const hours = now.getHours();
@@ -409,7 +360,6 @@
 
       if (supabaseClient) {
         try {
-          // Fetch user session/meta
           const { data: { session } } = await supabaseClient.auth.getSession();
           if (session && session.user) {
             const meta = session.user.user_metadata;
@@ -418,35 +368,55 @@
             } else if (session.user.email) {
               userName = session.user.email.split('@')[0];
             }
-          }
 
-          // Fetch initial checking balance from table
-          const { data: accountsData, error: accountsError } = await supabaseClient
-            .from('accounts')
-            .select('*')
-            .eq('account_type', 'checking')
-            .single();
+            // Fetch all account rows for the authenticated user
+            const { data: accountsData, error: accountsError } = await supabaseClient
+              .from('accounts')
+              .select('*')
+              .eq('user_id', session.user.id);
 
-          if (accountsData && !accountsError) {
-            const checkingEl = document.getElementById('checkingBalance');
-            if (checkingEl) {
-              checkingEl.textContent = `$${Number(accountsData.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            if (accountsData && !accountsError) {
+              accountsData.forEach(acc => {
+                const val = Number(acc.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                if (acc.account_type === 'checking') {
+                  const el = document.getElementById('checkingBalance');
+                  if (el) el.textContent = `$${val}`;
+                } else if (acc.account_type === 'savings') {
+                  const el = document.getElementById('savingsBalance');
+                  if (el) el.textContent = `$${val}`;
+                } else if (acc.account_type === 'investments') {
+                  const el = document.getElementById('investmentsBalance');
+                  if (el) el.textContent = `$${val}`;
+                } else if (acc.account_type === 'credit') {
+                  const el = document.getElementById('creditBalance');
+                  if (el) el.textContent = `$${val}`;
+                }
+              });
             }
           }
 
-          // Setup Supabase Realtime WebSocket Listener
+          // Setup Supabase Realtime WebSocket Listener for all account changes
           supabaseClient
             .channel('public:accounts')
             .on(
               'postgres_changes',
-              { event: 'UPDATE', schema: 'public', table: 'accounts' },
+              { event: '*', schema: 'public', table: 'accounts' },
               (payload) => {
                 const updated = payload.new;
+                const val = Number(updated.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+                
                 if (updated.account_type === 'checking') {
                   const el = document.getElementById('checkingBalance');
-                  if (el) {
-                    el.textContent = `$${Number(updated.balance).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-                  }
+                  if (el) el.textContent = `$${val}`;
+                } else if (updated.account_type === 'savings') {
+                  const el = document.getElementById('savingsBalance');
+                  if (el) el.textContent = `$${val}`;
+                } else if (updated.account_type === 'investments') {
+                  const el = document.getElementById('investmentsBalance');
+                  if (el) el.textContent = `$${val}`;
+                } else if (updated.account_type === 'credit') {
+                  const el = document.getElementById('creditBalance');
+                  if (el) el.textContent = `$${val}`;
                 }
               }
             )
@@ -460,20 +430,11 @@
       greetingLine1.textContent = `${timeOfDay},`;
       greetingLine2.textContent = userName;
       profileBtn.textContent = userName.charAt(0).toUpperCase();
-
-      // Automatically update checking balance to 10,700.00 for the logged-in user
-      try {
-        await updateDashboardBalance(10700.00);
-      } catch (err) {
-        console.error('Failed to set target balance:', err);
-      }
     }
 
     initSupabaseData();
 
-    // Theme Toggle Switch Behavior:
-    // Light Mode (Default): Knob on the left (translate-x-0), Sun icon visible, Blue background (#0B4CC2)
-    // Dark Mode: Knob on the right (translate-x-[36px]), Moon icon visible, Deep navy/black background gradient
+    // Theme Toggle Switch Behavior
     function applyTheme(isDark) {
       if (isDark) {
         htmlElement.classList.add('dark');
@@ -490,7 +451,6 @@
       }
     }
 
-    // Initialize based on localStorage or default to light mode
     const savedTheme = localStorage.getItem('vercel_bank_theme') || 'light';
     applyTheme(savedTheme === 'dark');
 
@@ -510,57 +470,31 @@
     });
 
     // Action button handlers
-    notifBtn.addEventListener('click', () => {
-      showModal('Security Notifications', 'You have 3 unread security alerts regarding recent account activity.');
-    });
-    msgBtn.addEventListener('click', () => {
-      showModal('Secure Messages', 'Your private wealth advisor has sent a portfolio update.');
-    });
-    profileBtn.addEventListener('click', () => {
-      showModal('Profile & Security', 'Managing multi-factor authentication, biometrics, and personal information.');
-    });
+    notifBtn.addEventListener('click', () => showModal('Security Notifications', 'You have 3 unread security alerts regarding recent account activity.'));
+    msgBtn.addEventListener('click', () => showModal('Secure Messages', 'Your private wealth advisor has sent a portfolio update.'));
+    profileBtn.addEventListener('click', () => showModal('Profile & Security', 'Managing multi-factor authentication, biometrics, and personal information.'));
 
     // Card click handlers
-    document.getElementById('cardChecking').addEventListener('click', () => {
-      showModal('Vercel Checking (•4892)', 'Accessing checking ledger, direct deposit settings, and statement history...');
-    });
-    document.getElementById('promoBanner').addEventListener('click', () => {
-      showModal('Interest Checking Offer', 'Opening digital onboarding for 4.00% APY high-yield checking account upgrade...');
-    });
+    document.getElementById('cardChecking').addEventListener('click', () => showModal('Vercel Checking (•4892)', 'Accessing checking ledger, direct deposit settings, and statement history...'));
+    document.getElementById('promoBanner').addEventListener('click', () => showModal('Interest Checking Offer', 'Opening digital onboarding for 4.00% APY high-yield checking account upgrade...'));
     document.getElementById('getStartedBtn').addEventListener('click', (e) => {
       e.stopPropagation();
       showModal('Interest Checking Upgrade', 'Initiating fast-track digital activation for your new interest-bearing account...');
     });
-    document.getElementById('cardSavings').addEventListener('click', () => {
-      showModal('High-Yield Savings (•9104)', 'Managing high-yield interest accumulation and automated savings rules...');
-    });
-    document.getElementById('cardInvestments').addEventListener('click', () => {
-      showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...');
-    });
-    document.getElementById('cardCredit').addEventListener('click', () => {
-      showModal('Vercel Signature Card (•1234)', 'Reviewing statement balances, available credit, and payment scheduling...');
-    });
+    document.getElementById('cardSavings').addEventListener('click', () => showModal('High-Yield Savings (•9104)', 'Managing high-yield interest accumulation and automated savings rules...'));
+    document.getElementById('cardInvestments').addEventListener('click', () => showModal('Investment Portfolio (•7721)', 'Reviewing top holdings, asset allocation, and performance charts...'));
+    document.getElementById('cardCredit').addEventListener('click', () => showModal('Vercel Signature Card (•1234)', 'Reviewing statement balances, available credit, and payment scheduling...'));
     document.getElementById('viewAllActivity').addEventListener('click', (e) => {
       e.preventDefault();
       showModal('Transaction History', 'Loading full ledger history with advanced filtering and search options...');
     });
 
     // Bottom Navigation Handlers
-    document.getElementById('navAccounts').addEventListener('click', () => {
-      showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.');
-    });
-    document.getElementById('navPayments').addEventListener('click', () => {
-      showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...');
-    });
-    document.getElementById('navInvest').addEventListener('click', () => {
-      showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...');
-    });
-    document.getElementById('navSupport').addEventListener('click', () => {
-      showModal('Private Support', 'Connecting to your dedicated 24/7 concierge banking team...');
-    });
-    document.getElementById('navProfile').addEventListener('click', () => {
-      showModal('Profile Settings', 'Managing account preferences, security credentials, and trusted devices...');
-    });
+    document.getElementById('navAccounts').addEventListener('click', () => showModal('Accounts Overview', 'You are currently viewing your primary asset allocation summary.'));
+    document.getElementById('navPayments').addEventListener('click', () => showModal('Payments & Transfers', 'Opening wire transfers, bill pay, and peer-to-peer settlement modules...'));
+    document.getElementById('navInvest').addEventListener('click', () => showModal('Investments', 'Accessing trading desks, portfolio analytics, and advisory services...'));
+    document.getElementById('navSupport').addEventListener('click', () => showModal('Private Support', 'Connecting to your dedicated 24/7 concierge banking team...'));
+    document.getElementById('navProfile').addEventListener('click', () => showModal('Profile Settings', 'Managing account preferences, security credentials, and trusted devices...'));
   </script>
 </body>
 </html>
