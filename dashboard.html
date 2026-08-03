@@ -50,7 +50,7 @@
       align-items: center;
       justify-content: space-between;
       width: 100%;
-      min-height: 76px;
+      min-height: 90px;
       padding: 16px 18px;
       border-radius: 20px;
       background: linear-gradient(180deg, #07152f 0%, #061229 100%);
@@ -90,11 +90,11 @@
     /* Right Section */
     .credit-card-item .card-right {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
+      align-items: center;
       justify-content: center;
       flex-shrink: 0;
       text-align: right;
+      position: relative;
     }
 
     .credit-card-item .apply-row {
@@ -114,6 +114,19 @@
       width: 16px;
       height: 16px;
       color: #d8def4;
+    }
+
+    .credit-card-item .approval-note {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      margin-top: 6px;
+      font-size: 10px;
+      font-weight: 500;
+      color: #9aa4c6;
+      line-height: 1.4;
+      text-align: right;
+      white-space: nowrap;
     }
   </style>
   <!-- Include Supabase JS SDK CDN -->
@@ -351,6 +364,7 @@
               <span class="apply-text">Apply</span>
               <svg class="apply-arrow" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </div>
+            <div class="approval-note">Subject to credit approval</div>
           </div>
         </div>
       </div>
