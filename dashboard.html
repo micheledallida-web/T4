@@ -43,7 +43,7 @@
       color: #FFFFFF;
     }
 
-    /* Verceil Signature Card - Exact Reference Layout (scaled to 430px mobile width) */
+    /* Verceil Signature Card - now responds to the dark/light toggle, matching the Checking card's color scheme */
 
     .credit-card-item {
       display: flex;
@@ -53,9 +53,17 @@
       min-height: 90px;
       padding: 16px 18px;
       border-radius: 20px;
-      background: linear-gradient(180deg, #07152f 0%, #061229 100%);
-      border: 1px solid rgba(255, 255, 255, 0.08);
+      background: #ffffff;
+      border: 1px solid transparent;
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.08), 0 4px 6px -4px rgba(0,0,0,0.08);
       box-sizing: border-box;
+      transition: background-color 250ms ease-in-out, border-color 250ms ease-in-out, box-shadow 250ms ease-in-out;
+    }
+
+    .dark .credit-card-item {
+      background: #0D1728;
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3), 0 4px 6px -4px rgba(0,0,0,0.3);
     }
 
     /* Left Section */
@@ -81,10 +89,14 @@
     .credit-card-item .card-title {
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: #111827;
       line-height: 1.1;
       letter-spacing: -0.01em;
       white-space: nowrap;
+    }
+
+    .dark .credit-card-item .card-title {
+      color: #ffffff;
     }
 
     /* Right Section */
@@ -107,14 +119,22 @@
     .credit-card-item .apply-text {
       font-size: 17px;
       font-weight: 700;
-      color: #ffffff;
+      color: #111827;
       line-height: 1;
+    }
+
+    .dark .credit-card-item .apply-text {
+      color: #ffffff;
     }
 
     .credit-card-item .apply-arrow {
       width: 16px;
       height: 16px;
-      color: #d8def4;
+      color: #6B7280;
+    }
+
+    .dark .credit-card-item .apply-arrow {
+      color: #52607D;
     }
 
     .credit-card-item .approval-note {
@@ -124,10 +144,14 @@
       margin-top: 6px;
       font-size: 10px;
       font-weight: 500;
-      color: #9aa4c6;
+      color: #6B7280;
       line-height: 1.4;
       text-align: right;
       white-space: nowrap;
+    }
+
+    .dark .credit-card-item .approval-note {
+      color: #8E9CBA;
     }
   </style>
   <!-- Include Supabase JS SDK CDN -->
@@ -475,12 +499,54 @@
         <div id="detailAccountBalance" class="text-[32px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none mt-1">$0.00</div>
       </div>
 
+      <!-- Routing & Account Numbers + Fund Account (hidden for unapplied accounts like the credit card) -->
+      <div id="detailRoutingSection" class="mb-[20px]">
+        <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] p-[16px] shadow-lg">
+          <div class="flex items-center justify-between py-[6px]">
+            <span class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA]">Routing Number</span>
+            <span id="detailFullRoutingNumber" class="text-[14px] font-semibold text-[#111827] dark:text-[#FFFFFF] tracking-wide"></span>
+          </div>
+          <div class="flex items-center justify-between py-[6px] border-t border-gray-100 dark:border-white/[0.06]">
+            <span class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA]">Account Number</span>
+            <span id="detailFullAccountNumber" class="text-[14px] font-semibold text-[#111827] dark:text-[#FFFFFF] tracking-wide"></span>
+          </div>
+          <div class="mt-[8px] text-[11px] font-normal text-[#6B7280] dark:text-[#8E9CBA] leading-snug">Temporary numbers — a permanent routing and account number will be issued once your identity is verified.</div>
+        </div>
+
+        <button id="detailFundAccountBtn" class="w-full mt-[14px] h-[48px] rounded-[16px] bg-[#2563EB] text-white text-[14px] font-semibold flex items-center justify-center gap-[8px] cursor-pointer hover:opacity-90 transition-all shadow-lg">
+          <svg class="w-[18px] h-[18px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+          <span>Fund Account</span>
+        </button>
+      </div>
+
       <!-- Transactions List (hidden for accounts that haven't been applied for/opened yet, e.g. the credit card) -->
       <div id="detailTransactionsSection">
         <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 dark:text-[#8E9CBA] uppercase mb-[8px]">TRANSACTIONS</div>
         <div id="detailTransactionsList" class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[20px] px-[16px] shadow-lg py-4">
           <div class="text-center text-[14px] text-[#6B7280] dark:text-[#8E9CBA] py-2">No recent activity</div>
         </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- FUND ACCOUNT PAGE (Payments > Fund Account) -->
+  <div id="fundAccountPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+
+      <div class="flex items-center gap-3 mb-[10px]">
+        <button id="fundAccountBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Fund Account</div>
+      </div>
+      <div class="text-[13px] font-normal text-white/80 dark:text-[#8E9CBA] mb-[20px] ml-[52px]">Choose a provider to add funds to your Verceil Bank account</div>
+
+      <div id="fundProvidersList" class="flex flex-col gap-[14px]"></div>
+
+      <div class="flex items-center gap-[8px] mt-[24px] px-[4px]">
+        <svg class="w-[16px] h-[16px] text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"></path></svg>
+        <span class="text-[12px] font-normal text-white/70 dark:text-[#8E9CBA]">Your transactions are secure and encrypted.</span>
       </div>
 
     </div>
@@ -533,7 +599,7 @@
       },
       navPayments: {
         title: 'Payments',
-        items: ['Transfer Between Accounts', 'Send Money (Zelle®)', 'Pay Bills', 'Scheduled Payments', 'Payment History', 'External Transfers', 'Wire Transfers', 'Manage Payees']
+        items: ['Fund Account', 'Transfer Between Accounts', 'Send Money (Zelle®)', 'Pay Bills', 'Scheduled Payments', 'Payment History', 'External Transfers', 'Wire Transfers', 'Manage Payees']
       },
       navInvest: {
         title: 'Invest',
@@ -545,7 +611,24 @@
       },
       navProfile: {
         title: 'Profile',
-        items: ['Personal Information', 'Security Center', 'Face ID / Biometric Login', 'Two-Factor Authentication', 'Notification Preferences', 'Linked Accounts', 'Tax Documents', 'Sign Out']
+        groups: [
+          {
+            category: 'Personal Information',
+            items: ['Full Legal Name', 'Date of Birth', 'Residential Address', 'Mailing Address', 'Phone Number', 'Email Address']
+          },
+          {
+            category: 'Security Center',
+            items: ['Face ID / Biometric Login', 'Password & Login', 'Two-Factor Authentication', 'Trusted Devices', 'Login Activity', 'Security Alerts', 'Freeze / Lock Debit Card']
+          },
+          {
+            category: 'Account Preferences',
+            items: ['Notification Preferences', 'Paperless Statements', 'Language Preferences', 'Communication Preferences', 'Manage Linked Accounts', 'Default Payment Account']
+          },
+          {
+            category: 'Statements & Documents',
+            items: ['Monthly Statements', 'Account Documents', 'Tax Documents (1099)', 'Confirmation Notices', 'Download PDF Statements', 'Request Official Bank Letter']
+          }
+        ]
       }
     };
 
@@ -560,18 +643,35 @@
       if (!menu) return;
 
       navMenuTitle.textContent = menu.title;
-      navMenuList.innerHTML = menu.items.map(item => `
-        <button class="nav-menu-item w-full flex items-center justify-between px-[12px] py-[14px] rounded-[14px] hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer text-left">
-          <span class="text-[15px] font-medium text-[#111827] dark:text-[#FFFFFF]">${item}</span>
-          <svg class="w-[16px] h-[16px] text-gray-400 dark:text-[#52607D] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
-        </button>
-      `).join('');
+
+      if (menu.groups) {
+        navMenuList.innerHTML = menu.groups.map(group => `
+          <div class="px-[12px] pt-[16px] pb-[4px] text-[12px] font-bold uppercase tracking-[0.8px] text-[#6B7280] dark:text-[#8E9CBA]">${group.category}</div>
+          ${group.items.map(item => `
+            <button class="nav-menu-item w-full flex items-center justify-between px-[12px] py-[14px] rounded-[14px] hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer text-left">
+              <span class="text-[15px] font-medium text-[#111827] dark:text-[#FFFFFF]">${item}</span>
+              <svg class="w-[16px] h-[16px] text-gray-400 dark:text-[#52607D] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+            </button>
+          `).join('')}
+        `).join('');
+      } else {
+        navMenuList.innerHTML = menu.items.map(item => `
+          <button class="nav-menu-item w-full flex items-center justify-between px-[12px] py-[14px] rounded-[14px] hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer text-left">
+            <span class="text-[15px] font-medium text-[#111827] dark:text-[#FFFFFF]">${item}</span>
+            <svg class="w-[16px] h-[16px] text-gray-400 dark:text-[#52607D] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        `).join('');
+      }
 
       navMenuList.querySelectorAll('.nav-menu-item').forEach(btn => {
         btn.addEventListener('click', () => {
           const label = btn.querySelector('span').textContent;
           closeNavMenu();
-          setTimeout(() => showModal(label, `Opening ${label}...`), 260);
+          if (label === 'Fund Account') {
+            setTimeout(() => openFundAccount(), 260);
+          } else {
+            setTimeout(() => showModal(label, `Opening ${label}...`), 260);
+          }
         });
       });
 
@@ -594,6 +694,109 @@
 
     navMenuCloseBtn.addEventListener('click', closeNavMenu);
     navMenuOverlay.addEventListener('click', closeNavMenu);
+
+    // Fund Account (Payments > Fund Account) — provider funding hub
+    const fundProviders = [
+      {
+        name: 'Coinbase',
+        initial: 'C',
+        color: '#1652F0',
+        category: 'Bitcoin',
+        badgeBg: 'rgba(22,82,240,0.12)',
+        badgeColor: '#1652F0',
+        description: 'Buy Bitcoin securely with Coinbase',
+        buttonLabel: 'Go to Coinbase',
+        type: 'external',
+        url: 'https://www.coinbase.com'
+      },
+      {
+        name: 'MoonPay',
+        initial: 'M',
+        color: '#7B2FF7',
+        category: 'Bitcoin',
+        badgeBg: 'rgba(123,47,247,0.12)',
+        badgeColor: '#7B2FF7',
+        description: 'Buy Bitcoin instantly with MoonPay',
+        buttonLabel: 'Go to MoonPay',
+        type: 'external',
+        url: 'https://www.moonpay.com'
+      },
+      {
+        name: 'Paybis',
+        initial: 'P',
+        color: '#00B894',
+        category: 'Bitcoin',
+        badgeBg: 'rgba(0,184,148,0.12)',
+        badgeColor: '#00B894',
+        description: 'Buy Bitcoin easily with Paybis',
+        buttonLabel: 'Go to Paybis',
+        type: 'external',
+        url: 'https://www.paybis.com'
+      },
+      {
+        name: 'Debit Card',
+        initial: 'S',
+        color: '#635BFF',
+        category: 'Card',
+        badgeBg: 'rgba(99,91,255,0.12)',
+        badgeColor: '#635BFF',
+        description: 'Use your debit card to add funds instantly via Stripe',
+        buttonLabel: 'Pay with Stripe',
+        type: 'external',
+        url: 'https://dashboard.stripe.com/payment-links'
+      }
+    ];
+
+    const fundAccountPage = document.getElementById('fundAccountPage');
+    const fundAccountBackBtn = document.getElementById('fundAccountBackBtn');
+    const fundProvidersList = document.getElementById('fundProvidersList');
+
+    function renderFundProviders() {
+      fundProvidersList.innerHTML = fundProviders.map((p, idx) => `
+        <div class="w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+          <div class="flex items-start gap-[14px]">
+            <div class="w-[48px] h-[48px] rounded-[16px] flex items-center justify-center text-white flex-shrink-0" style="background:${p.color};">
+              ${p.icon ? p.icon : `<span class="text-[18px] font-bold">${p.initial}</span>`}
+            </div>
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-[8px] flex-wrap">
+                <div class="text-[16px] font-bold text-[#111827] dark:text-white">${p.name}</div>
+                <span class="text-[10px] font-bold uppercase tracking-wide px-[8px] py-[2px] rounded-full flex-shrink-0" style="background:${p.badgeBg};color:${p.badgeColor};">${p.category}</span>
+              </div>
+              <div class="text-[13px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-[4px]">${p.description}</div>
+            </div>
+          </div>
+          <button class="fund-action-btn w-full mt-[14px] h-[44px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold flex items-center justify-center gap-[6px] cursor-pointer hover:opacity-90 transition-all" data-index="${idx}">
+            <span>${p.buttonLabel}</span>
+            <svg class="w-[16px] h-[16px]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        </div>
+      `).join('');
+
+      fundProvidersList.querySelectorAll('.fund-action-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const provider = fundProviders[parseInt(btn.getAttribute('data-index'), 10)];
+          if (provider.type === 'external') {
+            window.open(provider.url, '_blank', 'noopener,noreferrer');
+          } else {
+            showModal('Add Debit Card', 'Opening secure debit card funding flow...');
+          }
+        });
+      });
+    }
+
+    function openFundAccount() {
+      renderFundProviders();
+      fundAccountPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeFundAccount() {
+      fundAccountPage.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    fundAccountBackBtn.addEventListener('click', closeFundAccount);
 
     // Account Detail Page configuration and logic (Citi-style account drill-down)
     const accountConfigs = {
@@ -640,8 +843,25 @@
     const detailAccountNumber = document.getElementById('detailAccountNumber');
     const detailAccountBalanceLabel = document.getElementById('detailAccountBalanceLabel');
     const detailAccountBalance = document.getElementById('detailAccountBalance');
+    const detailRoutingSection = document.getElementById('detailRoutingSection');
+    const detailFullRoutingNumber = document.getElementById('detailFullRoutingNumber');
+    const detailFullAccountNumber = document.getElementById('detailFullAccountNumber');
+    const detailFundAccountBtn = document.getElementById('detailFundAccountBtn');
     const detailTransactionsSection = document.getElementById('detailTransactionsSection');
     const detailTransactionsList = document.getElementById('detailTransactionsList');
+
+    // Temporary 9-digit routing/account numbers — persisted per account type until a permanent
+    // number is issued after identity verification (swap this for a real backend-issued value later).
+    function getOrCreateTempNumber(type, kind) {
+      const key = `verceil_temp_${kind}_${type}`;
+      let val = null;
+      try { val = localStorage.getItem(key); } catch (e) {}
+      if (!val) {
+        val = String(Math.floor(100000000 + Math.random() * 900000000));
+        try { localStorage.setItem(key, val); } catch (e) {}
+      }
+      return val;
+    }
 
     function renderDetailTransactions(transactions) {
       if (!transactions || transactions.length === 0) {
@@ -735,8 +955,12 @@
       document.body.style.overflow = 'hidden';
 
       if (cfg.unapplied) {
+        detailRoutingSection.classList.add('hidden');
         detailTransactionsSection.classList.add('hidden');
       } else {
+        detailFullRoutingNumber.textContent = getOrCreateTempNumber(type, 'routing');
+        detailFullAccountNumber.textContent = getOrCreateTempNumber(type, 'account');
+        detailRoutingSection.classList.remove('hidden');
         detailTransactionsSection.classList.remove('hidden');
         loadAccountTransactions(type);
       }
@@ -748,6 +972,10 @@
     }
 
     detailBackBtn.addEventListener('click', closeAccountDetail);
+    detailFundAccountBtn.addEventListener('click', () => {
+      closeAccountDetail();
+      setTimeout(() => openFundAccount(), 260);
+    });
 
     // Fetch initial balances from database and listen for real-time updates across all accounts
     async function initSupabaseData() {
