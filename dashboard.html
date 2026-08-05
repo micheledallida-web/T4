@@ -43,6 +43,19 @@
       color: #FFFFFF;
     }
 
+    .chat-dot {
+      width: 5px; height: 5px; border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      display: inline-block;
+      animation: chatDotBounce 1.2s infinite ease-in-out;
+    }
+    .chat-dot:nth-child(2) { animation-delay: 0.15s; }
+    .chat-dot:nth-child(3) { animation-delay: 0.3s; }
+    @keyframes chatDotBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.5; }
+      30% { transform: translateY(-4px); opacity: 1; }
+    }
+
     /* Verceil Signature Card - now responds to the dark/light toggle, matching the Checking card's color scheme */
 
     .credit-card-item {
@@ -246,7 +259,7 @@
 
           <div class="flex items-center justify-end flex-shrink-0">
             <div class="text-right flex flex-col justify-center">
-              <div id="checkingBalance" class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$10.00</div>
+              <div id="checkingBalance" class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$150.00</div>
               <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">Available Balance</div>
             </div>
             <svg class="w-[16px] h-[16px] text-[#6B7280] dark:text-[#52607D] flex-shrink-0 ml-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -320,7 +333,7 @@
 
           <div class="flex items-center justify-end flex-shrink-0">
             <div class="text-right flex flex-col justify-center">
-              <div id="savingsBalance" class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$0.00</div>
+              <div id="savingsBalance" class="text-[18px] font-bold text-[#111827] dark:text-[#FFFFFF] tracking-tight leading-none">$25,000.00</div>
               <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA] mt-1">Available Balance</div>
             </div>
             <svg class="w-[16px] h-[16px] text-[#6B7280] dark:text-[#52607D] flex-shrink-0 ml-2.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
@@ -1895,7 +1908,7 @@
     <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[16px] flex flex-col h-full">
       <div class="flex items-center gap-3 mb-[8px]">
         <button id="chatBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back"><svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>
-        <div class="min-w-0"><div class="text-[18px] font-bold text-white truncate">Live Chat</div><div class="text-[11px] text-white/70">Estimated wait: ~2 min · Agents available</div></div>
+        <div class="min-w-0"><div class="text-[18px] font-bold text-white truncate">Live Chat</div><div id="chatHeaderStatus" class="text-[11px] text-white/70">Connecting you with an agent...</div></div>
       </div>
       <div class="flex items-center gap-[8px] mb-[10px] overflow-x-auto" id="chatQuickOptions">
         <button data-opt="Account Help" class="chat-quick-btn px-[12px] h-[30px] rounded-full bg-white dark:bg-[#0D1728] text-[11px] font-semibold text-[#111827] dark:text-white whitespace-nowrap cursor-pointer">Account Help</button>
@@ -1905,7 +1918,10 @@
         <button data-opt="Investment Support" class="chat-quick-btn px-[12px] h-[30px] rounded-full bg-white dark:bg-[#0D1728] text-[11px] font-semibold text-[#111827] dark:text-white whitespace-nowrap cursor-pointer">Investment Support</button>
       </div>
       <div id="chatMessages" class="flex-1 bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[18px] p-[14px] shadow-lg overflow-y-auto flex flex-col gap-[10px] mb-[10px]"></div>
-      <div id="chatTypingIndicator" class="hidden text-[11px] text-white/70 mb-[6px] px-[4px]">Agent is typing...</div>
+      <div id="chatTypingIndicator" class="hidden items-center gap-[6px] mb-[6px] px-[4px]">
+        <span class="text-[11px] text-white/70" id="chatTypingLabel">Agent is typing</span>
+        <span class="flex gap-[2px]"><span class="chat-dot"></span><span class="chat-dot"></span><span class="chat-dot"></span></span>
+      </div>
       <div class="flex gap-[8px] mb-[8px]">
         <input id="chatInput" type="text" placeholder="Type a message..." class="flex-1 h-[44px] px-[14px] rounded-[14px] bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] text-[13px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none">
         <button id="chatSendBtn" class="h-[44px] px-[16px] rounded-[14px] bg-[#2563EB] text-white text-[13px] font-semibold cursor-pointer">Send</button>
@@ -5808,28 +5824,85 @@
     const chatInput = document.getElementById('chatInput');
     const chatSendBtn = document.getElementById('chatSendBtn');
     const chatTypingIndicator = document.getElementById('chatTypingIndicator');
+    const chatHeaderStatus = document.getElementById('chatHeaderStatus');
+    const chatAgentName = 'Jordan';
     let chatSessionMessages = [];
     let chatSessionId = null;
 
+    function formatChatTime(d) {
+      return new Date(d).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+    }
     function renderChat() {
       chatMessages.innerHTML = chatSessionMessages.map(m => `
-        <div class="flex ${m.sender === 'user' ? 'justify-end' : 'justify-start'}">
+        <div class="flex flex-col ${m.sender === 'user' ? 'items-end' : 'items-start'}">
           <div class="max-w-[75%] px-[12px] py-[8px] rounded-[12px] text-[13px] ${m.sender === 'user' ? 'bg-[#2563EB] text-white' : 'bg-gray-100 dark:bg-white/10 text-[#111827] dark:text-white'}">${m.message}</div>
+          <span class="text-[10px] text-[#6B7280] dark:text-[#8E9CBA] mt-[2px] px-[2px]">${m.sender === 'user' ? 'You' : chatAgentName} · ${formatChatTime(m.time)}</span>
         </div>
       `).join('');
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
     async function pushChatMessage(sender, message) {
-      chatSessionMessages.push({ sender, message }); renderChat();
+      const time = new Date().toISOString();
+      chatSessionMessages.push({ sender, message, time }); renderChat();
       try {
         const user = await getCurrentUser();
         if (user) await supabaseClient.from('support_chats').insert({ user_id: user.id, session_id: chatSessionId, sender, message });
       } catch (e) { console.error('Save chat message error:', e); }
     }
+
+    // Contextual reply generator — keyed off what's actually said, with variation so it doesn't repeat the same line
+    function generateAgentReply(userText) {
+      const t = userText.toLowerCase();
+      const pick = (arr) => arr[Math.floor(Math.random() * arr.length)];
+      if (/card.*lock|lock.*card|lost|stolen/.test(t)) {
+        return pick([
+          "I can help with that. Want me to open Report Lost or Stolen Card so we can lock it right now?",
+          "For a lost or stolen card, the fastest fix is locking it immediately — I can walk you to that screen if you'd like."
+        ]);
+      }
+      if (/dispute|charge|unauthorized|fraud/.test(t)) {
+        return pick([
+          "Sorry to hear that. Let's get a dispute filed — head to Dispute a Transaction and pick the charge in question, and I'll keep an eye on the case.",
+          "That sounds like it needs a formal dispute. Once you submit it under Dispute a Transaction you'll get a case number to track."
+        ]);
+      }
+      if (/transfer|zelle|send money|payment/.test(t)) {
+        return pick([
+          "For transfers or Zelle payments, you'll find both under Payments. Let me know if one of them isn't going through.",
+          "Got it — payment issues are usually quick to sort out. Which account is it affecting?"
+        ]);
+      }
+      if (/invest|portfolio|stock/.test(t)) {
+        return pick([
+          "I can loop in someone from investment support, or you can check your Portfolio Overview for the latest on your holdings.",
+          "For anything account-specific on investments, our team can dig in — want me to flag this for a specialist?"
+        ]);
+      }
+      if (/account help/i.test(userText)) {
+        return "Happy to help with your account — what's going on? Balance question, missing transaction, or something else?";
+      }
+      if (/thank/.test(t)) {
+        return pick(["Anytime! Anything else I can help with?", "You're welcome — let me know if anything else comes up."]);
+      }
+      return pick([
+        "Got it, thanks for the details. Let me look into that for you.",
+        "Understood — give me just a moment to check on this.",
+        "I hear you. Can you tell me a bit more about when this started?",
+        "Thanks for flagging that. I'm pulling up your account now."
+      ]);
+    }
+
     function openLiveChat() {
       liveChatPage.classList.remove('hidden'); document.body.style.overflow = 'hidden';
       chatSessionId = genRef(); chatSessionMessages = [];
-      pushChatMessage('agent', 'Hi, thanks for reaching out to Verceil Bank support. How can we help today?');
+      chatMessages.innerHTML = '';
+      chatHeaderStatus.textContent = 'Connecting you with an agent...';
+      chatTypingIndicator.classList.remove('hidden'); chatTypingIndicator.classList.add('flex');
+      setTimeout(() => {
+        chatTypingIndicator.classList.add('hidden'); chatTypingIndicator.classList.remove('flex');
+        chatHeaderStatus.textContent = `${chatAgentName} · Online`;
+        pushChatMessage('agent', `Hi, I'm ${chatAgentName} with Verceil Bank support. How can I help today?`);
+      }, 1400);
     }
     function closeLiveChat() { liveChatPage.classList.add('hidden'); document.body.style.overflow = ''; }
     chatBackBtn.addEventListener('click', closeLiveChat);
@@ -5841,17 +5914,19 @@
       if (!text) return;
       chatInput.value = '';
       await pushChatMessage('user', text);
-      chatTypingIndicator.classList.remove('hidden');
+      const reply = generateAgentReply(text);
+      chatTypingIndicator.classList.remove('hidden'); chatTypingIndicator.classList.add('flex');
+      const delay = 700 + Math.min(1800, reply.length * 18); // longer replies "take longer to type"
       setTimeout(async () => {
-        chatTypingIndicator.classList.add('hidden');
-        await pushChatMessage('agent', 'Thanks — a specialist will review this and follow up shortly. (Automated acknowledgment; no live agent is connected in this preview.)');
-      }, 1200);
+        chatTypingIndicator.classList.add('hidden'); chatTypingIndicator.classList.remove('flex');
+        await pushChatMessage('agent', reply);
+      }, delay);
     }
     chatSendBtn.addEventListener('click', sendChatMessage);
     chatInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendChatMessage(); });
     document.getElementById('chatEndBtn').addEventListener('click', closeLiveChat);
     document.getElementById('chatSaveTranscriptBtn').addEventListener('click', () => {
-      const text = chatSessionMessages.map(m => `[${m.sender === 'user' ? 'You' : 'Agent'}] ${m.message}`).join('\n');
+      const text = chatSessionMessages.map(m => `[${formatChatTime(m.time)}] ${m.sender === 'user' ? 'You' : chatAgentName}: ${m.message}`).join('\n');
       const blob = new Blob([text], { type: 'text/plain' });
       const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `chat-transcript-${chatSessionId}.txt`; a.click();
     });
