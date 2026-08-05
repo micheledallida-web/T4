@@ -552,10 +552,689 @@
     </div>
   </div>
 
+  <!-- LINK EXTERNAL ACCOUNT PAGE -->
+  <div id="linkAccountPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+
+      <div class="flex items-center gap-3 mb-[10px]">
+        <button id="linkAccountBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Link External Account</div>
+      </div>
+      <div class="text-[13px] font-normal text-white/80 dark:text-[#8E9CBA] mb-[20px] ml-[52px]">Connect a bank account instantly, or enter details manually</div>
+
+      <!-- Instant link (Plaid-style) -->
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg mb-[16px]">
+        <div class="flex items-center gap-[12px] mb-[10px]">
+          <div class="w-[44px] h-[44px] rounded-[14px] flex items-center justify-center text-white flex-shrink-0" style="background:#000000;">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-[15px] font-bold text-[#111827] dark:text-white">Instant Link</div>
+            <div class="text-[12px] font-normal text-[#6B7280] dark:text-[#8E9CBA]">Securely connect using your bank login — powered by Plaid</div>
+          </div>
+        </div>
+        <button id="plaidLinkBtn" class="w-full h-[46px] rounded-[14px] bg-[#111827] dark:bg-white text-white dark:text-[#111827] text-[14px] font-semibold flex items-center justify-center gap-[8px] cursor-pointer hover:opacity-90 transition-all">
+          <span>Link Instantly with Plaid</span>
+        </button>
+      </div>
+
+      <div class="flex items-center gap-[10px] my-[18px]">
+        <div class="flex-1 h-px bg-white/15 dark:bg-white/10"></div>
+        <span class="text-[11px] font-bold uppercase tracking-[0.8px] text-white/60 dark:text-[#8E9CBA]">Or enter manually</span>
+        <div class="flex-1 h-px bg-white/15 dark:bg-white/10"></div>
+      </div>
+
+      <!-- Manual entry (traditional) -->
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Bank Name</label>
+            <input id="linkBankName" type="text" placeholder="e.g. Chase, Bank of America" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Routing Number</label>
+            <input id="linkRoutingNumber" type="text" inputmode="numeric" maxlength="9" placeholder="9-digit routing number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Account Number</label>
+            <input id="linkAccountNumber" type="text" inputmode="numeric" placeholder="Account number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Account Type</label>
+            <select id="linkAccountType" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="checking">Checking</option>
+              <option value="savings">Savings</option>
+            </select>
+          </div>
+
+          <div id="linkAccountError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+
+          <button id="linkAccountSaveBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold flex items-center justify-center gap-[8px] cursor-pointer hover:opacity-90 transition-all mt-[4px]">
+            <span id="linkAccountSaveBtnLabel">Save Account</span>
+          </button>
+
+        </div>
+      </div>
+
+      <div class="flex items-center gap-[8px] mt-[24px] px-[4px]">
+        <svg class="w-[16px] h-[16px] text-[#10B981] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 3l7 3v6c0 4.5-3 7.8-7 9-4-1.2-7-4.5-7-9V6l7-3z"></path></svg>
+        <span class="text-[12px] font-normal text-white/70 dark:text-[#8E9CBA]">Your account details are encrypted and stored securely.</span>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TRANSFER BETWEEN ACCOUNTS PAGE -->
+  <div id="transferPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="transferBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div id="transferPageTitle" class="text-[20px] font-bold text-white truncate">Transfer Between Accounts</div>
+      </div>
+
+      <!-- STEP 1: FORM -->
+      <div id="transferStepForm">
+        <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">From Account</label>
+            <select id="transferFrom" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="checking">Verceil Checking</option>
+              <option value="savings">High-Yield Savings</option>
+              <option value="investments">Investment Portfolio</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">To Account</label>
+            <select id="transferTo" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="savings">High-Yield Savings</option>
+              <option value="checking">Verceil Checking</option>
+              <option value="investments">Investment Portfolio</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="transferAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Transfer Date</label>
+            <input id="transferDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Memo <span class="font-normal text-gray-400">(optional)</span></label>
+            <input id="transferMemo" type="text" placeholder="What's this for?" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="transferFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+        </div>
+        <button id="transferContinueBtn" class="w-full h-[48px] mt-[16px] rounded-[16px] bg-[#2563EB] text-white text-[14px] font-semibold shadow-lg cursor-pointer hover:opacity-90 transition-all">Continue</button>
+      </div>
+
+      <!-- STEP 2: REVIEW -->
+      <div id="transferStepReview" class="hidden">
+        <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+          <div class="text-[16px] font-bold text-[#111827] dark:text-white mb-[14px]">Transfer Review</div>
+          <div class="flex flex-col divide-y divide-gray-100 dark:divide-white/[0.06]">
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">From</span><span id="reviewFrom" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">To</span><span id="reviewTo" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Amount</span><span id="reviewAmount" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Estimated Delivery</span><span class="text-[14px] font-semibold text-[#111827] dark:text-white">Instant</span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Confirmation #</span><span id="reviewConfNum" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+          </div>
+        </div>
+        <button id="transferConfirmBtn" class="w-full h-[48px] mt-[16px] rounded-[16px] bg-[#2563EB] text-white text-[14px] font-semibold shadow-lg cursor-pointer hover:opacity-90 transition-all">Confirm Transfer</button>
+      </div>
+
+      <!-- STEP 3: RECEIPT -->
+      <div id="transferStepReceipt" class="hidden text-center">
+        <div class="w-[64px] h-[64px] rounded-full bg-[#10B981]/15 flex items-center justify-center mx-auto mb-[16px]">
+          <svg class="w-[32px] h-[32px] text-[#10B981]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+        </div>
+        <div class="text-[20px] font-bold text-white mb-[20px]">Transaction Complete</div>
+        <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg text-left">
+          <div class="flex flex-col divide-y divide-gray-100 dark:divide-white/[0.06]">
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Amount</span><span id="receiptAmount" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Recipient</span><span id="receiptRecipient" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Date & Time</span><span id="receiptDateTime" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Confirmation #</span><span id="receiptConfNum" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+            <div class="flex items-center justify-between py-[10px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Status</span><span class="text-[14px] font-semibold text-[#10B981]">Completed</span></div>
+          </div>
+        </div>
+        <div class="flex gap-[10px] mt-[14px]">
+          <button id="receiptDownloadBtn" class="flex-1 h-[44px] rounded-[14px] bg-white/15 dark:bg-white/5 border border-white/20 dark:border-white/10 text-white text-[13px] font-semibold cursor-pointer">Download Receipt</button>
+          <button id="receiptShareBtn" class="flex-1 h-[44px] rounded-[14px] bg-white/15 dark:bg-white/5 border border-white/20 dark:border-white/10 text-white text-[13px] font-semibold cursor-pointer">Share Receipt</button>
+        </div>
+        <button id="transferDoneBtn" class="w-full h-[48px] mt-[14px] rounded-[16px] bg-[#2563EB] text-white text-[14px] font-semibold shadow-lg cursor-pointer hover:opacity-90 transition-all">Done</button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TRANSFER BETWEEN ACCOUNTS: FORM -->
+  <div id="transferFormPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="transferFormBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Transfer Between Accounts</div>
+      </div>
+
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">From Account</label>
+            <select id="transferFrom" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="checking">Verceil Checking</option>
+              <option value="savings">High-Yield Savings</option>
+              <option value="investments">Investment Portfolio</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">To Account</label>
+            <select id="transferTo" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="savings">High-Yield Savings</option>
+              <option value="checking">Verceil Checking</option>
+              <option value="investments">Investment Portfolio</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="transferAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Transfer Date</label>
+            <input id="transferDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Memo (optional)</label>
+            <input id="transferMemo" type="text" placeholder="What's this for?" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="transferFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="transferContinueBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[4px]">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRANSFER BETWEEN ACCOUNTS: REVIEW -->
+  <div id="transferReviewPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="transferReviewBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Transfer Review</div>
+      </div>
+
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]">
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">From</span>
+          <span id="reviewFrom" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">To</span>
+          <span id="reviewTo" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Amount</span>
+          <span id="reviewAmount" class="text-[16px] font-bold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Estimated Delivery</span>
+          <span id="reviewDelivery" class="text-[14px] font-semibold text-[#111827] dark:text-white">Immediate</span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Confirmation Number</span>
+          <span id="reviewConfirmation" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+      </div>
+
+      <div id="transferReviewError" class="hidden text-[12px] font-medium text-[#EF4444] mt-[12px]"></div>
+      <button id="transferConfirmBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[16px]">Confirm Transfer</button>
+    </div>
+  </div>
+
+  <!-- REUSABLE SUCCESS RECEIPT PAGE (used by every completed payments flow) -->
+  <div id="receiptPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[40px] pb-[40px] text-center">
+      <div class="w-[64px] h-[64px] rounded-full bg-[#10B981]/15 flex items-center justify-center mx-auto mb-[16px]">
+        <svg class="w-[32px] h-[32px] text-[#10B981]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      </div>
+      <div class="text-[20px] font-bold text-white mb-[24px]">Transaction Complete</div>
+
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg text-left divide-y divide-gray-100 dark:divide-white/[0.06]">
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Amount</span>
+          <span id="receiptAmount" class="text-[16px] font-bold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Recipient</span>
+          <span id="receiptRecipient" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Date & Time</span>
+          <span id="receiptDateTime" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Confirmation Number</span>
+          <span id="receiptConfirmation" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span>
+        </div>
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Status</span>
+          <span class="text-[14px] font-semibold text-[#16A34A] dark:text-[#22C55E]">Completed</span>
+        </div>
+      </div>
+
+      <div class="flex gap-[10px] mt-[16px]">
+        <button id="receiptDownloadBtn" class="flex-1 h-[44px] rounded-[14px] bg-white dark:bg-[#0D1728] border border-gray-200 dark:border-white/10 text-[13px] font-semibold text-[#111827] dark:text-white cursor-pointer hover:opacity-90 transition-all">Download Receipt</button>
+        <button id="receiptShareBtn" class="flex-1 h-[44px] rounded-[14px] bg-white dark:bg-[#0D1728] border border-gray-200 dark:border-white/10 text-[13px] font-semibold text-[#111827] dark:text-white cursor-pointer hover:opacity-90 transition-all">Share Receipt</button>
+      </div>
+
+      <button id="receiptDoneBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[16px]">Done</button>
+      <button id="receiptHistoryBtn" class="w-full h-[46px] rounded-[14px] bg-transparent text-white text-[14px] font-semibold cursor-pointer hover:opacity-80 transition-all mt-[8px]">View Transaction History</button>
+    </div>
+  </div>
+
+  <!-- ============ SEND MONEY (ZELLE) ============ -->
+  <div id="sendMoneyFormPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[4px]">
+        <button id="sendMoneyBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Send Money</div>
+      </div>
+      <div class="text-[12px] font-semibold text-[#FACC15] mb-[16px] ml-[52px]">Powered by Zelle®</div>
+
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Recipient Name</label>
+            <input id="zelleRecipientName" type="text" placeholder="Full name" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Email or Mobile Number</label>
+            <input id="zelleRecipientContact" type="text" placeholder="name@email.com or (555) 555-5555" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="zelleAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Memo (optional)</label>
+            <input id="zelleMemo" type="text" placeholder="What's this for?" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="zelleFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="zelleContinueBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[4px]">Continue</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="sendMoneyReviewPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="sendMoneyReviewBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Payment Review</div>
+      </div>
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]">
+        <div class="flex items-center justify-between py-[12px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Recipient</span><span id="zelleReviewRecipient" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+        <div class="flex items-center justify-between py-[12px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Amount</span><span id="zelleReviewAmount" class="text-[16px] font-bold text-[#111827] dark:text-white"></span></div>
+        <div class="flex items-center justify-between py-[12px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Funding Account</span><span class="text-[14px] font-semibold text-[#111827] dark:text-white">Verceil Checking</span></div>
+        <div class="flex items-center justify-between py-[12px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Delivery Time</span><span class="text-[14px] font-semibold text-[#111827] dark:text-white">Minutes</span></div>
+        <div class="flex items-center justify-between py-[12px]"><span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Estimated Total</span><span id="zelleReviewTotal" class="text-[14px] font-semibold text-[#111827] dark:text-white"></span></div>
+      </div>
+      <div id="zelleReviewError" class="hidden text-[12px] font-medium text-[#EF4444] mt-[12px]"></div>
+      <button id="zelleSendBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[16px]">Send Payment</button>
+    </div>
+  </div>
+
+  <!-- ============ PAY BILLS ============ -->
+  <div id="payBillsPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="payBillsBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Pay Bills</div>
+      </div>
+
+      <div class="flex items-center justify-between mb-[10px]">
+        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 dark:text-[#8E9CBA] uppercase">Saved Billers</div>
+        <button id="addBillerToggleBtn" class="text-[13px] font-semibold text-white dark:text-[#3B82F6] cursor-pointer">+ Add Biller</button>
+      </div>
+      <div id="billersList" class="flex flex-col gap-[10px] mb-[20px]"></div>
+
+      <!-- Add New Biller (toggle) -->
+      <div id="addBillerForm" class="hidden bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg mb-[20px]">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Company Name</label>
+            <input id="billerCompanyName" type="text" placeholder="e.g. Con Edison" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Account Number</label>
+            <input id="billerAccountNumber" type="text" placeholder="Your account number with this biller" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Category</label>
+            <select id="billerCategory" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option>Utilities</option><option>Internet</option><option>Mobile</option><option>Credit Cards</option><option>Insurance</option><option>Mortgage</option><option>Other</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Nickname (optional)</label>
+            <input id="billerNickname" type="text" placeholder="e.g. Electric Bill" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="billerFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="saveBillerBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Save Biller</button>
+        </div>
+      </div>
+
+      <!-- Pay a Biller (toggle, shown after selecting a saved biller) -->
+      <div id="payBillForm" class="hidden bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div id="payBillHeader" class="text-[15px] font-bold text-[#111827] dark:text-white mb-[14px]"></div>
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="billPayAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Payment Date</label>
+            <input id="billPayDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Memo (optional)</label>
+            <input id="billPayMemo" type="text" placeholder="Note" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="billPayError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="submitBillPayBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Submit Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ SCHEDULED PAYMENTS ============ -->
+  <div id="scheduledPaymentsPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[16px]">
+        <button id="scheduledBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Scheduled Payments</div>
+      </div>
+
+      <div class="flex gap-[8px] mb-[16px]">
+        <button class="sched-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer bg-white text-[#111827]" data-tab="upcoming">Upcoming</button>
+        <button class="sched-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer bg-white/15 text-white" data-tab="recurring">Recurring</button>
+        <button class="sched-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer bg-white/15 text-white" data-tab="completed">Completed</button>
+      </div>
+
+      <div class="flex justify-end mb-[10px]">
+        <button id="addScheduledToggleBtn" class="text-[13px] font-semibold text-white dark:text-[#3B82F6] cursor-pointer">+ New Scheduled Payment</button>
+      </div>
+
+      <div id="scheduledList" class="flex flex-col gap-[10px] mb-[20px]"></div>
+
+      <div id="addScheduledForm" class="hidden bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Biller or Recipient</label>
+            <input id="schedRecipient" type="text" placeholder="Name" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="schedAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Start Date</label>
+            <input id="schedStartDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">End Date (optional)</label>
+            <input id="schedEndDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Frequency</label>
+            <select id="schedFrequency" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option>One-time</option><option>Weekly</option><option>Biweekly</option><option>Monthly</option><option>Quarterly</option>
+            </select>
+          </div>
+          <div id="schedFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="saveScheduledBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Save Scheduled Payment</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ PAYMENT HISTORY ============ -->
+  <div id="paymentHistoryPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[16px]">
+        <button id="historyBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Payment History</div>
+      </div>
+
+      <div id="historyFilters" class="flex gap-[8px] mb-[16px] overflow-x-auto pb-[2px]">
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white text-[#111827]" data-filter="all">All</button>
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white/15 text-white" data-filter="zelle">Zelle</button>
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white/15 text-white" data-filter="bills">Bills</button>
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white/15 text-white" data-filter="transfers">Transfers</button>
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white/15 text-white" data-filter="wires">Wires</button>
+        <button class="history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer bg-white/15 text-white" data-filter="deposits">Deposits</button>
+      </div>
+
+      <div id="historyList" class="flex flex-col gap-[10px]"></div>
+    </div>
+  </div>
+
+  <div id="transactionDetailsPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="txDetailsBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Transaction Details</div>
+      </div>
+      <div id="txDetailsCard" class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]"></div>
+      <div class="flex gap-[10px] mt-[16px]">
+        <button id="txDetailsDownloadBtn" class="flex-1 h-[44px] rounded-[14px] bg-white dark:bg-[#0D1728] border border-gray-200 dark:border-white/10 text-[13px] font-semibold text-[#111827] dark:text-white cursor-pointer hover:opacity-90 transition-all">Download PDF</button>
+        <button id="txDetailsShareBtn" class="flex-1 h-[44px] rounded-[14px] bg-white dark:bg-[#0D1728] border border-gray-200 dark:border-white/10 text-[13px] font-semibold text-[#111827] dark:text-white cursor-pointer hover:opacity-90 transition-all">Share</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ EXTERNAL TRANSFERS ============ -->
+  <div id="externalTransfersPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[16px]">
+        <button id="extTransfersBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">External Transfers</div>
+      </div>
+
+      <div class="flex items-center justify-between mb-[10px]">
+        <div class="text-[11px] font-bold tracking-[1.2px] text-white/75 dark:text-[#8E9CBA] uppercase">Linked Accounts</div>
+        <button id="extAddBankBtn" class="text-[13px] font-semibold text-white dark:text-[#3B82F6] cursor-pointer">+ Add External Bank</button>
+      </div>
+      <div id="extAccountsList" class="flex flex-col gap-[10px] mb-[20px]"></div>
+
+      <div id="extTransferForm" class="hidden bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div id="extTransferHeader" class="text-[15px] font-bold text-[#111827] dark:text-white mb-[14px]"></div>
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">From Account</label>
+            <select id="extFromAccount" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+              <option value="checking">Verceil Checking</option>
+              <option value="savings">High-Yield Savings</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="extTransferAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Transfer Date</label>
+            <input id="extTransferDate" type="date" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="extTransferError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="extSubmitTransferBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Submit Transfer</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ WIRE TRANSFERS ============ -->
+  <div id="wireTransfersPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[16px]">
+        <button id="wireBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Wire Transfer</div>
+      </div>
+
+      <div class="flex gap-[8px] mb-[16px]">
+        <button class="wire-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer bg-white text-[#111827]" data-tab="domestic">Domestic</button>
+        <button class="wire-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer bg-white/15 text-white" data-tab="international">International</button>
+      </div>
+
+      <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Recipient Name</label>
+            <input id="wireRecipientName" type="text" placeholder="Full name" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Bank Name</label>
+            <input id="wireBankName" type="text" placeholder="Recipient's bank" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="wireDomesticFields" class="flex flex-col gap-[14px]">
+            <div>
+              <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Routing Number</label>
+              <input id="wireRouting" type="text" inputmode="numeric" maxlength="9" placeholder="9-digit routing number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+            </div>
+          </div>
+          <div id="wireIntlFields" class="hidden flex-col gap-[14px]">
+            <div>
+              <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">SWIFT/BIC</label>
+              <input id="wireSwift" type="text" placeholder="e.g. CHASUS33" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+            </div>
+            <div>
+              <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">IBAN</label>
+              <input id="wireIban" type="text" placeholder="International account number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+            </div>
+            <div>
+              <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Country</label>
+              <input id="wireCountry" type="text" placeholder="Recipient's country" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+            </div>
+            <div>
+              <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Currency</label>
+              <input id="wireCurrency" type="text" placeholder="e.g. EUR" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+            </div>
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Account Number</label>
+            <input id="wireAccountNumber" type="text" placeholder="Recipient's account number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Amount</label>
+            <input id="wireAmount" type="number" min="0.01" step="0.01" placeholder="$0.00" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Purpose</label>
+            <input id="wirePurpose" type="text" placeholder="Purpose of wire" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="wireFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="wireReviewBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Review Wire</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="wireReviewPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[20px]">
+        <button id="wireReviewBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Wire Transfer Review</div>
+      </div>
+      <div id="wireReviewCard" class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg divide-y divide-gray-100 dark:divide-white/[0.06]"></div>
+      <div id="wireReviewError" class="hidden text-[12px] font-medium text-[#EF4444] mt-[12px]"></div>
+      <button id="wireSubmitBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all mt-[16px]">Submit Wire</button>
+    </div>
+  </div>
+
+  <!-- ============ MANAGE PAYEES ============ -->
+  <div id="managePayeesPage" class="hidden fixed inset-0 z-40 bg-[#0B4CC2] dark:bg-[#060B14] overflow-y-auto">
+    <div class="w-full max-w-[430px] mx-auto px-[16px] pt-[14px] pb-[40px]">
+      <div class="flex items-center gap-3 mb-[16px]">
+        <button id="payeesBackBtn" class="w-[40px] h-[40px] rounded-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] flex items-center justify-center text-[#111827] dark:text-white shadow-lg cursor-pointer flex-shrink-0" aria-label="Back">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="text-[20px] font-bold text-white truncate">Manage Payees</div>
+      </div>
+
+      <div class="flex justify-end mb-[10px]">
+        <button id="addPayeeToggleBtn" class="text-[13px] font-semibold text-white dark:text-[#3B82F6] cursor-pointer">+ Add Payee</button>
+      </div>
+
+      <div id="payeesList" class="flex flex-col gap-[10px] mb-[20px]"></div>
+
+      <div id="addPayeeForm" class="hidden bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[22px] p-[18px] shadow-lg">
+        <div class="flex flex-col gap-[14px]">
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Full Name</label>
+            <input id="payeeName" type="text" placeholder="Full name" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Nickname (optional)</label>
+            <input id="payeeNickname" type="text" placeholder="Nickname" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Bank Name</label>
+            <input id="payeeBankName" type="text" placeholder="Bank name" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Routing Number</label>
+            <input id="payeeRouting" type="text" inputmode="numeric" maxlength="9" placeholder="9-digit routing number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Account Number</label>
+            <input id="payeeAccountNumber" type="text" placeholder="Account number" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Email (optional)</label>
+            <input id="payeeEmail" type="email" placeholder="email@example.com" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div>
+            <label class="text-[12px] font-semibold text-[#6B7280] dark:text-[#8E9CBA] mb-[6px] block">Phone (optional)</label>
+            <input id="payeePhone" type="tel" placeholder="(555) 555-5555" class="w-full h-[46px] px-[14px] rounded-[12px] bg-gray-50 dark:bg-white/5 border border-gray-200 dark:border-white/10 text-[14px] text-[#111827] dark:text-white placeholder-gray-400 dark:placeholder-[#52607D] outline-none focus:border-[#2563EB]">
+          </div>
+          <div id="payeeFormError" class="hidden text-[12px] font-medium text-[#EF4444]"></div>
+          <button id="savePayeeBtn" class="w-full h-[46px] rounded-[14px] bg-[#2563EB] text-white text-[14px] font-semibold cursor-pointer hover:opacity-90 transition-all">Save Payee</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- INTERACTIVE MODAL OVERLAY -->
   <div id="actionModal" class="fixed inset-0 bg-black/70 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
     <div class="bg-white dark:bg-[#0D1728] text-[#111827] dark:text-white border border-gray-200 dark:border-white/10 rounded-2xl p-6 max-w-xs w-full shadow-2xl text-center space-y-4">
-      <div class="w-12 h-12 rounded-2xl bg-[#0B4CC2]/20 dark:bg-[#3B82F6]/20 text-[#0B4CC2] dark:text-[#3B82F6] flex items-center justify-center mx-auto text-xl font-bold">🔒</div>
       <h3 id="modalTitle" class="text-base font-bold">Secure Action</h3>
       <p id="modalDesc" class="text-xs text-[#6B7280] dark:text-[#8E9CBA] leading-relaxed">Connecting securely to your Verceil Private Banking session...</p>
       <button id="modalCloseBtn" class="w-full py-2.5 rounded-xl bg-[#0B4CC2] dark:bg-[#2563EB] hover:opacity-90 text-white font-semibold text-xs transition-all shadow-md cursor-pointer">
@@ -628,7 +1307,8 @@
             category: 'Statements & Documents',
             items: ['Monthly Statements', 'Account Documents', 'Tax Documents (1099)', 'Confirmation Notices', 'Download PDF Statements', 'Request Official Bank Letter']
           }
-        ]
+        ],
+        standaloneItems: ['Sign Out']
       }
     };
 
@@ -653,7 +1333,15 @@
               <svg class="w-[16px] h-[16px] text-gray-400 dark:text-[#52607D] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
             </button>
           `).join('')}
-        `).join('');
+        `).join('') + (menu.standaloneItems ? `
+          <div class="border-t border-gray-100 dark:border-white/[0.06] mt-[8px] pt-[8px]">
+            ${menu.standaloneItems.map(item => `
+              <button class="nav-menu-item w-full flex items-center justify-between px-[12px] py-[14px] rounded-[14px] hover:bg-red-50 dark:hover:bg-white/5 transition-all cursor-pointer text-left">
+                <span class="text-[15px] font-semibold text-[#DC2626]">${item}</span>
+              </button>
+            `).join('')}
+          </div>
+        ` : '');
       } else {
         navMenuList.innerHTML = menu.items.map(item => `
           <button class="nav-menu-item w-full flex items-center justify-between px-[12px] py-[14px] rounded-[14px] hover:bg-gray-50 dark:hover:bg-white/5 transition-all cursor-pointer text-left">
@@ -667,8 +1355,28 @@
         btn.addEventListener('click', () => {
           const label = btn.querySelector('span').textContent;
           closeNavMenu();
-          if (label === 'Fund Account') {
+          if (label === 'Sign Out') {
+            handleSignOut();
+          } else if (label === 'Fund Account') {
             setTimeout(() => openFundAccount(), 260);
+          } else if (label === 'Transfer Between Accounts') {
+            setTimeout(() => openTransferForm(), 260);
+          } else if (label === 'Send Money (Zelle®)') {
+            setTimeout(() => openSendMoney(), 260);
+          } else if (label === 'Pay Bills') {
+            setTimeout(() => openPayBills(), 260);
+          } else if (label === 'Scheduled Payments') {
+            setTimeout(() => openScheduledPayments(), 260);
+          } else if (label === 'Payment History') {
+            setTimeout(() => openPaymentHistory(), 260);
+          } else if (label === 'External Transfers') {
+            setTimeout(() => openExternalTransfers(), 260);
+          } else if (label === 'Wire Transfers') {
+            setTimeout(() => openWireTransfers(), 260);
+          } else if (label === 'Manage Payees') {
+            setTimeout(() => openManagePayees(), 260);
+          } else if (label === 'Manage Linked Accounts' || label === 'Linked Accounts') {
+            setTimeout(() => openLinkAccount(), 260);
           } else {
             setTimeout(() => showModal(label, `Opening ${label}...`), 260);
           }
@@ -797,6 +1505,1017 @@
     }
 
     fundAccountBackBtn.addEventListener('click', closeFundAccount);
+
+    // Link External Account (traditional manual entry + instant Plaid-style linking)
+    const linkAccountPage = document.getElementById('linkAccountPage');
+    const linkAccountBackBtn = document.getElementById('linkAccountBackBtn');
+    const plaidLinkBtn = document.getElementById('plaidLinkBtn');
+    const linkBankName = document.getElementById('linkBankName');
+    const linkRoutingNumber = document.getElementById('linkRoutingNumber');
+    const linkAccountNumber = document.getElementById('linkAccountNumber');
+    const linkAccountType = document.getElementById('linkAccountType');
+    const linkAccountError = document.getElementById('linkAccountError');
+    const linkAccountSaveBtn = document.getElementById('linkAccountSaveBtn');
+    const linkAccountSaveBtnLabel = document.getElementById('linkAccountSaveBtnLabel');
+
+    function openLinkAccount() {
+      linkAccountError.classList.add('hidden');
+      linkAccountPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLinkAccount() {
+      linkAccountPage.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+
+    linkAccountBackBtn.addEventListener('click', closeLinkAccount);
+
+    // Manual (traditional) linking — validates industry-standard field lengths, then saves to Supabase
+    linkAccountSaveBtn.addEventListener('click', async () => {
+      const bankName = linkBankName.value.trim();
+      const routing = linkRoutingNumber.value.trim();
+      const account = linkAccountNumber.value.trim();
+      const accountType = linkAccountType.value;
+
+      linkAccountError.classList.add('hidden');
+
+      if (!bankName) {
+        linkAccountError.textContent = 'Please enter the bank name.';
+        linkAccountError.classList.remove('hidden');
+        return;
+      }
+      if (!/^\d{9}$/.test(routing)) {
+        linkAccountError.textContent = 'Routing number must be exactly 9 digits.';
+        linkAccountError.classList.remove('hidden');
+        return;
+      }
+      if (!/^\d{4,17}$/.test(account)) {
+        linkAccountError.textContent = 'Please enter a valid account number.';
+        linkAccountError.classList.remove('hidden');
+        return;
+      }
+
+      linkAccountSaveBtn.disabled = true;
+      linkAccountSaveBtnLabel.textContent = 'Saving...';
+
+      try {
+        if (!supabaseClient) throw new Error('Supabase client not available');
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session || !session.user) throw new Error('Not signed in');
+
+        const { error } = await supabaseClient
+          .from('external_accounts')
+          .insert({
+            user_id: session.user.id,
+            bank_name: bankName,
+            routing_number: routing,
+            account_number: account,
+            account_type: accountType,
+            link_method: 'manual'
+          });
+
+        if (error) throw error;
+
+        linkAccountSaveBtn.disabled = false;
+        linkAccountSaveBtnLabel.textContent = 'Save Account';
+        linkBankName.value = '';
+        linkRoutingNumber.value = '';
+        linkAccountNumber.value = '';
+        closeLinkAccount();
+        setTimeout(() => showModal('Account Linked', `${bankName} account ending in ${account.slice(-4)} was linked successfully.`), 260);
+      } catch (e) {
+        console.error('Link external account error:', e);
+        linkAccountSaveBtn.disabled = false;
+        linkAccountSaveBtnLabel.textContent = 'Save Account';
+        linkAccountError.textContent = 'Could not save this account right now. Please try again.';
+        linkAccountError.classList.remove('hidden');
+      }
+    });
+
+    // Instant linking (Plaid-style) — requires a real Plaid Link token generated by your backend.
+    // This is a placeholder entry point until that server-side piece exists.
+    plaidLinkBtn.addEventListener('click', () => {
+      closeLinkAccount();
+      setTimeout(() => showModal('Instant Link', 'Instant bank linking via Plaid requires a backend-issued Link token. Connect your Plaid account on the server to enable this.'), 260);
+    });
+
+    // Sign Out — ends the Supabase session and redirects to the sign-in page
+    async function handleSignOut() {
+      try {
+        if (supabaseClient) {
+          await supabaseClient.auth.signOut();
+        }
+      } catch (e) {
+        console.error('Sign out error:', e);
+      } finally {
+        window.location.href = '/login';
+      }
+    }
+
+    // ==================== TRANSFER BETWEEN ACCOUNTS ====================
+    const accountLabels = { checking: 'Verceil Checking', savings: 'High-Yield Savings', investments: 'Investment Portfolio' };
+    const accountBalanceIds = { checking: 'checkingBalance', savings: 'savingsBalance', investments: 'investmentsBalance' };
+
+    const transferFormPage = document.getElementById('transferFormPage');
+    const transferFormBackBtn = document.getElementById('transferFormBackBtn');
+    const transferFrom = document.getElementById('transferFrom');
+    const transferTo = document.getElementById('transferTo');
+    const transferAmount = document.getElementById('transferAmount');
+    const transferDate = document.getElementById('transferDate');
+    const transferMemo = document.getElementById('transferMemo');
+    const transferFormError = document.getElementById('transferFormError');
+    const transferContinueBtn = document.getElementById('transferContinueBtn');
+
+    const transferReviewPage = document.getElementById('transferReviewPage');
+    const transferReviewBackBtn = document.getElementById('transferReviewBackBtn');
+    const reviewFrom = document.getElementById('reviewFrom');
+    const reviewTo = document.getElementById('reviewTo');
+    const reviewAmount = document.getElementById('reviewAmount');
+    const reviewConfirmation = document.getElementById('reviewConfirmation');
+    const transferReviewError = document.getElementById('transferReviewError');
+    const transferConfirmBtn = document.getElementById('transferConfirmBtn');
+
+    let pendingTransfer = null;
+
+    function parseBalanceText(text) {
+      return Number(String(text).replace(/[^0-9.-]/g, '')) || 0;
+    }
+    function formatCurrency(n) {
+      return `$${Number(n).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+    }
+    function generateConfirmationNumber() {
+      return 'VB-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+    }
+
+    function openTransferForm() {
+      transferFormError.classList.add('hidden');
+      transferAmount.value = '';
+      transferMemo.value = '';
+      transferDate.value = new Date().toISOString().slice(0, 10);
+      transferFormPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeTransferForm() {
+      transferFormPage.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    transferFormBackBtn.addEventListener('click', closeTransferForm);
+
+    transferContinueBtn.addEventListener('click', () => {
+      transferFormError.classList.add('hidden');
+      const from = transferFrom.value;
+      const to = transferTo.value;
+      const amount = parseFloat(transferAmount.value);
+
+      if (from === to) {
+        transferFormError.textContent = 'From and To accounts must be different.';
+        transferFormError.classList.remove('hidden');
+        return;
+      }
+      if (!amount || amount <= 0) {
+        transferFormError.textContent = 'Please enter a valid amount.';
+        transferFormError.classList.remove('hidden');
+        return;
+      }
+      const fromBalanceEl = document.getElementById(accountBalanceIds[from]);
+      const fromBalance = fromBalanceEl ? parseBalanceText(fromBalanceEl.textContent) : 0;
+      if (amount > fromBalance) {
+        transferFormError.textContent = `Insufficient funds in ${accountLabels[from]}.`;
+        transferFormError.classList.remove('hidden');
+        return;
+      }
+
+      pendingTransfer = {
+        from, to, amount,
+        memo: transferMemo.value.trim(),
+        transferDate: transferDate.value,
+        confirmation: generateConfirmationNumber()
+      };
+
+      reviewFrom.textContent = accountLabels[from];
+      reviewTo.textContent = accountLabels[to];
+      reviewAmount.textContent = formatCurrency(amount);
+      reviewConfirmation.textContent = pendingTransfer.confirmation;
+      transferReviewError.classList.add('hidden');
+
+      closeTransferForm();
+      transferReviewPage.classList.remove('hidden');
+    });
+
+    transferReviewBackBtn.addEventListener('click', () => {
+      transferReviewPage.classList.add('hidden');
+      openTransferForm();
+    });
+
+    transferConfirmBtn.addEventListener('click', async () => {
+      if (!pendingTransfer) return;
+      transferReviewError.classList.add('hidden');
+      transferConfirmBtn.disabled = true;
+      transferConfirmBtn.textContent = 'Processing...';
+
+      try {
+        if (!supabaseClient) throw new Error('Supabase client not available');
+        const { data: { session } } = await supabaseClient.auth.getSession();
+        if (!session || !session.user) throw new Error('Not signed in');
+
+        const { error } = await supabaseClient.from('transfers').insert({
+          user_id: session.user.id,
+          from_account: pendingTransfer.from,
+          to_account: pendingTransfer.to,
+          amount: pendingTransfer.amount,
+          memo: pendingTransfer.memo,
+          transfer_date: pendingTransfer.transferDate,
+          status: 'completed'
+        });
+        if (error) throw error;
+
+        // Reflect the transfer immediately in the dashboard balances
+        const fromEl = document.getElementById(accountBalanceIds[pendingTransfer.from]);
+        const toEl = document.getElementById(accountBalanceIds[pendingTransfer.to]);
+        if (fromEl) fromEl.textContent = formatCurrency(parseBalanceText(fromEl.textContent) - pendingTransfer.amount);
+        if (toEl) toEl.textContent = formatCurrency(parseBalanceText(toEl.textContent) + pendingTransfer.amount);
+
+        transferConfirmBtn.disabled = false;
+        transferConfirmBtn.textContent = 'Confirm Transfer';
+        transferReviewPage.classList.add('hidden');
+
+        showReceipt({
+          amount: formatCurrency(pendingTransfer.amount),
+          recipient: `${accountLabels[pendingTransfer.from]} → ${accountLabels[pendingTransfer.to]}`,
+          confirmation: pendingTransfer.confirmation
+        });
+        pendingTransfer = null;
+      } catch (e) {
+        console.error('Transfer error:', e);
+        transferConfirmBtn.disabled = false;
+        transferConfirmBtn.textContent = 'Confirm Transfer';
+        transferReviewError.textContent = 'This transfer could not be completed. Please try again.';
+        transferReviewError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== REUSABLE SUCCESS RECEIPT ====================
+    const receiptPage = document.getElementById('receiptPage');
+    const receiptAmount = document.getElementById('receiptAmount');
+    const receiptRecipient = document.getElementById('receiptRecipient');
+    const receiptDateTime = document.getElementById('receiptDateTime');
+    const receiptConfirmation = document.getElementById('receiptConfirmation');
+    const receiptDoneBtn = document.getElementById('receiptDoneBtn');
+    const receiptHistoryBtn = document.getElementById('receiptHistoryBtn');
+    const receiptDownloadBtn = document.getElementById('receiptDownloadBtn');
+    const receiptShareBtn = document.getElementById('receiptShareBtn');
+
+    function showReceipt({ amount, recipient, confirmation }) {
+      receiptAmount.textContent = amount;
+      receiptRecipient.textContent = recipient;
+      receiptDateTime.textContent = new Date().toLocaleString('en-US', { dateStyle: 'medium', timeStyle: 'short' });
+      receiptConfirmation.textContent = confirmation;
+      receiptPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeReceipt() {
+      receiptPage.classList.add('hidden');
+      document.body.style.overflow = '';
+    }
+    receiptDoneBtn.addEventListener('click', closeReceipt);
+    receiptHistoryBtn.addEventListener('click', () => {
+      closeReceipt();
+      setTimeout(() => openPaymentHistory(), 260);
+    });
+    receiptDownloadBtn.addEventListener('click', () => {
+      showModal('Download Receipt', 'PDF receipt download is coming soon.');
+    });
+    receiptShareBtn.addEventListener('click', () => {
+      showModal('Share Receipt', 'Receipt sharing is coming soon.');
+    });
+
+    // Shared helper: current signed-in Supabase user (or null)
+    async function getCurrentUser() {
+      if (!supabaseClient) return null;
+      const { data: { session } } = await supabaseClient.auth.getSession();
+      return session && session.user ? session.user : null;
+    }
+    function genRef() {
+      return 'VB-' + Math.random().toString(36).slice(2, 10).toUpperCase();
+    }
+
+    // ==================== SEND MONEY (ZELLE) ====================
+    const sendMoneyFormPage = document.getElementById('sendMoneyFormPage');
+    const sendMoneyBackBtn = document.getElementById('sendMoneyBackBtn');
+    const zelleRecipientName = document.getElementById('zelleRecipientName');
+    const zelleRecipientContact = document.getElementById('zelleRecipientContact');
+    const zelleAmount = document.getElementById('zelleAmount');
+    const zelleMemo = document.getElementById('zelleMemo');
+    const zelleFormError = document.getElementById('zelleFormError');
+    const zelleContinueBtn = document.getElementById('zelleContinueBtn');
+    const sendMoneyReviewPage = document.getElementById('sendMoneyReviewPage');
+    const sendMoneyReviewBackBtn = document.getElementById('sendMoneyReviewBackBtn');
+    const zelleReviewRecipient = document.getElementById('zelleReviewRecipient');
+    const zelleReviewAmount = document.getElementById('zelleReviewAmount');
+    const zelleReviewTotal = document.getElementById('zelleReviewTotal');
+    const zelleReviewError = document.getElementById('zelleReviewError');
+    const zelleSendBtn = document.getElementById('zelleSendBtn');
+    let pendingZelle = null;
+
+    function openSendMoney() {
+      zelleFormError.classList.add('hidden');
+      zelleRecipientName.value = ''; zelleRecipientContact.value = ''; zelleAmount.value = ''; zelleMemo.value = '';
+      sendMoneyFormPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeSendMoney() { sendMoneyFormPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    sendMoneyBackBtn.addEventListener('click', closeSendMoney);
+
+    zelleContinueBtn.addEventListener('click', () => {
+      zelleFormError.classList.add('hidden');
+      const name = zelleRecipientName.value.trim();
+      const contact = zelleRecipientContact.value.trim();
+      const amount = parseFloat(zelleAmount.value);
+      if (!name || !contact) { zelleFormError.textContent = 'Please enter recipient name and contact.'; zelleFormError.classList.remove('hidden'); return; }
+      if (!amount || amount <= 0) { zelleFormError.textContent = 'Please enter a valid amount.'; zelleFormError.classList.remove('hidden'); return; }
+      const checkingEl = document.getElementById('checkingBalance');
+      if (checkingEl && amount > parseBalanceText(checkingEl.textContent)) { zelleFormError.textContent = 'Insufficient funds in Verceil Checking.'; zelleFormError.classList.remove('hidden'); return; }
+
+      pendingZelle = { name, contact, amount, memo: zelleMemo.value.trim(), ref: genRef() };
+      zelleReviewRecipient.textContent = name;
+      zelleReviewAmount.textContent = formatCurrency(amount);
+      zelleReviewTotal.textContent = formatCurrency(amount);
+      zelleReviewError.classList.add('hidden');
+      closeSendMoney();
+      sendMoneyReviewPage.classList.remove('hidden');
+    });
+    sendMoneyReviewBackBtn.addEventListener('click', () => { sendMoneyReviewPage.classList.add('hidden'); openSendMoney(); });
+
+    zelleSendBtn.addEventListener('click', async () => {
+      if (!pendingZelle) return;
+      zelleReviewError.classList.add('hidden');
+      zelleSendBtn.disabled = true; zelleSendBtn.textContent = 'Sending...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const { error } = await supabaseClient.from('payments').insert({
+          user_id: user.id, recipient_name: pendingZelle.name, recipient_contact: pendingZelle.contact,
+          amount: pendingZelle.amount, memo: pendingZelle.memo, payment_method: 'zelle',
+          status: 'completed', confirmation_number: pendingZelle.ref
+        });
+        if (error) throw error;
+        const checkingEl = document.getElementById('checkingBalance');
+        if (checkingEl) checkingEl.textContent = formatCurrency(parseBalanceText(checkingEl.textContent) - pendingZelle.amount);
+        zelleSendBtn.disabled = false; zelleSendBtn.textContent = 'Send Payment';
+        sendMoneyReviewPage.classList.add('hidden');
+        showReceipt({ amount: formatCurrency(pendingZelle.amount), recipient: pendingZelle.name, confirmation: pendingZelle.ref });
+        pendingZelle = null;
+      } catch (e) {
+        console.error('Zelle send error:', e);
+        zelleSendBtn.disabled = false; zelleSendBtn.textContent = 'Send Payment';
+        zelleReviewError.textContent = 'This payment could not be sent. Please try again.';
+        zelleReviewError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== PAY BILLS ====================
+    const payBillsPage = document.getElementById('payBillsPage');
+    const payBillsBackBtn = document.getElementById('payBillsBackBtn');
+    const billersList = document.getElementById('billersList');
+    const addBillerToggleBtn = document.getElementById('addBillerToggleBtn');
+    const addBillerForm = document.getElementById('addBillerForm');
+    const billerCompanyName = document.getElementById('billerCompanyName');
+    const billerAccountNumber = document.getElementById('billerAccountNumber');
+    const billerCategory = document.getElementById('billerCategory');
+    const billerNickname = document.getElementById('billerNickname');
+    const billerFormError = document.getElementById('billerFormError');
+    const saveBillerBtn = document.getElementById('saveBillerBtn');
+    const payBillForm = document.getElementById('payBillForm');
+    const payBillHeader = document.getElementById('payBillHeader');
+    const billPayAmount = document.getElementById('billPayAmount');
+    const billPayDate = document.getElementById('billPayDate');
+    const billPayMemo = document.getElementById('billPayMemo');
+    const billPayError = document.getElementById('billPayError');
+    const submitBillPayBtn = document.getElementById('submitBillPayBtn');
+    let selectedBiller = null;
+
+    async function openPayBills() {
+      addBillerForm.classList.add('hidden');
+      payBillForm.classList.add('hidden');
+      payBillsPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      await loadBillers();
+    }
+    function closePayBills() { payBillsPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    payBillsBackBtn.addEventListener('click', closePayBills);
+    addBillerToggleBtn.addEventListener('click', () => { addBillerForm.classList.toggle('hidden'); payBillForm.classList.add('hidden'); });
+
+    async function loadBillers() {
+      billersList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Loading billers...</div>';
+      try {
+        const user = await getCurrentUser();
+        if (!user) { billersList.innerHTML = ''; return; }
+        const { data, error } = await supabaseClient.from('billers').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          billersList.innerHTML = '<div class="bg-white dark:bg-[#0D1728] rounded-[16px] p-[16px] text-center text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">No saved billers yet</div>';
+          return;
+        }
+        billersList.innerHTML = data.map(b => `
+          <button class="biller-row w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[16px] p-[14px] shadow-lg flex items-center justify-between cursor-pointer text-left" data-id="${b.id}" data-name="${b.company_name}">
+            <div class="min-w-0">
+              <div class="text-[14px] font-semibold text-[#111827] dark:text-white truncate">${b.nickname || b.company_name}</div>
+              <div class="text-[12px] text-[#6B7280] dark:text-[#8E9CBA]">${b.category} • ****${String(b.account_number).slice(-4)}</div>
+            </div>
+            <svg class="w-[16px] h-[16px] text-gray-400 dark:text-[#52607D] flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </button>
+        `).join('');
+        billersList.querySelectorAll('.biller-row').forEach(row => {
+          row.addEventListener('click', () => {
+            selectedBiller = { id: row.getAttribute('data-id'), name: row.getAttribute('data-name') };
+            payBillHeader.textContent = `Pay ${selectedBiller.name}`;
+            billPayAmount.value = ''; billPayMemo.value = ''; billPayDate.value = new Date().toISOString().slice(0, 10);
+            billPayError.classList.add('hidden');
+            addBillerForm.classList.add('hidden');
+            payBillForm.classList.remove('hidden');
+          });
+        });
+      } catch (e) {
+        console.error('Load billers error:', e);
+        billersList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Could not load billers.</div>';
+      }
+    }
+
+    saveBillerBtn.addEventListener('click', async () => {
+      billerFormError.classList.add('hidden');
+      const company = billerCompanyName.value.trim();
+      const acct = billerAccountNumber.value.trim();
+      if (!company || !acct) { billerFormError.textContent = 'Company name and account number are required.'; billerFormError.classList.remove('hidden'); return; }
+      saveBillerBtn.disabled = true; saveBillerBtn.textContent = 'Saving...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const { error } = await supabaseClient.from('billers').insert({
+          user_id: user.id, company_name: company, account_number: acct,
+          category: billerCategory.value, nickname: billerNickname.value.trim() || null
+        });
+        if (error) throw error;
+        billerCompanyName.value = ''; billerAccountNumber.value = ''; billerNickname.value = '';
+        saveBillerBtn.disabled = false; saveBillerBtn.textContent = 'Save Biller';
+        addBillerForm.classList.add('hidden');
+        await loadBillers();
+      } catch (e) {
+        console.error('Save biller error:', e);
+        saveBillerBtn.disabled = false; saveBillerBtn.textContent = 'Save Biller';
+        billerFormError.textContent = 'Could not save this biller. Please try again.';
+        billerFormError.classList.remove('hidden');
+      }
+    });
+
+    submitBillPayBtn.addEventListener('click', async () => {
+      billPayError.classList.add('hidden');
+      const amount = parseFloat(billPayAmount.value);
+      if (!selectedBiller) return;
+      if (!amount || amount <= 0) { billPayError.textContent = 'Please enter a valid amount.'; billPayError.classList.remove('hidden'); return; }
+      const checkingEl = document.getElementById('checkingBalance');
+      if (checkingEl && amount > parseBalanceText(checkingEl.textContent)) { billPayError.textContent = 'Insufficient funds in Verceil Checking.'; billPayError.classList.remove('hidden'); return; }
+
+      submitBillPayBtn.disabled = true; submitBillPayBtn.textContent = 'Processing...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const ref = genRef();
+        const { error } = await supabaseClient.from('bill_payments').insert({
+          user_id: user.id, biller_id: selectedBiller.id, amount, payment_date: billPayDate.value,
+          memo: billPayMemo.value.trim(), status: 'scheduled', confirmation_number: ref
+        });
+        if (error) throw error;
+        if (checkingEl) checkingEl.textContent = formatCurrency(parseBalanceText(checkingEl.textContent) - amount);
+        submitBillPayBtn.disabled = false; submitBillPayBtn.textContent = 'Submit Payment';
+        closePayBills();
+        showReceipt({ amount: formatCurrency(amount), recipient: selectedBiller.name, confirmation: ref });
+      } catch (e) {
+        console.error('Bill payment error:', e);
+        submitBillPayBtn.disabled = false; submitBillPayBtn.textContent = 'Submit Payment';
+        billPayError.textContent = 'This payment could not be submitted. Please try again.';
+        billPayError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== SCHEDULED PAYMENTS ====================
+    const scheduledPaymentsPage = document.getElementById('scheduledPaymentsPage');
+    const scheduledBackBtn = document.getElementById('scheduledBackBtn');
+    const scheduledList = document.getElementById('scheduledList');
+    const addScheduledToggleBtn = document.getElementById('addScheduledToggleBtn');
+    const addScheduledForm = document.getElementById('addScheduledForm');
+    const schedRecipient = document.getElementById('schedRecipient');
+    const schedAmount = document.getElementById('schedAmount');
+    const schedStartDate = document.getElementById('schedStartDate');
+    const schedEndDate = document.getElementById('schedEndDate');
+    const schedFrequency = document.getElementById('schedFrequency');
+    const schedFormError = document.getElementById('schedFormError');
+    const saveScheduledBtn = document.getElementById('saveScheduledBtn');
+    let currentSchedTab = 'upcoming';
+
+    async function openScheduledPayments() {
+      addScheduledForm.classList.add('hidden');
+      scheduledPaymentsPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      await loadScheduledPayments();
+    }
+    function closeScheduledPayments() { scheduledPaymentsPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    scheduledBackBtn.addEventListener('click', closeScheduledPayments);
+    addScheduledToggleBtn.addEventListener('click', () => addScheduledForm.classList.toggle('hidden'));
+
+    document.querySelectorAll('.sched-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentSchedTab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.sched-tab-btn').forEach(b => {
+          const active = b === btn;
+          b.className = `sched-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer ${active ? 'bg-white text-[#111827]' : 'bg-white/15 text-white'}`;
+        });
+        loadScheduledPayments();
+      });
+    });
+
+    async function loadScheduledPayments() {
+      scheduledList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Loading...</div>';
+      try {
+        const user = await getCurrentUser();
+        if (!user) { scheduledList.innerHTML = ''; return; }
+        let query = supabaseClient.from('scheduled_payments').select('*').eq('user_id', user.id);
+        if (currentSchedTab === 'completed') query = query.eq('status', 'completed');
+        else if (currentSchedTab === 'recurring') query = query.neq('frequency', 'One-time').eq('status', 'active');
+        else query = query.eq('status', 'active');
+        const { data, error } = await query.order('start_date', { ascending: true });
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          scheduledList.innerHTML = '<div class="bg-white dark:bg-[#0D1728] rounded-[16px] p-[16px] text-center text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">Nothing here yet</div>';
+          return;
+        }
+        scheduledList.innerHTML = data.map(p => `
+          <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[16px] p-[14px] shadow-lg">
+            <div class="flex items-center justify-between mb-[6px]">
+              <div class="text-[14px] font-semibold text-[#111827] dark:text-white">${p.recipient}</div>
+              <div class="text-[14px] font-bold text-[#111827] dark:text-white">${formatCurrency(p.amount)}</div>
+            </div>
+            <div class="text-[12px] text-[#6B7280] dark:text-[#8E9CBA] mb-[10px]">${p.frequency} • Starts ${p.start_date}</div>
+            <div class="flex gap-[8px]">
+              <button class="sched-action-btn flex-1 h-[34px] rounded-[10px] bg-gray-50 dark:bg-white/5 text-[12px] font-semibold text-[#111827] dark:text-white cursor-pointer" data-id="${p.id}" data-action="pause">${p.status === 'paused' ? 'Resume' : 'Pause'}</button>
+              <button class="sched-action-btn flex-1 h-[34px] rounded-[10px] bg-gray-50 dark:bg-white/5 text-[12px] font-semibold text-[#EF4444] cursor-pointer" data-id="${p.id}" data-action="cancel">Cancel</button>
+            </div>
+          </div>
+        `).join('');
+        scheduledList.querySelectorAll('.sched-action-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id = btn.getAttribute('data-id');
+            const action = btn.getAttribute('data-action');
+            const newStatus = action === 'cancel' ? 'cancelled' : (btn.textContent === 'Resume' ? 'active' : 'paused');
+            try {
+              await supabaseClient.from('scheduled_payments').update({ status: newStatus }).eq('id', id);
+              await loadScheduledPayments();
+            } catch (e) { console.error('Scheduled payment update error:', e); }
+          });
+        });
+      } catch (e) {
+        console.error('Load scheduled payments error:', e);
+        scheduledList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Could not load scheduled payments.</div>';
+      }
+    }
+
+    saveScheduledBtn.addEventListener('click', async () => {
+      schedFormError.classList.add('hidden');
+      const recipient = schedRecipient.value.trim();
+      const amount = parseFloat(schedAmount.value);
+      if (!recipient) { schedFormError.textContent = 'Please enter a biller or recipient.'; schedFormError.classList.remove('hidden'); return; }
+      if (!amount || amount <= 0) { schedFormError.textContent = 'Please enter a valid amount.'; schedFormError.classList.remove('hidden'); return; }
+      if (!schedStartDate.value) { schedFormError.textContent = 'Please choose a start date.'; schedFormError.classList.remove('hidden'); return; }
+
+      saveScheduledBtn.disabled = true; saveScheduledBtn.textContent = 'Saving...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const { error } = await supabaseClient.from('scheduled_payments').insert({
+          user_id: user.id, recipient, amount, start_date: schedStartDate.value,
+          end_date: schedEndDate.value || null, frequency: schedFrequency.value, status: 'active'
+        });
+        if (error) throw error;
+        schedRecipient.value = ''; schedAmount.value = ''; schedStartDate.value = ''; schedEndDate.value = '';
+        saveScheduledBtn.disabled = false; saveScheduledBtn.textContent = 'Save Scheduled Payment';
+        addScheduledForm.classList.add('hidden');
+        await loadScheduledPayments();
+      } catch (e) {
+        console.error('Save scheduled payment error:', e);
+        saveScheduledBtn.disabled = false; saveScheduledBtn.textContent = 'Save Scheduled Payment';
+        schedFormError.textContent = 'Could not save this scheduled payment. Please try again.';
+        schedFormError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== PAYMENT HISTORY ====================
+    const paymentHistoryPage = document.getElementById('paymentHistoryPage');
+    const historyBackBtn = document.getElementById('historyBackBtn');
+    const historyList = document.getElementById('historyList');
+    let currentHistoryFilter = 'all';
+
+    async function openPaymentHistory() {
+      paymentHistoryPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      await loadPaymentHistory();
+    }
+    function closePaymentHistory() { paymentHistoryPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    historyBackBtn.addEventListener('click', closePaymentHistory);
+
+    document.querySelectorAll('.history-filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentHistoryFilter = btn.getAttribute('data-filter');
+        document.querySelectorAll('.history-filter-btn').forEach(b => {
+          const active = b === btn;
+          b.className = `history-filter-btn flex-shrink-0 h-[34px] px-[14px] rounded-full text-[12px] font-semibold cursor-pointer ${active ? 'bg-white text-[#111827]' : 'bg-white/15 text-white'}`;
+        });
+        loadPaymentHistory();
+      });
+    });
+
+    async function loadPaymentHistory() {
+      historyList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Loading...</div>';
+      try {
+        const user = await getCurrentUser();
+        if (!user) { historyList.innerHTML = ''; return; }
+        let combined = [];
+
+        if (currentHistoryFilter === 'all' || currentHistoryFilter === 'zelle') {
+          const { data } = await supabaseClient.from('payments').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (data || []).forEach(r => combined.push({ type: 'Zelle', label: r.recipient_name, amount: r.amount, status: r.status, ref: r.confirmation_number, date: r.created_at, raw: r }));
+        }
+        if (currentHistoryFilter === 'all' || currentHistoryFilter === 'bills') {
+          const { data } = await supabaseClient.from('bill_payments').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (data || []).forEach(r => combined.push({ type: 'Bill', label: 'Bill Payment', amount: r.amount, status: r.status, ref: r.confirmation_number, date: r.created_at, raw: r }));
+        }
+        if (currentHistoryFilter === 'all' || currentHistoryFilter === 'transfers') {
+          const { data } = await supabaseClient.from('transfers').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (data || []).forEach(r => combined.push({ type: 'Transfer', label: `${r.from_account} → ${r.to_account}`, amount: r.amount, status: r.status, ref: r.id, date: r.created_at, raw: r }));
+          const { data: extData } = await supabaseClient.from('external_transfers').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (extData || []).forEach(r => combined.push({ type: 'External Transfer', label: 'External Account', amount: r.amount, status: r.status, ref: r.id, date: r.created_at, raw: r }));
+        }
+        if (currentHistoryFilter === 'all' || currentHistoryFilter === 'wires') {
+          const { data } = await supabaseClient.from('wire_transfers').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (data || []).forEach(r => combined.push({ type: 'Wire', label: r.recipient_name, amount: r.amount, status: r.status, ref: r.id, date: r.created_at, raw: r }));
+        }
+        if (currentHistoryFilter === 'all' || currentHistoryFilter === 'deposits') {
+          const { data } = await supabaseClient.from('card_deposits').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+          (data || []).forEach(r => combined.push({ type: 'Deposit', label: `Card ending ${r.last4}`, amount: r.amount, status: r.status, ref: r.id, date: r.created_at, raw: r }));
+        }
+
+        combined.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        if (combined.length === 0) {
+          historyList.innerHTML = '<div class="bg-white dark:bg-[#0D1728] rounded-[16px] p-[16px] text-center text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">No transactions yet</div>';
+          return;
+        }
+
+        historyList.innerHTML = combined.map((tx, idx) => `
+          <button class="history-row w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[16px] p-[14px] shadow-lg flex items-center justify-between cursor-pointer text-left" data-idx="${idx}">
+            <div class="min-w-0">
+              <div class="text-[14px] font-semibold text-[#111827] dark:text-white truncate">${tx.label || tx.type}</div>
+              <div class="text-[12px] text-[#6B7280] dark:text-[#8E9CBA]">${tx.type} • ${new Date(tx.date).toLocaleDateString()}</div>
+            </div>
+            <div class="text-right flex-shrink-0 ml-[10px]">
+              <div class="text-[14px] font-bold text-[#111827] dark:text-white">${formatCurrency(tx.amount || 0)}</div>
+              <div class="text-[11px] text-[#16A34A] dark:text-[#22C55E] capitalize">${tx.status || 'completed'}</div>
+            </div>
+          </button>
+        `).join('');
+
+        historyList.querySelectorAll('.history-row').forEach(row => {
+          row.addEventListener('click', () => openTransactionDetails(combined[parseInt(row.getAttribute('data-idx'), 10)]));
+        });
+      } catch (e) {
+        console.error('Load payment history error:', e);
+        historyList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Could not load payment history.</div>';
+      }
+    }
+
+    const transactionDetailsPage = document.getElementById('transactionDetailsPage');
+    const txDetailsBackBtn = document.getElementById('txDetailsBackBtn');
+    const txDetailsCard = document.getElementById('txDetailsCard');
+    document.getElementById('txDetailsDownloadBtn').addEventListener('click', () => showModal('Download PDF', 'PDF receipt download is coming soon.'));
+    document.getElementById('txDetailsShareBtn').addEventListener('click', () => showModal('Share', 'Receipt sharing is coming soon.'));
+
+    function openTransactionDetails(tx) {
+      const rows = [
+        ['Type', tx.type],
+        ['Confirmation Number', tx.ref || '—'],
+        ['Date', new Date(tx.date).toLocaleDateString()],
+        ['Time', new Date(tx.date).toLocaleTimeString()],
+        ['Recipient', tx.label || '—'],
+        ['Amount', formatCurrency(tx.amount || 0)],
+        ['Status', tx.status || 'completed'],
+        ['Memo', tx.raw && tx.raw.memo ? tx.raw.memo : '—'],
+        ['Funding Account', 'Verceil Checking']
+      ];
+      txDetailsCard.innerHTML = rows.map(([label, val]) => `
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">${label}</span>
+          <span class="text-[14px] font-semibold text-[#111827] dark:text-white text-right">${val}</span>
+        </div>
+      `).join('');
+      transactionDetailsPage.classList.remove('hidden');
+    }
+    txDetailsBackBtn.addEventListener('click', () => transactionDetailsPage.classList.add('hidden'));
+
+    // ==================== EXTERNAL TRANSFERS ====================
+    const externalTransfersPage = document.getElementById('externalTransfersPage');
+    const extTransfersBackBtn = document.getElementById('extTransfersBackBtn');
+    const extAccountsList = document.getElementById('extAccountsList');
+    const extAddBankBtn = document.getElementById('extAddBankBtn');
+    const extTransferForm = document.getElementById('extTransferForm');
+    const extTransferHeader = document.getElementById('extTransferHeader');
+    const extFromAccount = document.getElementById('extFromAccount');
+    const extTransferAmount = document.getElementById('extTransferAmount');
+    const extTransferDate = document.getElementById('extTransferDate');
+    const extTransferError = document.getElementById('extTransferError');
+    const extSubmitTransferBtn = document.getElementById('extSubmitTransferBtn');
+    let selectedExtAccount = null;
+
+    async function openExternalTransfers() {
+      extTransferForm.classList.add('hidden');
+      externalTransfersPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      await loadExternalAccounts();
+    }
+    function closeExternalTransfers() { externalTransfersPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    extTransfersBackBtn.addEventListener('click', closeExternalTransfers);
+    extAddBankBtn.addEventListener('click', () => { closeExternalTransfers(); setTimeout(() => openLinkAccount(), 260); });
+
+    async function loadExternalAccounts() {
+      extAccountsList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Loading...</div>';
+      try {
+        const user = await getCurrentUser();
+        if (!user) { extAccountsList.innerHTML = ''; return; }
+        const { data, error } = await supabaseClient.from('external_accounts').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          extAccountsList.innerHTML = '<div class="bg-white dark:bg-[#0D1728] rounded-[16px] p-[16px] text-center text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">No linked accounts yet — tap "Add External Bank" to link one.</div>';
+          return;
+        }
+        extAccountsList.innerHTML = data.map(a => `
+          <button class="ext-account-row w-full bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[16px] p-[14px] shadow-lg flex items-center justify-between cursor-pointer text-left" data-id="${a.id}" data-name="${a.bank_name}">
+            <div class="min-w-0">
+              <div class="text-[14px] font-semibold text-[#111827] dark:text-white truncate">${a.bank_name}</div>
+              <div class="text-[12px] text-[#6B7280] dark:text-[#8E9CBA]">${a.account_type} • ****${String(a.account_number).slice(-4)}</div>
+            </div>
+            <span class="text-[11px] font-semibold text-[#16A34A] dark:text-[#22C55E] flex-shrink-0">Verified</span>
+          </button>
+        `).join('');
+        extAccountsList.querySelectorAll('.ext-account-row').forEach(row => {
+          row.addEventListener('click', () => {
+            selectedExtAccount = { id: row.getAttribute('data-id'), name: row.getAttribute('data-name') };
+            extTransferHeader.textContent = `Transfer to ${selectedExtAccount.name}`;
+            extTransferAmount.value = ''; extTransferDate.value = new Date().toISOString().slice(0, 10);
+            extTransferError.classList.add('hidden');
+            extTransferForm.classList.remove('hidden');
+          });
+        });
+      } catch (e) {
+        console.error('Load external accounts error:', e);
+        extAccountsList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Could not load linked accounts.</div>';
+      }
+    }
+
+    extSubmitTransferBtn.addEventListener('click', async () => {
+      extTransferError.classList.add('hidden');
+      const amount = parseFloat(extTransferAmount.value);
+      if (!selectedExtAccount) return;
+      if (!amount || amount <= 0) { extTransferError.textContent = 'Please enter a valid amount.'; extTransferError.classList.remove('hidden'); return; }
+      const fromEl = document.getElementById(accountBalanceIds[extFromAccount.value]);
+      if (fromEl && amount > parseBalanceText(fromEl.textContent)) { extTransferError.textContent = 'Insufficient funds in the selected account.'; extTransferError.classList.remove('hidden'); return; }
+
+      extSubmitTransferBtn.disabled = true; extSubmitTransferBtn.textContent = 'Processing...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const ref = genRef();
+        const { error } = await supabaseClient.from('external_transfers').insert({
+          user_id: user.id, external_account_id: selectedExtAccount.id, from_account: extFromAccount.value,
+          amount, transfer_date: extTransferDate.value, status: 'completed'
+        });
+        if (error) throw error;
+        if (fromEl) fromEl.textContent = formatCurrency(parseBalanceText(fromEl.textContent) - amount);
+        extSubmitTransferBtn.disabled = false; extSubmitTransferBtn.textContent = 'Submit Transfer';
+        closeExternalTransfers();
+        showReceipt({ amount: formatCurrency(amount), recipient: selectedExtAccount.name, confirmation: ref });
+      } catch (e) {
+        console.error('External transfer error:', e);
+        extSubmitTransferBtn.disabled = false; extSubmitTransferBtn.textContent = 'Submit Transfer';
+        extTransferError.textContent = 'This transfer could not be completed. Please try again.';
+        extTransferError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== WIRE TRANSFERS ====================
+    const wireTransfersPage = document.getElementById('wireTransfersPage');
+    const wireBackBtn = document.getElementById('wireBackBtn');
+    const wireDomesticFields = document.getElementById('wireDomesticFields');
+    const wireIntlFields = document.getElementById('wireIntlFields');
+    const wireRecipientName = document.getElementById('wireRecipientName');
+    const wireBankName = document.getElementById('wireBankName');
+    const wireRouting = document.getElementById('wireRouting');
+    const wireSwift = document.getElementById('wireSwift');
+    const wireIban = document.getElementById('wireIban');
+    const wireCountry = document.getElementById('wireCountry');
+    const wireCurrency = document.getElementById('wireCurrency');
+    const wireAccountNumber = document.getElementById('wireAccountNumber');
+    const wireAmount = document.getElementById('wireAmount');
+    const wirePurpose = document.getElementById('wirePurpose');
+    const wireFormError = document.getElementById('wireFormError');
+    const wireReviewBtn = document.getElementById('wireReviewBtn');
+    const wireReviewPage = document.getElementById('wireReviewPage');
+    const wireReviewBackBtn = document.getElementById('wireReviewBackBtn');
+    const wireReviewCard = document.getElementById('wireReviewCard');
+    const wireReviewError = document.getElementById('wireReviewError');
+    const wireSubmitBtn = document.getElementById('wireSubmitBtn');
+    let currentWireTab = 'domestic';
+    let pendingWire = null;
+
+    function openWireTransfers() {
+      wireFormError.classList.add('hidden');
+      wireTransfersPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeWireTransfers() { wireTransfersPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    wireBackBtn.addEventListener('click', closeWireTransfers);
+
+    document.querySelectorAll('.wire-tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        currentWireTab = btn.getAttribute('data-tab');
+        document.querySelectorAll('.wire-tab-btn').forEach(b => {
+          const active = b === btn;
+          b.className = `wire-tab-btn flex-1 h-[38px] rounded-[12px] text-[13px] font-semibold cursor-pointer ${active ? 'bg-white text-[#111827]' : 'bg-white/15 text-white'}`;
+        });
+        if (currentWireTab === 'domestic') {
+          wireDomesticFields.classList.remove('hidden'); wireDomesticFields.classList.add('flex');
+          wireIntlFields.classList.add('hidden'); wireIntlFields.classList.remove('flex');
+        } else {
+          wireIntlFields.classList.remove('hidden'); wireIntlFields.classList.add('flex');
+          wireDomesticFields.classList.add('hidden'); wireDomesticFields.classList.remove('flex');
+        }
+      });
+    });
+
+    wireReviewBtn.addEventListener('click', () => {
+      wireFormError.classList.add('hidden');
+      const amount = parseFloat(wireAmount.value);
+      if (!wireRecipientName.value.trim() || !wireBankName.value.trim() || !wireAccountNumber.value.trim()) {
+        wireFormError.textContent = 'Please complete all required fields.'; wireFormError.classList.remove('hidden'); return;
+      }
+      if (!amount || amount <= 0) { wireFormError.textContent = 'Please enter a valid amount.'; wireFormError.classList.remove('hidden'); return; }
+      const checkingEl = document.getElementById('checkingBalance');
+      if (checkingEl && amount > parseBalanceText(checkingEl.textContent)) { wireFormError.textContent = 'Insufficient funds in Verceil Checking.'; wireFormError.classList.remove('hidden'); return; }
+
+      const fee = currentWireTab === 'international' ? 45 : 25;
+      pendingWire = {
+        type: currentWireTab, recipient: wireRecipientName.value.trim(), bank: wireBankName.value.trim(),
+        account: wireAccountNumber.value.trim(), amount, purpose: wirePurpose.value.trim(), fee,
+        currency: currentWireTab === 'international' ? (wireCurrency.value.trim() || 'USD') : 'USD',
+        routing: wireRouting.value.trim(), swift: wireSwift.value.trim(), iban: wireIban.value.trim(), country: wireCountry.value.trim(),
+        ref: genRef()
+      };
+
+      const rows = [
+        ['Recipient', pendingWire.recipient],
+        ['Bank', pendingWire.bank],
+        ['Amount', formatCurrency(pendingWire.amount)],
+        ['Currency', pendingWire.currency],
+        ['Fees', formatCurrency(pendingWire.fee)],
+        ['Exchange Rate', currentWireTab === 'international' ? '1.00 (live rate applied at submission)' : 'N/A'],
+        ['Estimated Delivery', currentWireTab === 'international' ? '1–3 business days' : 'Same business day']
+      ];
+      wireReviewCard.innerHTML = rows.map(([label, val]) => `
+        <div class="flex items-center justify-between py-[12px]">
+          <span class="text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">${label}</span>
+          <span class="text-[14px] font-semibold text-[#111827] dark:text-white text-right">${val}</span>
+        </div>
+      `).join('');
+      wireReviewError.classList.add('hidden');
+      closeWireTransfers();
+      wireReviewPage.classList.remove('hidden');
+    });
+    wireReviewBackBtn.addEventListener('click', () => { wireReviewPage.classList.add('hidden'); openWireTransfers(); });
+
+    wireSubmitBtn.addEventListener('click', async () => {
+      if (!pendingWire) return;
+      wireReviewError.classList.add('hidden');
+      wireSubmitBtn.disabled = true; wireSubmitBtn.textContent = 'Submitting...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const { error } = await supabaseClient.from('wire_transfers').insert({
+          user_id: user.id, wire_type: pendingWire.type, recipient_name: pendingWire.recipient, bank_name: pendingWire.bank,
+          routing_or_swift: pendingWire.type === 'international' ? pendingWire.swift : pendingWire.routing,
+          iban: pendingWire.iban || null, country: pendingWire.country || null, account_number: pendingWire.account,
+          amount: pendingWire.amount, currency: pendingWire.currency, fee: pendingWire.fee, purpose: pendingWire.purpose,
+          status: 'submitted'
+        });
+        if (error) throw error;
+        const checkingEl = document.getElementById('checkingBalance');
+        if (checkingEl) checkingEl.textContent = formatCurrency(parseBalanceText(checkingEl.textContent) - pendingWire.amount - pendingWire.fee);
+        wireSubmitBtn.disabled = false; wireSubmitBtn.textContent = 'Submit Wire';
+        wireReviewPage.classList.add('hidden');
+        showReceipt({ amount: formatCurrency(pendingWire.amount), recipient: pendingWire.recipient, confirmation: pendingWire.ref });
+        pendingWire = null;
+      } catch (e) {
+        console.error('Wire transfer error:', e);
+        wireSubmitBtn.disabled = false; wireSubmitBtn.textContent = 'Submit Wire';
+        wireReviewError.textContent = 'This wire could not be submitted. Please try again.';
+        wireReviewError.classList.remove('hidden');
+      }
+    });
+
+    // ==================== MANAGE PAYEES ====================
+    const managePayeesPage = document.getElementById('managePayeesPage');
+    const payeesBackBtn = document.getElementById('payeesBackBtn');
+    const payeesList = document.getElementById('payeesList');
+    const addPayeeToggleBtn = document.getElementById('addPayeeToggleBtn');
+    const addPayeeForm = document.getElementById('addPayeeForm');
+    const payeeName = document.getElementById('payeeName');
+    const payeeNickname = document.getElementById('payeeNickname');
+    const payeeBankName = document.getElementById('payeeBankName');
+    const payeeRouting = document.getElementById('payeeRouting');
+    const payeeAccountNumber = document.getElementById('payeeAccountNumber');
+    const payeeEmail = document.getElementById('payeeEmail');
+    const payeePhone = document.getElementById('payeePhone');
+    const payeeFormError = document.getElementById('payeeFormError');
+    const savePayeeBtn = document.getElementById('savePayeeBtn');
+
+    async function openManagePayees() {
+      addPayeeForm.classList.add('hidden');
+      managePayeesPage.classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+      await loadPayees();
+    }
+    function closeManagePayees() { managePayeesPage.classList.add('hidden'); document.body.style.overflow = ''; }
+    payeesBackBtn.addEventListener('click', closeManagePayees);
+    addPayeeToggleBtn.addEventListener('click', () => addPayeeForm.classList.toggle('hidden'));
+
+    async function loadPayees() {
+      payeesList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Loading...</div>';
+      try {
+        const user = await getCurrentUser();
+        if (!user) { payeesList.innerHTML = ''; return; }
+        const { data, error } = await supabaseClient.from('payees').select('*').eq('user_id', user.id).order('created_at', { ascending: false });
+        if (error) throw error;
+        if (!data || data.length === 0) {
+          payeesList.innerHTML = '<div class="bg-white dark:bg-[#0D1728] rounded-[16px] p-[16px] text-center text-[13px] text-[#6B7280] dark:text-[#8E9CBA]">No payees saved yet</div>';
+          return;
+        }
+        payeesList.innerHTML = data.map(p => `
+          <div class="bg-white dark:bg-[#0D1728] border border-transparent dark:border-white/[0.06] rounded-[16px] p-[14px] shadow-lg flex items-center justify-between">
+            <div class="min-w-0">
+              <div class="text-[14px] font-semibold text-[#111827] dark:text-white truncate">${p.nickname || p.full_name}</div>
+              <div class="text-[12px] text-[#6B7280] dark:text-[#8E9CBA] truncate">${p.bank_name} • ****${String(p.account_number).slice(-4)}</div>
+            </div>
+            <button class="delete-payee-btn text-[12px] font-semibold text-[#EF4444] cursor-pointer flex-shrink-0 ml-[10px]" data-id="${p.id}">Delete</button>
+          </div>
+        `).join('');
+        payeesList.querySelectorAll('.delete-payee-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            try {
+              await supabaseClient.from('payees').delete().eq('id', btn.getAttribute('data-id'));
+              await loadPayees();
+            } catch (e) { console.error('Delete payee error:', e); }
+          });
+        });
+      } catch (e) {
+        console.error('Load payees error:', e);
+        payeesList.innerHTML = '<div class="text-center text-[13px] text-white/70 py-2">Could not load payees.</div>';
+      }
+    }
+
+    savePayeeBtn.addEventListener('click', async () => {
+      payeeFormError.classList.add('hidden');
+      const name = payeeName.value.trim();
+      const bank = payeeBankName.value.trim();
+      const acct = payeeAccountNumber.value.trim();
+      if (!name || !bank || !acct) { payeeFormError.textContent = 'Name, bank name, and account number are required.'; payeeFormError.classList.remove('hidden'); return; }
+
+      savePayeeBtn.disabled = true; savePayeeBtn.textContent = 'Saving...';
+      try {
+        const user = await getCurrentUser();
+        if (!user) throw new Error('Not signed in');
+        const { error } = await supabaseClient.from('payees').insert({
+          user_id: user.id, full_name: name, nickname: payeeNickname.value.trim() || null, bank_name: bank,
+          routing_number: payeeRouting.value.trim(), account_number: acct,
+          email: payeeEmail.value.trim() || null, phone: payeePhone.value.trim() || null
+        });
+        if (error) throw error;
+        payeeName.value = ''; payeeNickname.value = ''; payeeBankName.value = ''; payeeRouting.value = ''; payeeAccountNumber.value = ''; payeeEmail.value = ''; payeePhone.value = '';
+        savePayeeBtn.disabled = false; savePayeeBtn.textContent = 'Save Payee';
+        addPayeeForm.classList.add('hidden');
+        await loadPayees();
+      } catch (e) {
+        console.error('Save payee error:', e);
+        savePayeeBtn.disabled = false; savePayeeBtn.textContent = 'Save Payee';
+        payeeFormError.textContent = 'Could not save this payee. Please try again.';
+        payeeFormError.classList.remove('hidden');
+      }
+    });
 
     // Account Detail Page configuration and logic (Citi-style account drill-down)
     const accountConfigs = {
@@ -1223,6 +2942,10 @@
             if (clickedLabel === 'Light Mode') applyTheme(false);
             else if (clickedLabel === 'Dark Mode') applyTheme(true);
             else applyTheme(window.matchMedia('(prefers-color-scheme: dark)').matches);
+          } else if (clickedLabel === 'Sign Out') {
+            handleSignOut();
+          } else if (clickedLabel === 'Linked Accounts' || clickedLabel === 'Manage Linked Accounts') {
+            setTimeout(() => openLinkAccount(), 200);
           } else {
             setTimeout(() => showModal(clickedLabel, `Opening ${clickedLabel}...`), 200);
           }
